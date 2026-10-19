@@ -1,0 +1,190 @@
+{
+  "created_at": "2026-10-19T17:03:38.486611+08:00",
+  "sumo_version": [
+    22,
+    "SUMO 1.27.1"
+  ],
+  "sumo_home": "D:\\SUMO",
+  "simulation": {
+    "step_s": 0.1,
+    "duration_s": 40.0,
+    "warmup_s": 2.0,
+    "ego_id": "ego",
+    "cutin_id": "cutin",
+    "cutin_start_s": 14.0,
+    "cutin_duration_s": 4.0,
+    "preferred_adjacent_delta": 1,
+    "max_target_range_m": 220.0,
+    "seed": 17
+  },
+  "radar": {
+    "carrier_hz": 77000000000.0,
+    "bandwidth_hz": 200000000.0,
+    "tx_elements": 4,
+    "rx_elements": 4,
+    "rcs_m2": 10.0,
+    "system_loss_linear": 2.0,
+    "noise_temperature_k": 290.0,
+    "noise_figure_linear": 3.9810717055349722,
+    "crb_d_reference_m2": 1.0,
+    "crb_v_reference_m2ps2": 1.0,
+    "lfm_pulse_duration_s": 5e-06
+  },
+  "system": {
+    "frame_s": 0.05,
+    "min_dwell_s": 0.002,
+    "communication_bandwidth_hz": 20000000.0,
+    "communication_snr_linear": 10.0,
+    "minimum_rate_bps": 10000000.0,
+    "sensing_energy_max_j": 0.001,
+    "sensing_power_max_w": 0.05,
+    "initial_sensing_time_s": 0.025,
+    "initial_sensing_power_w": 0.0223872113856834,
+    "p2_objective": "pure_crb",
+    "ao_time_relaxation": 0.35,
+    "ao_power_relaxation": 0.03,
+    "ao_power_relaxation_near_time_bound": 0.15,
+    "ao_warm_start_power_backoff": 0.995,
+    "ao_eta": 1e-06,
+    "ao_max_rounds": 100,
+    "scalar_max_iterations": 24,
+    "time_search_tolerance_s": 1e-07,
+    "power_search_tolerance_w": 1e-08,
+    "feasibility_tolerance": 1e-10,
+    "infeasible_penalty": 1e+80
+  },
+  "model": {
+    "P2": "min C_risk^*(Ts,Ps), no resource regularizer",
+    "fixed_targets": {
+      "same_front": "target1_front_same",
+      "same_rear": "target2_rear_same",
+      "adjacent_front": "target3_front_adj",
+      "adjacent_rear": "target4_rear_adj"
+    },
+    "risk": "TTC=d/v_close for v_close>0 else inf; raw=1/(TTC+0.1); omega=raw/(sum(raw)/K)",
+    "communication_channel": "cellular SNR floor + Gaussian RSU assist + spatial slow shadowing",
+    "rsu_position_m": [
+      1050.0,
+      80.0
+    ],
+    "communication_snr_floor_db": 10.3,
+    "rsu_assist_max_db": 0.12,
+    "rsu_assist_scale_m": 500.0,
+    "shadowing_spatial_periods_m": [
+      1000.0,
+      520.0
+    ],
+    "shadowing_amplitudes_db": [
+      0.1,
+      0.035
+    ],
+    "vehicle_speed_profile": "two low-amplitude long-period sinusoids per fixed target",
+    "high_risk_target_scenario": "same-lane rear target starts at 390 m with 25.95 m/s departure speed and 26.20 m/s type limit; its smooth reference is 25.92 m/s plus low-amplitude long-period terms",
+    "high_risk_uniform_vs_ttc_result": "uniform high-risk wCRB is above TTC-aware P1 in all 401 recorded cycles",
+    "ao_method": "under-relaxed alternating block optimization with fresh P1 at every candidate",
+    "postprocessing_smoothing_used": false,
+    "future_state_used": false
+  },
+  "input_sha256": {
+    "p2_fixed.net.xml": "6dbbfa04d6acffd61a2c6df751873fa657e1be805debbb0f8841ceaa7f9cd156",
+    "p2_fixed.rou.xml": "f552f9e4310e6d905500ea5ff22079b4d02d5393b8dd45e7e832abc04c9b8576",
+    "p2_fixed.sumocfg": "33c902a7b3dcf96e441f5463f7b1d2a598d5189daaf6f701bf02d82664a1cd75"
+  },
+  "lfm_fim_numerical_validation": {
+    "passed": true,
+    "relative_frobenius_error": 7.643892089127201e-09,
+    "numerical_cross_term": 3.6512936922144365e-08,
+    "analytical_cross_term": 0.0
+  },
+  "summary": {
+    "status": "passed",
+    "cycles_total": 401,
+    "cycles_optimized": 401,
+    "cycles_skipped": 0,
+    "colliding_vehicle_ids": [],
+    "fixed_target_ids": {
+      "same_front": "target1_front_same",
+      "same_rear": "target2_rear_same",
+      "adjacent_front": "target3_front_adj",
+      "adjacent_rear": "target4_rear_adj"
+    },
+    "P1_calls_total": 77608,
+    "AO_converged_all": true,
+    "power_monotonic_all": true,
+    "weighted_crb_episode_increase_count": 0,
+    "ttc_branch_crossing_count": 0,
+    "ttc_branch_crossings": [],
+    "cold_start_AO_rounds": 67,
+    "optimal_Ts_range_ms": [
+      42.93646204904163,
+      43.090329055479216
+    ],
+    "optimal_Ps_range_dbm": [
+      13.656192361604415,
+      13.67172448441348
+    ],
+    "communication_snr_range_db": [
+      10.263763795928,
+      10.522795389998352
+    ],
+    "min_constraint_margins": {
+      "time_lower_margin_s": 0.034936462049041626,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "energy_margin_j": 1.172212470319789e-10,
+      "power_lower_margin_w": 0.023207012499022656,
+      "power_upper_margin_w": 0.026709841267932095,
+      "qos_rate_margin_bps": 0.0014157164841890335,
+      "minimum_dwell_margin_s": 0.003586297161223202
+    },
+    "maximum_dwell_sum_error_s": 1.3877787807814457e-17,
+    "maximum_P1_kkt_residual": 4.163336342344337e-17,
+    "minimum_fim_eigenvalue": 1558.5262199912459,
+    "grid_comparison": [
+      {
+        "snapshot": "ordinary",
+        "cycle_index": 100,
+        "time_s": 10.0,
+        "grid_Ts_ms": 42.937283710247925,
+        "grid_Ps_dbm": 13.671654332803897,
+        "grid_crb": 0.0016851526606002716,
+        "ao_Ts_ms": 42.93728371024609,
+        "ao_Ps_dbm": 13.671631477883254,
+        "ao_crb": 0.001685161528806898,
+        "gap_percent": 0.0005262553852618861,
+        "delta_Ts_ms": 1.8318679906315083e-12,
+        "delta_Ps_db": 2.2854920642245702e-05,
+        "feasible_grid_points": 9074
+      },
+      {
+        "snapshot": "late",
+        "cycle_index": 320,
+        "time_s": 32.0,
+        "grid_Ts_ms": 43.03549943477198,
+        "grid_Ps_dbm": 13.661731526028877,
+        "grid_crb": 0.0008698826195303732,
+        "ao_Ts_ms": 43.03549943477198,
+        "ao_Ps_dbm": 13.661708085511838,
+        "ao_crb": 0.0008698873146288012,
+        "gap_percent": 0.0005397393076463984,
+        "delta_Ts_ms": 0.0,
+        "delta_Ps_db": 2.34405170385088e-05,
+        "feasible_grid_points": 9130
+      },
+      {
+        "snapshot": "high_risk",
+        "cycle_index": 400,
+        "time_s": 40.0,
+        "grid_Ts_ms": 42.979412438272874,
+        "grid_Ps_dbm": 13.667395259446238,
+        "grid_crb": 0.0006676820829399956,
+        "ao_Ts_ms": 42.979412438272874,
+        "ao_Ps_dbm": 13.667370714520569,
+        "ao_crb": 0.0006676858564747954,
+        "gap_percent": 0.0005651693966568405,
+        "delta_Ts_ms": 0.0,
+        "delta_Ps_db": 2.4544925668834594e-05,
+        "feasible_grid_points": 9074
+      }
+    ]
+  }
+}

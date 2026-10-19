@@ -1,10 +1,10 @@
 {
-  "created_at": "2026-09-11T10:47:57.081172+08:00",
+  "created_at": "2026-10-19T17:03:38.486611+08:00",
   "sumo_version": [
     22,
     "SUMO 1.27.1"
   ],
-  "sumo_home": "C:\\Program Files (x86)\\Eclipse\\Sumo",
+  "sumo_home": "D:\\SUMO",
   "simulation": {
     "step_s": 0.1,
     "duration_s": 40.0,

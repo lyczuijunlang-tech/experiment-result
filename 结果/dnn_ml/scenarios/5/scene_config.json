@@ -1,0 +1,9 @@
+{
+  "id": 5,
+  "split": "validation",
+  "gap_delta": 15,
+  "speed_delta": 0.05,
+  "cycles": 401,
+  "collisions": [],
+  "seed": 105
+}

@@ -1,0 +1,28 @@
+{
+  "original_name": "full_ml_likelihood_maps.npz",
+  "original_bytes": 147337961,
+  "sha256": "cce7f297289db6c145df59b1459114bbcb82dec38cd5326eeb97832356114fdb",
+  "parts": [
+    {
+      "name": "part-001.bin",
+      "bytes": 41943040,
+      "sha256": "c885391729e39fd9cf4f475f4890c8e4a06d9fd882f1e047035f49c3b5ed4336"
+    },
+    {
+      "name": "part-002.bin",
+      "bytes": 41943040,
+      "sha256": "604dbb55d96c96a22609a6504add2380085d312ba24d699c3b8cadb4e7f58d38"
+    },
+    {
+      "name": "part-003.bin",
+      "bytes": 41943040,
+      "sha256": "7ce60020240c724e3814077a1be40f515b2a32f68790fe091cedbaea4ee762a2"
+    },
+    {
+      "name": "part-004.bin",
+      "bytes": 21508841,
+      "sha256": "ea1d548656a05f2721491aad51369fc67f105b28d5c377656456a187dd538630"
+    }
+  ],
+  "restore": "python \u5b9e\u9a8c/scripts/restore_large_artifacts.py"
+}

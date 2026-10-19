@@ -1,0 +1,19 @@
+{
+  "aspect": "5:4",
+  "canvas_inches": [
+    6.25,
+    5
+  ],
+  "panels": 1,
+  "alignment": "not applicable single panel",
+  "axes_rectangles": [
+    [
+      0.09240720486111113,
+      0.10809456380208338,
+      0.8723927951388889,
+      0.7348442057291665
+    ]
+  ],
+  "postprocessing_smoothing": false,
+  "data_source": "fresh rerun CSV checked against history"
+}

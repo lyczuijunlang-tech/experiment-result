@@ -1,0 +1,30 @@
+{
+  "choices": [
+    {
+      "threshold": 0.95,
+      "validation_recall": 0.9227430555555556,
+      "mean_budget": 0.12121729590991887
+    },
+    {
+      "threshold": 0.99,
+      "validation_recall": 0.9678819444444444,
+      "mean_budget": 0.19197352624606723
+    },
+    {
+      "threshold": 0.995,
+      "validation_recall": 0.9774305555555556,
+      "mean_budget": 0.22267242093061768
+    },
+    {
+      "threshold": 0.999,
+      "validation_recall": 0.9861111111111112,
+      "mean_budget": 0.2909978369763206
+    }
+  ],
+  "chosen": {
+    "threshold": 0.999,
+    "validation_recall": 0.9861111111111112,
+    "mean_budget": 0.2909978369763206
+  },
+  "test_used_for_selection": false
+}

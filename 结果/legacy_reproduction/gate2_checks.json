@@ -1,0 +1,201 @@
+{
+  "cycles.csv": {
+    "passed": true,
+    "rows": 401,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "weighted_total_crb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "ordinary_total_crb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "Ts_star_s": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "Ps_star_w": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "sensing_energy_j": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "time_upper_margin_s": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "energy_margin_j": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "qos_rate_margin_bps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "targets.csv": {
+    "passed": true,
+    "rows": 1604,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "distance_m": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "closing_speed_mps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "omega": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "dwell_s": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "scalar_CRB": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "weighted_scalar_CRB": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "tx_beam_gain_linear": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "rx_beam_gain_linear": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "fig7_multi_scenario_ao_trace.csv": {
+    "passed": true,
+    "rows": 423,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "total_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "Ts_ms": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "Ps_dbm": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "fig8a_time_wcrb.csv": {
+    "passed": true,
+    "rows": 401,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "ttc_total_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "no_ttc_total_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "fig8bc_physical_sensitivity.csv": {
+    "passed": true,
+    "rows": 102,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "x_value": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "ttc_total_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "no_ttc_total_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "fig9_ttc_aware_target_wcrb.csv": {
+    "passed": true,
+    "rows": 1604,
+    "abs_tol": 1e-09,
+    "rel_tol": 1e-07,
+    "columns": {
+      "omega": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "dwell_ms": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "scalar_CRB": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "target_wcrb": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "summary": {
+    "ttc_average_wcrb": 0.0013210345054897126,
+    "no_ttc_average_wcrb": 0.0014040399919054947,
+    "relative_improvement_percent": 5.91190328582672,
+    "cycles": 401,
+    "model": "legacy unknown-complex-amplitude-projected diagonal EFIM",
+    "paper_P1": "system AO",
+    "paper_P2": "target dwell",
+    "old_identifiers_unchanged": true
+  },
+  "passed": true
+}

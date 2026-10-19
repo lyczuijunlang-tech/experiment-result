@@ -1,0 +1,62 @@
+[
+  {
+    "figure": "fig7_multi_scenario_ao_convergence",
+    "collision_verdict": "PASS",
+    "collision_summary": {
+      "fail": 0,
+      "warn": 0,
+      "contained_fill_overlays": 0,
+      "contained_image_overlays": 0
+    },
+    "minimum_font_pt": 6.3,
+    "glyphs_below_5": 0
+  },
+  {
+    "figure": "fig8a_time_wcrb",
+    "collision_verdict": "PASS",
+    "collision_summary": {
+      "fail": 0,
+      "warn": 0,
+      "contained_fill_overlays": 0,
+      "contained_image_overlays": 0
+    },
+    "minimum_font_pt": 6.3,
+    "glyphs_below_5": 0
+  },
+  {
+    "figure": "fig8b_range_sensitivity",
+    "collision_verdict": "PASS",
+    "collision_summary": {
+      "fail": 0,
+      "warn": 0,
+      "contained_fill_overlays": 0,
+      "contained_image_overlays": 0
+    },
+    "minimum_font_pt": 6.3,
+    "glyphs_below_5": 0
+  },
+  {
+    "figure": "fig8c_speed_sensitivity",
+    "collision_verdict": "PASS",
+    "collision_summary": {
+      "fail": 0,
+      "warn": 0,
+      "contained_fill_overlays": 0,
+      "contained_image_overlays": 0
+    },
+    "minimum_font_pt": 6.3,
+    "glyphs_below_5": 0
+  },
+  {
+    "figure": "fig9_ttc_aware_target_wcrb",
+    "collision_verdict": "PASS",
+    "collision_summary": {
+      "fail": 0,
+      "warn": 0,
+      "contained_fill_overlays": 0,
+      "contained_image_overlays": 0
+    },
+    "minimum_font_pt": 6.3,
+    "glyphs_below_5": 0
+  }
+]

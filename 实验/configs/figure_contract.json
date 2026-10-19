@@ -1,0 +1,15 @@
+{
+  "backend": "Python matplotlib",
+  "question": "Do the unchanged legacy SUMO scene and resource model reproduce figures 7 to 9?",
+  "figure7": {"claim": "Three independently recomputed traffic-parameter snapshots converge under the recorded relaxed AO", "x": "AO round 0 to 140", "y": "Total physical TTC-weighted CRB"},
+  "figure8a": {"claim": "The same physical risk metric compares TTC and equal-weight resource objectives across all 401 cycles", "band": "standard deviation among four target contributions, not confidence interval"},
+  "figure8b": {"claim": "Changing one target distance changes the physical link and TTC-weighted objective"},
+  "figure8c": {"claim": "Changing closing speed changes risk weights in the legacy ideal echo model"},
+  "figure9": {"claim": "Per-target risk contributions of TTC-aware allocation vary across the full traffic episode", "labels": ["k1", "k2", "k3", "k4"]},
+  "archetype": "five independent quantitative trend plots",
+  "dimensions_inches": [6.25, 5.0],
+  "x_padding": 0,
+  "exports": ["600 dpi PNG", "editable text PDF", "SVG", "source CSV"],
+  "integrity": "All physical values rerun and checked against history; no fitting, smoothing, rescaling, or selectively omitted points",
+  "ML_status": "Separately labelled shadow maintenance observation; never overwrites the legacy curves"
+}

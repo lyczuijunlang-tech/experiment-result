@@ -1,0 +1,73 @@
+{
+  "cycles": 401,
+  "stable_ids": true,
+  "collisions": [],
+  "cutin_executed": false,
+  "trajectory": {
+    "passed": true,
+    "rows": 2005,
+    "abs_tol": 1e-07,
+    "rel_tol": 0,
+    "columns": {
+      "x_m": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "y_m": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "vx_mps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "vy_mps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "speed_mps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "physical_state": {
+    "passed": true,
+    "rows": 1604,
+    "abs_tol": 1e-07,
+    "rel_tol": 0,
+    "columns": {
+      "distance_m": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "closing_speed_mps": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "azimuth_rad": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "TTC_s": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      },
+      "omega": {
+        "max_abs": 0.0,
+        "max_rel": 0.0,
+        "mismatches": 0
+      }
+    }
+  },
+  "passed": true
+}

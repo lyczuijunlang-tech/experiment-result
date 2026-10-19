@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+    
+    <vType id="egoType" vClass="passenger" carFollowModel="Krauss" length="4.8" width="1.8" minGap="2.5" accel="2.0" decel="4.5" emergencyDecel="9.0" apparentDecel="4.5" tau="1.2" sigma="0" actionStepLength="0.1" maxSpeed="25.0" speedFactor="1" speedDev="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0" lcOpposite="0" lcSigma="0" guiShape="passenger" color="220,30,30" />
+    <vType id="targetSameFront" vClass="passenger" carFollowModel="Krauss" length="4.8" width="1.8" minGap="2.5" accel="1.8" decel="4.5" emergencyDecel="9.0" apparentDecel="4.5" tau="1.2" sigma="0" actionStepLength="0.1" maxSpeed="24.65" speedFactor="1" speedDev="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0" lcOpposite="0" lcSigma="0" guiShape="passenger" color="30,100,220" />
+    <vType id="targetAdjacentFront" vClass="passenger" carFollowModel="Krauss" length="4.8" width="1.8" minGap="2.5" accel="1.8" decel="4.5" emergencyDecel="9.0" apparentDecel="4.5" tau="1.2" sigma="0" actionStepLength="0.1" maxSpeed="24.849999999999998" speedFactor="1" speedDev="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0" lcOpposite="0" lcSigma="0" guiShape="passenger" color="40,150,80" />
+    <vType id="targetSameRear" vClass="passenger" carFollowModel="Krauss" length="4.8" width="1.8" minGap="2.5" accel="1.8" decel="4.5" emergencyDecel="9.0" apparentDecel="4.5" tau="1.2" sigma="0" actionStepLength="0.1" maxSpeed="26.15" speedFactor="1" speedDev="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0" lcOpposite="0" lcSigma="0" guiShape="passenger" color="60,160,230" />
+    <vType id="targetAdjacentRear" vClass="passenger" carFollowModel="Krauss" length="4.8" width="1.8" minGap="2.5" accel="1.8" decel="4.5" emergencyDecel="9.0" apparentDecel="4.5" tau="1.2" sigma="0" actionStepLength="0.1" maxSpeed="25.37" speedFactor="1" speedDev="0" lcStrategic="0" lcCooperative="0" lcSpeedGain="0" lcKeepRight="0" lcOpposite="0" lcSigma="0" guiShape="passenger" color="210,80,60" />
+
+    <route id="eastbound" edges="E0" />
+
+    
+    
+    <vehicle id="target2_rear_same" type="targetSameRear" route="eastbound" depart="0" departPos="405.0" departLane="0" departSpeed="25.9" />
+    <vehicle id="ego" type="egoType" route="eastbound" depart="0" departPos="500" departLane="0" departSpeed="25.0" />
+    <vehicle id="target1_front_same" type="targetSameFront" route="eastbound" depart="0" departPos="565.0" departLane="0" departSpeed="24.55" />
+    <vehicle id="target4_rear_adj" type="targetAdjacentRear" route="eastbound" depart="0" departPos="440.0" departLane="1" departSpeed="25.15" />
+    <vehicle id="target3_front_adj" type="targetAdjacentFront" route="eastbound" depart="0" departPos="560.0" departLane="1" departSpeed="24.75" />
+</routes>

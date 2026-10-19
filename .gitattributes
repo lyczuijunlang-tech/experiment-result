@@ -1,0 +1,7 @@
+* -text
+*.png binary
+*.pdf binary
+*.npz binary
+*.pt binary
+*.bin binary
+*.xlsx binary

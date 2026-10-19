@@ -1,0 +1,37 @@
+{
+  "candidate_recall_ge_099": true,
+  "distance_rmse_not_worse_5pct": true,
+  "velocity_rmse_not_worse_5pct": true,
+  "speedup_above_1": false,
+  "separate_scenes_and_seeds": true,
+  "test_cases": 1152,
+  "torch_version": "2.14.1+cpu",
+  "full_ml_summary": {
+    "method": "Full-Grid ML",
+    "n": 1152,
+    "distance_rmse_m": 0.1880052918127548,
+    "velocity_rmse_mps": 0.02643721028132592,
+    "mean_seconds": 0.0005153326388871449,
+    "median_seconds": 0.0004503999998632935,
+    "candidate_recall": 1.0,
+    "fallback_frequency": 0.0,
+    "mean_likelihood_evaluations": 7381.0,
+    "max_nll_gap": 0.0,
+    "end_to_end_speedup": 1.0
+  },
+  "dnn_ml_summary": {
+    "method": "DNN-Adaptive-ML",
+    "n": 1152,
+    "distance_rmse_m": 0.18831196517175094,
+    "velocity_rmse_mps": 0.026455161033251465,
+    "mean_seconds": 0.002918183072913965,
+    "median_seconds": 0.0025340999998206826,
+    "candidate_recall": 0.9956597222222222,
+    "fallback_frequency": 0.3402777777777778,
+    "mean_likelihood_evaluations": 4871.300347222223,
+    "max_nll_gap": 96.57370098268501,
+    "end_to_end_speedup": 0.17659366325244188
+  },
+  "integration_into_P1_P2": false,
+  "passed": false
+}

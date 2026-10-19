@@ -1,0 +1,24 @@
+{
+  "likelihood_matches_brute_force": true,
+  "positive_fim": true,
+  "noiseless_grid_errors_within_one_bin": true,
+  "distance_rmse_below_1m": true,
+  "velocity_rmse_below_025": true,
+  "truth_outside_count": 0,
+  "model_id": "shadow_deramped_known_rcs_phase_amplitude_dminus2_v1",
+  "scope": "offline shadow, not charged to legacy resource budget",
+  "actual_metrics": {
+    "target": "all",
+    "n": 192,
+    "distance_rmse_m": 0.2985416288723526,
+    "velocity_rmse_mps": 0.03278846603426296,
+    "prior_distance_rmse_m": 0.7518823499300145,
+    "prior_velocity_rmse_mps": 0.15259433742326275,
+    "mean_full_ml_seconds": 0.00032704895835185727,
+    "boundary_count": 1,
+    "truth_outside_count": 0
+  },
+  "acceptance_thresholds_fixed_in_source": true,
+  "contains_full_likelihood_maps": true,
+  "passed": true
+}

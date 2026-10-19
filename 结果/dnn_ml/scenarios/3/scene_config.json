@@ -1,0 +1,9 @@
+{
+  "id": 3,
+  "split": "train",
+  "gap_delta": 6,
+  "speed_delta": -0.04,
+  "cycles": 401,
+  "collisions": [],
+  "seed": 103
+}

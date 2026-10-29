@@ -1,0 +1,27 @@
+{
+  "panel_count": 1,
+  "alignment_gate": "not applicable one panel",
+  "canvas_inches": [
+    6.25,
+    5.0
+  ],
+  "axes_position": [
+    0.09240720486111113,
+    0.10477023654513895,
+    0.8835927951388889,
+    0.708038216145833
+  ],
+  "x_limits": [
+    53.404648937435695,
+    89.00774822905964
+  ],
+  "y_limits": [
+    0.00036456488346815,
+    0.001425419580073624
+  ],
+  "samples_per_method": 51,
+  "methods": 5,
+  "smoothing": false,
+  "data_source": "fig8b_five_methods.csv",
+  "experiment": "controlled single-SUMO-snapshot sensitivity"
+}

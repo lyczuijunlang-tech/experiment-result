@@ -1,12 +1,12 @@
 {
-  "pdf": "github_publish_20261019\\图片\\fig8_abc_combined.pdf",
+  "pdf": "<workspace>\\github_publish_20261019\\图片\\fig8_abc_combined.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
-  "visible_text_box_count": 54,
-  "text_trace_count": 57,
-  "stroke_path_count": 252,
-  "filled_region_count": 187,
+  "visible_text_box_count": 63,
+  "text_trace_count": 72,
+  "stroke_path_count": 282,
+  "filled_region_count": 208,
   "image_region_count": 0,
   "summary": {
     "fail": 0,

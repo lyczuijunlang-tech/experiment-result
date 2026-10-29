@@ -35,9 +35,11 @@ def alignment_gate(fig,path):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--fig7-dir',type=Path);parser.add_argument('--fig8-dir',type=Path);args=parser.parse_args()
+    parser.add_argument('--fig7-dir',type=Path);parser.add_argument('--fig8-dir',type=Path);parser.add_argument('--fig8bc-dir',type=Path);args=parser.parse_args()
     release=json.loads((RESULT/'current_release.json').read_text(encoding='utf-8'))
     seven=args.fig7_dir or REPO/release['figure7_bundle'];five=args.fig8_dir or REPO/release['figure8a_bundle']
+    bc=args.fig8bc_dir or (REPO/release['figure8bc_bundle'] if release.get('figure8bc_bundle') else None)
+    if bc is not None:assert json.loads((bc/'completion.json').read_text())['all_checks_passed']
     assert json.loads((seven/'completion.json').read_text())['checks_passed']
     assert json.loads((five/'completion.json').read_text())['all_checks_passed']
     OUT.mkdir(exist_ok=True);qa=RESULT/'figure_qa';qa.mkdir(exist_ok=True)
@@ -76,16 +78,28 @@ def main():
         ax.set(xlim=(0,40),xlabel='SUMO time (s)',ylabel=ylabel);ax.set_xticks(np.arange(0,41,10))
         ax.grid(color='.88',linewidth=.45);ax.ticklabel_format(axis='y',style='sci',scilimits=(-3,3),useMathText=True)
     for name,(data,key,ylabel) in tables.items():
+        if name.startswith('fig9') and args.fig8_dir is None and release.get('current_export_source')==five.relative_to(REPO).as_posix() and (OUT/(name+'.png')).exists():continue
+        plot_out=traj if bc is not None and not name.startswith('fig9') else OUT
         fig,ax=plt.subplots(figsize=(6.25,5.0));draw_targets(ax,data,key);axis_style(ax,ylabel)
         ax.legend(loc='lower center',bbox_to_anchor=(.5,1.09),ncol=4,frameon=False)
         fig.tight_layout();fig.canvas.draw()
         jsave(qa/(name+'.layout.json'),{'panel_count':1,'alignment_gate':'not applicable one panel','canvas_inches':[6.25,5.],
             'axes_position':list(ax.get_position().bounds),'data_source':five.relative_to(REPO).as_posix()+'/resource_allocation_details.csv',
             'smoothing':False,'time_samples_per_target':401})
-        fig.savefig(OUT/(name+'.png'),dpi=600);fig.savefig(OUT/(name+'.pdf'));fig.savefig(OUT/(name+'.svg'));plt.close(fig)
-        write_csv(OUT/(name+'.csv'),data)
-        for ext in ['png','pdf','svg','csv']:
-            copy(OUT/(name+'.'+ext),RESULT/(name+'.'+ext));copy(OUT/(name+'.'+ext),traj/(name+'.'+ext))
+        fig.savefig(plot_out/(name+'.png'),dpi=600);fig.savefig(plot_out/(name+'.pdf'));fig.savefig(plot_out/(name+'.svg'));plt.close(fig)
+        write_csv(plot_out/(name+'.csv'),data)
+        if plot_out==OUT:
+            for ext in ['png','pdf','svg','csv']:
+                copy(OUT/(name+'.'+ext),RESULT/(name+'.'+ext));copy(OUT/(name+'.'+ext),traj/(name+'.'+ext))
+    sensitivity_rows=[]
+    if bc is not None:
+        for source,alias in [('fig8b_five_methods','fig8b_target_distance'),('fig8c_five_methods','fig8c_radial_velocity')]:
+            sensitivity_rows.append(read(bc/(source+'.csv')))
+            for parent in [OUT,RESULT]:
+                for ext in ['png','pdf','svg','csv']:
+                    copy(bc/(source+'.'+ext),parent/(alias+'.'+ext));copy(bc/(source+'.'+ext),parent/(source+'.'+ext))
+            copy(bc/'qa'/(source+'.layout.json'),qa/(alias+'.layout.json'))
+        for parent in [OUT,RESULT]:copy(bc/'method_points.csv',parent/'fig8bc_five_methods.csv')
     for name,src,source_name,csv_name in [('fig7_multi_scenario_ao_convergence',seven,'fig7_convergence','fig7_multi_scenario_ao_trace'),
             ('fig8a_time_wcrb',five,'fig8a_five_methods','fig8a_time_wcrb')]:
         for ext in ['png','pdf','svg']:
@@ -99,11 +113,20 @@ def main():
         axes[0].plot(t,[float(r[m]) for r in wide],color=COLORS[i],linestyle=STYLES[i],linewidth=1.6,
             marker=MARKERS[i],markersize=3,markevery=(i*5,40),markerfacecolor='white',label=label)
     axis_style(axes[0],'Total TTC-Weighted CRB')
-    draw_targets(axes[1],distance,'distance_m');axis_style(axes[1],'Relative distance (m)')
-    draw_targets(axes[2],velocity,'closing_speed_mps');axis_style(axes[2],'Radial closing speed (m/s)')
+    if bc is None:
+        draw_targets(axes[1],distance,'distance_m');axis_style(axes[1],'Relative distance (m)')
+        draw_targets(axes[2],velocity,'closing_speed_mps');axis_style(axes[2],'Radial closing speed (m/s)')
+    else:
+        for ax,rows,xlabel in zip(axes[1:],sensitivity_rows,['Relative distance (m)','Radial closing speed (m/s)']):
+            x=[float(r['x_value']) for r in rows]
+            for i,(m,label) in enumerate(zip(METHODS,LABELS)):
+                ax.plot(x,[float(r[m]) for r in rows],color=COLORS[i],linestyle=STYLES[i],linewidth=1.6,
+                    marker=MARKERS[i],markersize=3,markevery=(i,5),markerfacecolor='white',label=label)
+            ax.set(xlim=(x[0],x[-1]),xlabel=xlabel,ylabel='Total TTC-Weighted CRB')
+            ax.grid(color='.88',linewidth=.45);ax.ticklabel_format(axis='y',style='sci',scilimits=(-3,-3),useMathText=True)
     for i,ax in enumerate(axes):
         ax.text(1.,1.035,f'({chr(97+i)})',transform=ax.transAxes,ha='right',va='bottom',fontsize=10)
-        if i==0:
+        if i==0 or bc is not None:
             h,l=ax.get_legend_handles_labels();order=[0,3,1,4,2]
             ax.legend([h[j] for j in order],[l[j] for j in order],loc='lower center',bbox_to_anchor=(.5,1.19),ncol=3,
                 frameon=False,fontsize=8.2,columnspacing=.8,handlelength=2.2)
@@ -121,6 +144,9 @@ def main():
         candidate=qa/(name+'.layout.json')
         if candidate.exists():copy(candidate,OUT/(name+'.layout.json'))
     (traj/'difference_report.md').write_text('# 当前时域图导出依据\n\n图8(b)(c)和图9直接由当前五方法实际SUMO运行的TTC-AO目标记录和车辆状态导出。距离、径向闭合速度及逐目标wCRB全部使用原始逐周期值，未平滑或插值。\n\n每目标401个时间点，k1至k4编号与五方法资源明细一致。图9四条贡献之和等于TTC-AO系统总wCRB。历史独立重运行轨迹与当前五方法轨迹逐点一致，详见当前实验包baseline_comparison.json及independent_formula_checks.json。\n',encoding='utf-8')
+    if bc is not None:
+        (traj/'difference_report.md').write_text('# 辅助原始轨迹与图9\n\n本目录距离、速度图保留真实SUMO时域状态作为辅助资料，不再是当前主图8(b)(c)。当前主图b/c为五方法受控距离/闭合速度扫描，详见../fig8bc_five_methods/README.md。图9仍为TTC-AO四目标贡献时域图。所有辅助数据由实际五方法时域实验的同一车辆状态和目标记录导出。\n',encoding='utf-8')
+        release['figure8bc_bundle']=bc.relative_to(REPO).as_posix()
     release['figure7_bundle']=seven.relative_to(REPO).as_posix();release['figure8a_bundle']=five.relative_to(REPO).as_posix()
     release['current_exports']={p.relative_to(REPO).as_posix():{'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in OUT.glob('*') if p.suffix in {'.png','.pdf','.svg','.csv'}}
     release['published_figures']=dict(release['current_exports'])

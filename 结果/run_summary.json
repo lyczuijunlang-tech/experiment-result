@@ -192,8 +192,8 @@
     "timezone": "Asia/Shanghai",
     "figure7": "Five scenarios, 240 actual AO rounds; blue/orange relaxed as latest request",
     "figure8a": "Five independent P2/P1 strategies, common physical TTC-weighted evaluation, one original nominal SUMO episode",
-    "figure8b": "Target distance versus actual SUMO time",
-    "figure8c": "Radial closing velocity versus actual SUMO time",
+    "figure8b": "Five-method total TTC-weighted CRB versus controlled selected-target distance",
+    "figure8c": "Five-method total TTC-weighted CRB versus controlled selected-target radial closing speed",
     "figure9": "k1-k4 TTC-aware target wCRB versus time",
     "figure7_bundle": "结果/fig7_latest",
     "figure8a_bundle": "结果/fig8a_five_methods",
@@ -235,56 +235,83 @@
       "图片/fig8a_time_wcrb.svg": {
         "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
       },
+      "图片/fig8bc_five_methods.csv": {
+        "sha256": "93e0c12c371575b6b22c5238841f16c9675a1db19e0cc7caaee533d6cba799ca"
+      },
+      "图片/fig8b_five_methods.csv": {
+        "sha256": "f59ea234f818852b65089074a1b1dde75783fb91966f24a9af59a0e012320f33"
+      },
+      "图片/fig8b_five_methods.pdf": {
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
+      },
+      "图片/fig8b_five_methods.png": {
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
+      },
+      "图片/fig8b_five_methods.svg": {
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
+      },
       "图片/fig8b_range_sensitivity.pdf": {
-        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
       },
       "图片/fig8b_range_sensitivity.png": {
-        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
       },
       "图片/fig8b_range_sensitivity.svg": {
-        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
       },
       "图片/fig8b_target_distance.csv": {
-        "sha256": "efb1b456608839e873cd80f022a6114bad6b8fd077dbc213ed174486849ea97b"
+        "sha256": "f59ea234f818852b65089074a1b1dde75783fb91966f24a9af59a0e012320f33"
       },
       "图片/fig8b_target_distance.pdf": {
-        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
       },
       "图片/fig8b_target_distance.png": {
-        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
       },
       "图片/fig8b_target_distance.svg": {
-        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
+      },
+      "图片/fig8c_five_methods.csv": {
+        "sha256": "8559fe5cfeeea579704cbf3bf5a6a5e125f51c21757667fb298b9f40b5751338"
+      },
+      "图片/fig8c_five_methods.pdf": {
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
+      },
+      "图片/fig8c_five_methods.png": {
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
+      },
+      "图片/fig8c_five_methods.svg": {
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8c_radial_velocity.csv": {
-        "sha256": "114ccf40c54911465b5405ea8837fbef5faa53af0cf088e7d0441739993a218e"
+        "sha256": "8559fe5cfeeea579704cbf3bf5a6a5e125f51c21757667fb298b9f40b5751338"
       },
       "图片/fig8c_radial_velocity.pdf": {
-        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
       },
       "图片/fig8c_radial_velocity.png": {
-        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
       },
       "图片/fig8c_radial_velocity.svg": {
-        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8c_speed_sensitivity.pdf": {
-        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
       },
       "图片/fig8c_speed_sensitivity.png": {
-        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
       },
       "图片/fig8c_speed_sensitivity.svg": {
-        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8_abc_combined.pdf": {
-        "sha256": "dfc9b3be8ebf3606b6e5a9db07a8000bb5b1e149c953d5d986048460804e010f"
+        "sha256": "4065707187b5e0fae4c9d24fb98fb579629952ab94d39858820aadd96d63f896"
       },
       "图片/fig8_abc_combined.png": {
-        "sha256": "553e26df8c30232500443e1a9c1554356a248ff9b393f0f42664839494bbaab5"
+        "sha256": "3799f41aa26e826052afcfbc9c70c6b145e1a6347ea05b562b9894522f29b196"
       },
       "图片/fig8_abc_combined.svg": {
-        "sha256": "d885e3ba0324c3daf47b36c11d1b227040749521465ba7fa55d6ba5455831381"
+        "sha256": "bd33439a128e6cbf9400d0a417d0aca0471df26c802c817799aeeb497564f3db"
       },
       "图片/fig9_ttc_aware_target_wcrb.csv": {
         "sha256": "672d3e55b05ab29503d53fca3c9c92f55bfb99ce0124f7ff538280bf97d516e7"
@@ -338,56 +365,83 @@
       "图片/fig8a_time_wcrb.svg": {
         "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
       },
+      "图片/fig8bc_five_methods.csv": {
+        "sha256": "93e0c12c371575b6b22c5238841f16c9675a1db19e0cc7caaee533d6cba799ca"
+      },
+      "图片/fig8b_five_methods.csv": {
+        "sha256": "f59ea234f818852b65089074a1b1dde75783fb91966f24a9af59a0e012320f33"
+      },
+      "图片/fig8b_five_methods.pdf": {
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
+      },
+      "图片/fig8b_five_methods.png": {
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
+      },
+      "图片/fig8b_five_methods.svg": {
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
+      },
       "图片/fig8b_range_sensitivity.pdf": {
-        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
       },
       "图片/fig8b_range_sensitivity.png": {
-        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
       },
       "图片/fig8b_range_sensitivity.svg": {
-        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
       },
       "图片/fig8b_target_distance.csv": {
-        "sha256": "efb1b456608839e873cd80f022a6114bad6b8fd077dbc213ed174486849ea97b"
+        "sha256": "f59ea234f818852b65089074a1b1dde75783fb91966f24a9af59a0e012320f33"
       },
       "图片/fig8b_target_distance.pdf": {
-        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+        "sha256": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5"
       },
       "图片/fig8b_target_distance.png": {
-        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+        "sha256": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d"
       },
       "图片/fig8b_target_distance.svg": {
-        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+        "sha256": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23"
+      },
+      "图片/fig8c_five_methods.csv": {
+        "sha256": "8559fe5cfeeea579704cbf3bf5a6a5e125f51c21757667fb298b9f40b5751338"
+      },
+      "图片/fig8c_five_methods.pdf": {
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
+      },
+      "图片/fig8c_five_methods.png": {
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
+      },
+      "图片/fig8c_five_methods.svg": {
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8c_radial_velocity.csv": {
-        "sha256": "114ccf40c54911465b5405ea8837fbef5faa53af0cf088e7d0441739993a218e"
+        "sha256": "8559fe5cfeeea579704cbf3bf5a6a5e125f51c21757667fb298b9f40b5751338"
       },
       "图片/fig8c_radial_velocity.pdf": {
-        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
       },
       "图片/fig8c_radial_velocity.png": {
-        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
       },
       "图片/fig8c_radial_velocity.svg": {
-        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8c_speed_sensitivity.pdf": {
-        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+        "sha256": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45"
       },
       "图片/fig8c_speed_sensitivity.png": {
-        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+        "sha256": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50"
       },
       "图片/fig8c_speed_sensitivity.svg": {
-        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+        "sha256": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d"
       },
       "图片/fig8_abc_combined.pdf": {
-        "sha256": "dfc9b3be8ebf3606b6e5a9db07a8000bb5b1e149c953d5d986048460804e010f"
+        "sha256": "4065707187b5e0fae4c9d24fb98fb579629952ab94d39858820aadd96d63f896"
       },
       "图片/fig8_abc_combined.png": {
-        "sha256": "553e26df8c30232500443e1a9c1554356a248ff9b393f0f42664839494bbaab5"
+        "sha256": "3799f41aa26e826052afcfbc9c70c6b145e1a6347ea05b562b9894522f29b196"
       },
       "图片/fig8_abc_combined.svg": {
-        "sha256": "d885e3ba0324c3daf47b36c11d1b227040749521465ba7fa55d6ba5455831381"
+        "sha256": "bd33439a128e6cbf9400d0a417d0aca0471df26c802c817799aeeb497564f3db"
       },
       "图片/fig9_ttc_aware_target_wcrb.csv": {
         "sha256": "672d3e55b05ab29503d53fca3c9c92f55bfb99ce0124f7ff538280bf97d516e7"
@@ -402,7 +456,9 @@
         "sha256": "2e372fcf4f305262ea6a68b3fe5dc6c4d52b59cc8c1282b0c5d1cca3933eb455"
       }
     },
-    "current_export_source": "结果/fig8a_five_methods"
+    "current_export_source": "结果/fig8a_five_methods",
+    "figure8bc_bundle": "结果/fig8bc_five_methods",
+    "figure8bc_scope": "Two 51-point controlled static-state sweeps at actual SUMO reference t=40s; five independent cold-start P2 solves per point, not additional SUMO trajectories"
   },
   "legacy_fields_note": "Original 2026-10-19 fields are retained below; current_release and new per-experiment configs are authoritative for updated figures."
 }

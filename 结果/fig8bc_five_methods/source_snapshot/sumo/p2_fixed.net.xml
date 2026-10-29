@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-07T15:36:40.290290+08:00 by Eclipse SUMO netconvert 1.27.1
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\25706\.codex\.chatgpt-projects\g-p-6a38ed82b5988191a383ca2e23411099\stage3_sumo_isac_ao\sumo\stage3.nod.xml"/>
+        <edge-files value="C:\Users\25706\.codex\.chatgpt-projects\g-p-6a38ed82b5988191a383ca2e23411099\stage3_sumo_isac_ao\sumo\stage3.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\25706\.codex\.chatgpt-projects\g-p-6a38ed82b5988191a383ca2e23411099\stage3_sumo_isac_ao\sumo\stage3.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,3000.00,0.00" origBoundary="0.00,0.00,3000.00,0.00" projParameter="!"/>
+
+    <edge id="E0" from="west" to="east" priority="1">
+        <lane id="E0_0" index="0" speed="30.00" length="3000.00" shape="0.00,-4.80 3000.00,-4.80"/>
+        <lane id="E0_1" index="1" speed="30.00" length="3000.00" shape="0.00,-1.60 3000.00,-1.60"/>
+    </edge>
+
+    <junction id="east" type="dead_end" x="3000.00" y="0.00" incLanes="E0_0 E0_1" intLanes="" shape="3000.00,-6.40 3000.00,0.00"/>
+    <junction id="west" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+
+</net>

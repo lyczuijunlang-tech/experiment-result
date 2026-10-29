@@ -1,12 +1,12 @@
 {
-  "pdf": "github_publish_20261019\\图片\\fig8c_radial_velocity.pdf",
+  "pdf": "<workspace>\\github_publish_20261019\\图片\\fig8c_five_methods.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
-  "visible_text_box_count": 16,
-  "text_trace_count": 16,
-  "stroke_path_count": 80,
-  "filled_region_count": 60,
+  "visible_text_box_count": 21,
+  "text_trace_count": 24,
+  "stroke_path_count": 96,
+  "filled_region_count": 71,
   "image_region_count": 0,
   "summary": {
     "fail": 0,

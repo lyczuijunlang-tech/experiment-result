@@ -6,12 +6,22 @@
     5.0
   ],
   "axes_position": [
-    0.09560720486111114,
-    0.10557779947916668,
-    0.8675927951388888,
-    0.7373609700520832
+    0.11480720486111114,
+    0.10477023654513895,
+    0.8611927951388888,
+    0.708038216145833
   ],
-  "data_source": "结果/fig8a_five_methods/resource_allocation_details.csv",
+  "x_limits": [
+    0.48863397782269397,
+    1.465901933468082
+  ],
+  "y_limits": [
+    0.0006348937734789055,
+    0.0008257993601119402
+  ],
+  "samples_per_method": 51,
+  "methods": 5,
   "smoothing": false,
-  "time_samples_per_target": 401
+  "data_source": "fig8c_five_methods.csv",
+  "experiment": "controlled single-SUMO-snapshot sensitivity"
 }

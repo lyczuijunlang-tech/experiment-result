@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "figure": "fig8b_five_methods",
+      "minimum_font_pt": 6.3,
+      "below_5pt": 0,
+      "collision": "PASS",
+      "summary": {
+        "fail": 0,
+        "warn": 0,
+        "contained_fill_overlays": 0,
+        "contained_image_overlays": 0
+      }
+    },
+    {
+      "figure": "fig8c_five_methods",
+      "minimum_font_pt": 6.3,
+      "below_5pt": 0,
+      "collision": "PASS",
+      "summary": {
+        "fail": 0,
+        "warn": 0,
+        "contained_fill_overlays": 0,
+        "contained_image_overlays": 0
+      }
+    },
+    {
+      "figure": "fig8_abc_combined",
+      "minimum_font_pt": 7.0,
+      "below_5pt": 0,
+      "collision": "PASS",
+      "summary": {
+        "fail": 0,
+        "warn": 0,
+        "contained_fill_overlays": 0,
+        "contained_image_overlays": 0
+      }
+    }
+  ],
+  "visual_review": "PASS: both independent controlled-sensitivity figures and all three panels of the synchronized composite inspected",
+  "figure8a_bytes_unchanged": true,
+  "control_scope": "b/c are frozen-SUMO-snapshot counterfactual sweeps, not separate trajectories"
+}

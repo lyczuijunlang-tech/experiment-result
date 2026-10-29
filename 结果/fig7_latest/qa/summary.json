@@ -1,0 +1,24 @@
+{
+  "visual_review": "PASS: final actual PNG inspected; both blue and orange descents now more gradual; all five curves and external legend readable. Natural crossings retained.",
+  "collision_verdict": "PASS",
+  "minimum_font_pt": 6.3,
+  "source_validation": {
+    "ready": true,
+    "strict": false,
+    "counts": {
+      "PASS": 19,
+      "WARN": 2,
+      "FAIL": 0
+    }
+  },
+  "warning_review": "TIFF not requested; 158.8mm preserves established 5:4 layout; vector exports available.",
+  "panel_alignment": "not applicable: single panel",
+  "smoothing": false,
+  "raw_points_per_curve": 241,
+  "only_changed_parameters": "AO time/power relaxation for scenarios 1 and 2",
+  "unchanged_other_scenarios": {
+    "scenario_3": 0.0,
+    "scenario_4": 0.0,
+    "scenario_5": 0.0
+  }
+}

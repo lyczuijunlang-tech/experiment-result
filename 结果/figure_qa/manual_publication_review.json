@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "reviewed": "Five current independent figures and every panel of the final three-panel assembly inspected. Blue/orange slower Figure7 and five actual policies in Figure8a confirmed.",
+  "individual_canvas": "5:4",
+  "composite_canvas": "intentional wide three-panel assembly",
+  "numerical_csv_hashes": "exact match to all newly computed source CSVs",
+  "metadata_changes": "portable path redactions only"
+}

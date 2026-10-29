@@ -186,5 +186,223 @@
         "feasible_grid_points": 9074
       }
     ]
-  }
+  },
+  "current_release": {
+    "date": "2026-10-29",
+    "timezone": "Asia/Shanghai",
+    "figure7": "Five scenarios, 240 actual AO rounds; blue/orange relaxed as latest request",
+    "figure8a": "Five independent P2/P1 strategies, common physical TTC-weighted evaluation, one original nominal SUMO episode",
+    "figure8b": "Target distance versus actual SUMO time",
+    "figure8c": "Radial closing velocity versus actual SUMO time",
+    "figure9": "k1-k4 TTC-aware target wCRB versus time",
+    "figure7_bundle": "结果/fig7_latest",
+    "figure8a_bundle": "结果/fig8a_five_methods",
+    "nominal_plot_bundle": "结果/trajectory_figures",
+    "published_figures": {
+      "图片/fig7_multi_scenario_ao_convergence.pdf": {
+        "sha256": "3ec918bad24e0a1d3095513cb00a1752d910349656110a9792f295296ebf5c84"
+      },
+      "图片/fig7_multi_scenario_ao_convergence.png": {
+        "sha256": "69bdeda8297a605d225a8171147429be7c1f1effee830b63c573ad213f822da3"
+      },
+      "图片/fig7_multi_scenario_ao_convergence.svg": {
+        "sha256": "e90a357e809ab1ff887776ddc208d2b924d3f40007e4d0f2ee5d9881ad1524a1"
+      },
+      "图片/fig7_multi_scenario_ao_trace.csv": {
+        "sha256": "ad8daef3f0634cba52d15248efd2c1e29e2a04b54c89fb33f2a244268627be62"
+      },
+      "图片/fig8a_five_methods.csv": {
+        "sha256": "8f7c80847500f4db5e87cc2fb578442b16b1fabbadbf7da6493912ea224a02e6"
+      },
+      "图片/fig8a_five_methods.pdf": {
+        "sha256": "f4eed9045781087e407076de44f4ffb3e1b39d1f2c9eeb6cb20e19a9abc25847"
+      },
+      "图片/fig8a_five_methods.png": {
+        "sha256": "6ca865915911e8a7b0b0d20dc6379b0cfb226e9300bb447c66d457e9e6a9f26c"
+      },
+      "图片/fig8a_five_methods.svg": {
+        "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
+      },
+      "图片/fig8a_time_wcrb.csv": {
+        "sha256": "8f7c80847500f4db5e87cc2fb578442b16b1fabbadbf7da6493912ea224a02e6"
+      },
+      "图片/fig8a_time_wcrb.pdf": {
+        "sha256": "f4eed9045781087e407076de44f4ffb3e1b39d1f2c9eeb6cb20e19a9abc25847"
+      },
+      "图片/fig8a_time_wcrb.png": {
+        "sha256": "6ca865915911e8a7b0b0d20dc6379b0cfb226e9300bb447c66d457e9e6a9f26c"
+      },
+      "图片/fig8a_time_wcrb.svg": {
+        "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
+      },
+      "图片/fig8b_range_sensitivity.pdf": {
+        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+      },
+      "图片/fig8b_range_sensitivity.png": {
+        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+      },
+      "图片/fig8b_range_sensitivity.svg": {
+        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+      },
+      "图片/fig8b_target_distance.csv": {
+        "sha256": "efb1b456608839e873cd80f022a6114bad6b8fd077dbc213ed174486849ea97b"
+      },
+      "图片/fig8b_target_distance.pdf": {
+        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+      },
+      "图片/fig8b_target_distance.png": {
+        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+      },
+      "图片/fig8b_target_distance.svg": {
+        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+      },
+      "图片/fig8c_radial_velocity.csv": {
+        "sha256": "114ccf40c54911465b5405ea8837fbef5faa53af0cf088e7d0441739993a218e"
+      },
+      "图片/fig8c_radial_velocity.pdf": {
+        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+      },
+      "图片/fig8c_radial_velocity.png": {
+        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+      },
+      "图片/fig8c_radial_velocity.svg": {
+        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+      },
+      "图片/fig8c_speed_sensitivity.pdf": {
+        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+      },
+      "图片/fig8c_speed_sensitivity.png": {
+        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+      },
+      "图片/fig8c_speed_sensitivity.svg": {
+        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+      },
+      "图片/fig8_abc_combined.pdf": {
+        "sha256": "dfc9b3be8ebf3606b6e5a9db07a8000bb5b1e149c953d5d986048460804e010f"
+      },
+      "图片/fig8_abc_combined.png": {
+        "sha256": "553e26df8c30232500443e1a9c1554356a248ff9b393f0f42664839494bbaab5"
+      },
+      "图片/fig8_abc_combined.svg": {
+        "sha256": "d885e3ba0324c3daf47b36c11d1b227040749521465ba7fa55d6ba5455831381"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.csv": {
+        "sha256": "672d3e55b05ab29503d53fca3c9c92f55bfb99ce0124f7ff538280bf97d516e7"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.pdf": {
+        "sha256": "33910080c1b28cfde7176675ea99c3dd163e165a2863e46bac8fdffaeb92fc90"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.png": {
+        "sha256": "919c77f0cca9f4a795b9ef1b0a7cd4747ccdf982d39bf7cccbfc46177f2f601d"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.svg": {
+        "sha256": "2e372fcf4f305262ea6a68b3fe5dc6c4d52b59cc8c1282b0c5d1cca3933eb455"
+      }
+    },
+    "original_fim_and_crb_unchanged": true,
+    "ML_and_DNN_modules": "historical independent studies retained, not connected to the new resource allocation comparison",
+    "current_exports": {
+      "图片/fig7_multi_scenario_ao_convergence.pdf": {
+        "sha256": "3ec918bad24e0a1d3095513cb00a1752d910349656110a9792f295296ebf5c84"
+      },
+      "图片/fig7_multi_scenario_ao_convergence.png": {
+        "sha256": "69bdeda8297a605d225a8171147429be7c1f1effee830b63c573ad213f822da3"
+      },
+      "图片/fig7_multi_scenario_ao_convergence.svg": {
+        "sha256": "e90a357e809ab1ff887776ddc208d2b924d3f40007e4d0f2ee5d9881ad1524a1"
+      },
+      "图片/fig7_multi_scenario_ao_trace.csv": {
+        "sha256": "ad8daef3f0634cba52d15248efd2c1e29e2a04b54c89fb33f2a244268627be62"
+      },
+      "图片/fig8a_five_methods.csv": {
+        "sha256": "8f7c80847500f4db5e87cc2fb578442b16b1fabbadbf7da6493912ea224a02e6"
+      },
+      "图片/fig8a_five_methods.pdf": {
+        "sha256": "f4eed9045781087e407076de44f4ffb3e1b39d1f2c9eeb6cb20e19a9abc25847"
+      },
+      "图片/fig8a_five_methods.png": {
+        "sha256": "6ca865915911e8a7b0b0d20dc6379b0cfb226e9300bb447c66d457e9e6a9f26c"
+      },
+      "图片/fig8a_five_methods.svg": {
+        "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
+      },
+      "图片/fig8a_time_wcrb.csv": {
+        "sha256": "8f7c80847500f4db5e87cc2fb578442b16b1fabbadbf7da6493912ea224a02e6"
+      },
+      "图片/fig8a_time_wcrb.pdf": {
+        "sha256": "f4eed9045781087e407076de44f4ffb3e1b39d1f2c9eeb6cb20e19a9abc25847"
+      },
+      "图片/fig8a_time_wcrb.png": {
+        "sha256": "6ca865915911e8a7b0b0d20dc6379b0cfb226e9300bb447c66d457e9e6a9f26c"
+      },
+      "图片/fig8a_time_wcrb.svg": {
+        "sha256": "6294ce6d25a980e240d5c6f7e69758b6ff3734200fc1ae87e7c9e798ed9ee4ce"
+      },
+      "图片/fig8b_range_sensitivity.pdf": {
+        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+      },
+      "图片/fig8b_range_sensitivity.png": {
+        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+      },
+      "图片/fig8b_range_sensitivity.svg": {
+        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+      },
+      "图片/fig8b_target_distance.csv": {
+        "sha256": "efb1b456608839e873cd80f022a6114bad6b8fd077dbc213ed174486849ea97b"
+      },
+      "图片/fig8b_target_distance.pdf": {
+        "sha256": "d44ff0611ed90af251a8e57582b087ad94eb4bcf1a7886a323dff3ab08329402"
+      },
+      "图片/fig8b_target_distance.png": {
+        "sha256": "f0d3e4977757be5536fd9e1811829950bda36f10bce36daaf581a61c4c060058"
+      },
+      "图片/fig8b_target_distance.svg": {
+        "sha256": "75dd080b0b53c5516a74a71f961957f121a8002f55f033510fb06267b7827796"
+      },
+      "图片/fig8c_radial_velocity.csv": {
+        "sha256": "114ccf40c54911465b5405ea8837fbef5faa53af0cf088e7d0441739993a218e"
+      },
+      "图片/fig8c_radial_velocity.pdf": {
+        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+      },
+      "图片/fig8c_radial_velocity.png": {
+        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+      },
+      "图片/fig8c_radial_velocity.svg": {
+        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+      },
+      "图片/fig8c_speed_sensitivity.pdf": {
+        "sha256": "c2ac78423abacb521d7a48ba54bd33e20675dc7e7bef9944f0279bbec1fac212"
+      },
+      "图片/fig8c_speed_sensitivity.png": {
+        "sha256": "63db44d0b89c80fd716885ff153203e7b36e7617886241ae0ccf65407bac0cb7"
+      },
+      "图片/fig8c_speed_sensitivity.svg": {
+        "sha256": "06a5550224c53a5079905e261f6654c3d1a8292977c164ee8c8636edf8993fee"
+      },
+      "图片/fig8_abc_combined.pdf": {
+        "sha256": "dfc9b3be8ebf3606b6e5a9db07a8000bb5b1e149c953d5d986048460804e010f"
+      },
+      "图片/fig8_abc_combined.png": {
+        "sha256": "553e26df8c30232500443e1a9c1554356a248ff9b393f0f42664839494bbaab5"
+      },
+      "图片/fig8_abc_combined.svg": {
+        "sha256": "d885e3ba0324c3daf47b36c11d1b227040749521465ba7fa55d6ba5455831381"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.csv": {
+        "sha256": "672d3e55b05ab29503d53fca3c9c92f55bfb99ce0124f7ff538280bf97d516e7"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.pdf": {
+        "sha256": "33910080c1b28cfde7176675ea99c3dd163e165a2863e46bac8fdffaeb92fc90"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.png": {
+        "sha256": "919c77f0cca9f4a795b9ef1b0a7cd4747ccdf982d39bf7cccbfc46177f2f601d"
+      },
+      "图片/fig9_ttc_aware_target_wcrb.svg": {
+        "sha256": "2e372fcf4f305262ea6a68b3fe5dc6c4d52b59cc8c1282b0c5d1cca3933eb455"
+      }
+    },
+    "current_export_source": "结果/fig8a_five_methods"
+  },
+  "legacy_fields_note": "Original 2026-10-19 fields are retained below; current_release and new per-experiment configs are authoritative for updated figures."
 }

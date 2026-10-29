@@ -1,0 +1,19 @@
+Fresh five-method run: 2026-10-29T11:17:07.596845+00:00
+Fresh SUMO cycle 000, t=0.0s; all five policies evaluated; inner evaluations=3030
+Fresh SUMO cycle 025, t=2.5s; all five policies evaluated; inner evaluations=10810
+Fresh SUMO cycle 050, t=5.0s; all five policies evaluated; inner evaluations=20150
+Fresh SUMO cycle 075, t=7.5s; all five policies evaluated; inner evaluations=28570
+Fresh SUMO cycle 100, t=10.0s; all five policies evaluated; inner evaluations=41420
+Fresh SUMO cycle 125, t=12.5s; all five policies evaluated; inner evaluations=92035
+Fresh SUMO cycle 150, t=15.0s; all five policies evaluated; inner evaluations=144410
+Fresh SUMO cycle 175, t=17.5s; all five policies evaluated; inner evaluations=197410
+Fresh SUMO cycle 200, t=20.0s; all five policies evaluated; inner evaluations=250330
+Fresh SUMO cycle 225, t=22.5s; all five policies evaluated; inner evaluations=301855
+Fresh SUMO cycle 250, t=25.0s; all five policies evaluated; inner evaluations=332560
+Fresh SUMO cycle 275, t=27.5s; all five policies evaluated; inner evaluations=340060
+Fresh SUMO cycle 300, t=30.0s; all five policies evaluated; inner evaluations=350360
+Fresh SUMO cycle 325, t=32.5s; all five policies evaluated; inner evaluations=360860
+Fresh SUMO cycle 350, t=35.0s; all five policies evaluated; inner evaluations=370800
+Fresh SUMO cycle 375, t=37.5s; all five policies evaluated; inner evaluations=379540
+Fresh SUMO cycle 400, t=40.0s; all five policies evaluated; inner evaluations=388040
+Actual five-method simulation completed. Summarizing and plotting.

@@ -1,0 +1,9 @@
+{
+  "claim": "Compare five genuinely implemented allocation policies on the same nominal SUMO states, resource bounds and common physical TTC-weighted CRB evaluator, retaining actual ranking and closeness.",
+  "archetype": "single-panel quantitative comparison",
+  "backend": "Python matplotlib",
+  "data": "401 time samples per method, one original deterministic SUMO episode, no independent-repeat uncertainty implied",
+  "integrity": "No smoothing, offsets, trajectory changes, per-method solver parameter changes or excluded cycles; all full P2 runs independently executed",
+  "export": "5:4, 600dpi PNG, editable PDF/SVG and complete CSV",
+  "panel_alignment": "not applicable: single panel"
+}

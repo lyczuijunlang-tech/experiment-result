@@ -1,0 +1,17 @@
+{
+  "panel_count": 1,
+  "alignment_gate": "not applicable one panel",
+  "canvas_inches": [
+    6.25,
+    5.0
+  ],
+  "axes_position": [
+    0.09560720486111114,
+    0.10557779947916668,
+    0.8675927951388888,
+    0.7373609700520832
+  ],
+  "data_source": "结果/fig8a_five_methods/resource_allocation_details.csv",
+  "smoothing": false,
+  "time_samples_per_target": 401
+}

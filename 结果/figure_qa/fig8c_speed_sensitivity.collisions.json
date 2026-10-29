@@ -1,12 +1,12 @@
 {
-  "pdf": "isac_reproduction_20261019\\图片\\fig8c_speed_sensitivity.pdf",
+  "pdf": "github_publish_20261019\\图片\\fig8c_radial_velocity.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
-  "visible_text_box_count": 19,
-  "text_trace_count": 24,
-  "stroke_path_count": 58,
-  "filled_region_count": 38,
+  "visible_text_box_count": 16,
+  "text_trace_count": 16,
+  "stroke_path_count": 80,
+  "filled_region_count": 60,
   "image_region_count": 0,
   "summary": {
     "fail": 0,

@@ -1,0 +1,28 @@
+{
+  "historical_data_opened_after_fresh_SUMO_completion": true,
+  "TTC_original_max_absolute_errors": {
+    "total_wcrb": 4.336808689942018e-19,
+    "Ts_s": 0.0,
+    "Ps_w": 0.0,
+    "ao_rounds": 0.0
+  },
+  "nominal_trajectory_max_absolute_errors": {
+    "x_m": 0.0,
+    "y_m": 0.0,
+    "vx_mps": 0.0,
+    "vy_mps": 0.0,
+    "speed_mps": 0.0,
+    "heading_rad": 0.0,
+    "lane_index": 0.0
+  },
+  "old_No_TTC_vs_independent_RU_P2_max_wcrb_change": 8.673617379884035e-19,
+  "old_No_TTC_scope": "P1-only at TTC-AO system resources, optimization weights 1/K",
+  "new_RU_scope": "Own complete P2 with weights 1; same feasible set and final physical TTC evaluation",
+  "RU_scale_probe_max_errors": {
+    "max_dwell_difference_s": 0.0,
+    "Ts_difference_s": 0.0,
+    "Ps_difference_w": 0.0,
+    "common_wcrb_difference": 0.0,
+    "ao_round_difference": 0.0
+  }
+}

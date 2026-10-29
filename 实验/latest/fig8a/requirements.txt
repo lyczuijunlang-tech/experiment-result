@@ -1,0 +1,5 @@
+numpy==2.5.4
+scipy==1.18.1
+matplotlib==3.11.2
+PyMuPDF==1.28.2
+# TraCI is loaded from SUMO 1.27.1 tools; no DNN dependency is used here.

@@ -1,0 +1,70 @@
+{
+  "simulation": {
+    "step_s": 0.1,
+    "duration_s": 40.0,
+    "warmup_s": 2.0,
+    "ego_id": "ego",
+    "cutin_id": "cutin",
+    "cutin_start_s": 14.0,
+    "cutin_duration_s": 4.0,
+    "preferred_adjacent_delta": 1,
+    "max_target_range_m": 220.0,
+    "seed": 17
+  },
+  "radar": {
+    "carrier_hz": 77000000000.0,
+    "bandwidth_hz": 200000000.0,
+    "tx_elements": 4,
+    "rx_elements": 4,
+    "rcs_m2": 10.0,
+    "system_loss_linear": 2.0,
+    "noise_temperature_k": 290.0,
+    "noise_figure_linear": 3.9810717055349722,
+    "crb_d_reference_m2": 1.0,
+    "crb_v_reference_m2ps2": 1.0,
+    "lfm_pulse_duration_s": 5e-06
+  },
+  "system": {
+    "frame_s": 0.05,
+    "min_dwell_s": 0.002,
+    "communication_bandwidth_hz": 20000000.0,
+    "communication_snr_linear": 10.0,
+    "minimum_rate_bps": 10000000.0,
+    "sensing_energy_max_j": 0.001,
+    "sensing_power_max_w": 0.05,
+    "initial_sensing_time_s": 0.025,
+    "initial_sensing_power_w": 0.0223872113856834,
+    "p2_objective": "pure_crb",
+    "ao_time_relaxation": 0.35,
+    "ao_power_relaxation": 0.03,
+    "ao_power_relaxation_near_time_bound": 0.15,
+    "ao_warm_start_power_backoff": 0.995,
+    "ao_eta": 1e-06,
+    "ao_max_rounds": 100,
+    "scalar_max_iterations": 24,
+    "time_search_tolerance_s": 1e-07,
+    "power_search_tolerance_w": 1e-08,
+    "feasibility_tolerance": 1e-10,
+    "infeasible_penalty": 1e+80
+  },
+  "figure7_overrides": {
+    "initial_Ts_s": 0.037,
+    "initial_Ps_w": 0.021,
+    "time_relaxation": 0.08,
+    "power_relaxation": 0.04,
+    "eta": 0.0,
+    "max_rounds": 140,
+    "distance_scales": [
+      0.992,
+      1.0,
+      1.008
+    ],
+    "closing_speed_scales": [
+      1.015,
+      1.0,
+      0.985
+    ]
+  },
+  "no_new_TTC_precision_constraint": true,
+  "DNN_teacher_or_full_FIM_used": false
+}

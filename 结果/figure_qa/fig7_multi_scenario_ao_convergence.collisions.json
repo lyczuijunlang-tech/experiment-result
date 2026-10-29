@@ -1,12 +1,12 @@
 {
-  "pdf": "isac_reproduction_20261019\\图片\\fig7_multi_scenario_ao_convergence.pdf",
+  "pdf": "github_publish_20261019\\图片\\fig7_multi_scenario_ao_convergence.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
-  "visible_text_box_count": 20,
-  "text_trace_count": 24,
-  "stroke_path_count": 74,
-  "filled_region_count": 52,
+  "visible_text_box_count": 22,
+  "text_trace_count": 25,
+  "stroke_path_count": 102,
+  "filled_region_count": 76,
   "image_region_count": 0,
   "summary": {
     "fail": 0,

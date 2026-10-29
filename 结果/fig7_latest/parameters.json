@@ -1,0 +1,115 @@
+{
+  "started_at_utc": "2026-10-29T10:48:20.004670+00:00",
+  "system": {
+    "frame_s": 0.05,
+    "min_dwell_s": 0.002,
+    "communication_bandwidth_hz": 20000000.0,
+    "communication_snr_linear": 10.801967749739477,
+    "minimum_rate_bps": 10000000.0,
+    "sensing_energy_max_j": 0.001,
+    "sensing_power_max_w": 0.05,
+    "initial_sensing_time_s": 0.037,
+    "initial_sensing_power_w": 0.021,
+    "p2_objective": "pure_crb",
+    "ao_time_relaxation": 0.08,
+    "ao_power_relaxation": 0.04,
+    "ao_power_relaxation_near_time_bound": 0.04,
+    "ao_warm_start_power_backoff": 0.995,
+    "ao_eta": 0.0,
+    "ao_max_rounds": 240,
+    "scalar_max_iterations": 24,
+    "time_search_tolerance_s": 1e-07,
+    "power_search_tolerance_w": 1e-08,
+    "feasibility_tolerance": 1e-10,
+    "infeasible_penalty": 1e+80
+  },
+  "radar": {
+    "carrier_hz": 77000000000.0,
+    "bandwidth_hz": 200000000.0,
+    "tx_elements": 4,
+    "rx_elements": 4,
+    "rcs_m2": 10.0,
+    "system_loss_linear": 2.0,
+    "noise_temperature_k": 290.0,
+    "noise_figure_linear": 3.9810717055349722,
+    "crb_d_reference_m2": 1.0,
+    "crb_v_reference_m2ps2": 1.0,
+    "lfm_pulse_duration_s": 5e-06
+  },
+  "scenarios": [
+    {
+      "id": "scenario_1",
+      "label": "Scenario 1",
+      "distance_scale": 0.975,
+      "closing_speed_scale": 1.015,
+      "meaning": "Distance -2.5%; slower AO relaxation 0.08/0.06"
+    },
+    {
+      "id": "scenario_2",
+      "label": "Scenario 2",
+      "distance_scale": 1.025,
+      "closing_speed_scale": 1.0,
+      "meaning": "Distance +2.5%; slower AO relaxation 0.05/0.03"
+    },
+    {
+      "id": "scenario_3",
+      "label": "Scenario 3",
+      "distance_scale": 1.008,
+      "closing_speed_scale": 0.985,
+      "meaning": "Original mild perturbation"
+    },
+    {
+      "id": "scenario_4",
+      "label": "Scenario 4",
+      "distance_scale": 0.95,
+      "closing_speed_scale": 1.0,
+      "meaning": "Distance -5%; closing speed unchanged"
+    },
+    {
+      "id": "scenario_5",
+      "label": "Scenario 5",
+      "distance_scale": 1.05,
+      "closing_speed_scale": 1.0,
+      "meaning": "Distance +5%; closing speed unchanged"
+    }
+  ],
+  "scenario_solver_settings": {
+    "scenario_1": {
+      "initial_Ts_s": 0.039,
+      "initial_Ps_w": 0.021,
+      "time_relaxation": 0.08,
+      "power_relaxation": 0.06
+    },
+    "scenario_2": {
+      "initial_Ts_s": 0.032,
+      "initial_Ps_w": 0.021,
+      "time_relaxation": 0.05,
+      "power_relaxation": 0.03
+    },
+    "scenario_3": {
+      "initial_Ts_s": 0.035,
+      "initial_Ps_w": 0.021,
+      "time_relaxation": 0.08,
+      "power_relaxation": 0.04
+    },
+    "scenario_4": {
+      "initial_Ts_s": 0.034,
+      "initial_Ps_w": 0.021,
+      "time_relaxation": 0.06,
+      "power_relaxation": 0.03
+    },
+    "scenario_5": {
+      "initial_Ts_s": 0.033,
+      "initial_Ps_w": 0.021,
+      "time_relaxation": 0.04,
+      "power_relaxation": 0.02
+    }
+  },
+  "comparison": "Joint traffic and AO initialization/relaxation configuration sensitivity; not a traffic-only or algorithm-performance comparison.",
+  "snapshot_cycle": 400,
+  "snapshot_time_s": 40.0,
+  "source_hashes": {
+    "main.py": "67bf99100866fb21709521aeea3035516ca8cbdb5ce214d72a98de65aa2f8b32",
+    "model.py": "685e0022949dbc8a8b4da28e5a231cc9f3ad7d66e5691b948c7e3e787143ec77"
+  }
+}

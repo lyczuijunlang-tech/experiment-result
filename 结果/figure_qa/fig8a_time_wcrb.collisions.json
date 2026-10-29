@@ -1,12 +1,12 @@
 {
-  "pdf": "isac_reproduction_20261019\\图片\\fig8a_time_wcrb.pdf",
+  "pdf": "github_publish_20261019\\图片\\fig8a_time_wcrb.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
-  "visible_text_box_count": 19,
-  "text_trace_count": 24,
-  "stroke_path_count": 58,
-  "filled_region_count": 41,
+  "visible_text_box_count": 18,
+  "text_trace_count": 21,
+  "stroke_path_count": 90,
+  "filled_region_count": 68,
   "image_region_count": 0,
   "summary": {
     "fail": 0,

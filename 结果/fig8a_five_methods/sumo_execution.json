@@ -1,0 +1,28 @@
+{
+  "command": [
+    "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+    "-c",
+    "<workspace>\\results\\fig8a_five_methods\\source_snapshot\\sumo\\p2_fixed.sumocfg",
+    "--step-length",
+    "0.1",
+    "--end",
+    "42.1",
+    "--seed",
+    "17",
+    "--collision.action",
+    "warn",
+    "--time-to-teleport",
+    "-1",
+    "--no-step-log",
+    "true",
+    "--duration-log.disable",
+    "true",
+    "--log",
+    "<workspace>\\results\\fig8a_five_methods\\sumo.log"
+  ],
+  "version": [
+    22,
+    "SUMO 1.27.1"
+  ],
+  "PID": 40844
+}

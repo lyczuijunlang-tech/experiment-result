@@ -1,0 +1,8 @@
+{
+  "repository_url": "https://github.com/lyczuijunlang-tech/experiment-result",
+  "original_baseline_commit": "7b328b10c168776af41b71a51843e9844f9c6b7a",
+  "original_files": "source_snapshot/main.py, source_snapshot/model.py and source_snapshot/sumo/ are byte-identical original files, not edited in this extension",
+  "new_files": ["allocation_methods.py", "run_five_methods.py", "summarize_results.py", "plot_figure.py", "audit_results.py", "rerun.py"],
+  "historical_data_role": "reference_baseline CSV files are read only after the fresh simulation for post-hoc numerical comparison; never used to generate current states, policy decisions or plotted values",
+  "experiment_scope": "One actual original deterministic SUMO episode, 40 seconds, 401 resource cycles, five independently optimized system methods; no trajectory or solver-parameter tuning"
+}

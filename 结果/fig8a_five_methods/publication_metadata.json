@@ -1,0 +1,23 @@
+{
+  "numeric_CSV_or_images_changed": false,
+  "path_redactions": [
+    {
+      "file": "sumo.log",
+      "original_sha256": "60973b6589cdd3544f34355aab0c4a7f3edb7ee5ba6fd716da005b95934d5082",
+      "public_sha256": "c9a207d1eef924d5a0db555d1bfcd336b578dbf8698a1430900428b87027e132",
+      "change": "machine-specific metadata paths only"
+    },
+    {
+      "file": "sumo_execution.json",
+      "original_sha256": "3346374e3617d022607ab3cd19f3e759dbcce261fdba874c17b3ba4a1335181e",
+      "public_sha256": "4d90053bc71d05f6a1b0f0b16fdfcbf48954b69d74e01cf149e56ea3aea5374a",
+      "change": "machine-specific metadata paths only"
+    },
+    {
+      "file": "qa/collisions.json",
+      "original_sha256": "d02d5a7b46f94798d6b0eab14d24a692c93c21294c93482de2b5f1e4111d6cc5",
+      "public_sha256": "2477cd4083b38a8135a3286976ca683e396a4a6921fa800d26640fd41fb1eafd",
+      "change": "machine-specific metadata paths only"
+    }
+  ]
+}

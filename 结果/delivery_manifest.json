@@ -42,5 +42,6 @@
     "图片\\fig9_ttc_aware_target_wcrb.png": "53624dc61236c99bb4fdc19936911efae609a68eeb5bae36a9c9edd027eed643",
     "图片\\fig9_ttc_aware_target_wcrb.svg": "5734e8bba895d2740789660e27dc62a10313251e2212b9c528f8a20e60a7387d"
   },
-  "gate4_integration_allowed": false
+  "gate4_integration_allowed": false,
+  "scope_note": "Historical delivery hashes only; current artifacts use upload_manifest.json. Removed duplicate paths resolve through deduplication.json."
 }

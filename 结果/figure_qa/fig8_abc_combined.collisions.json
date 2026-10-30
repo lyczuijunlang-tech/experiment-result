@@ -1,10 +1,10 @@
 {
-  "pdf": "<workspace>\\github_publish_20261019\\图片\\fig8_abc_combined.pdf",
+  "pdf": "C:\\Users\\25706\\.codex\\.chatgpt-projects\\g-p-6a38ed82b5988191a383ca2e23411099\\github_publish_20261019\\图片\\fig8_abc_combined.pdf",
   "auditable": true,
   "verdict": "PASS",
   "page_count": 1,
   "visible_text_box_count": 63,
-  "text_trace_count": 72,
+  "text_trace_count": 75,
   "stroke_path_count": 282,
   "filled_region_count": 208,
   "image_region_count": 0,

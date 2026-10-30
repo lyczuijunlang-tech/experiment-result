@@ -21,3 +21,6 @@
 PyCharm安装`requirements.txt`后直接运行`run_fig7.py`即可重算。已冻结的`inputs/`与`source_snapshot/`足以独立运行，无需再次启动SUMO。运行只覆盖本目录输出，之前的五场景同设置对照和图8/9保持原样。
 
 导出5:4、600dpi PNG、PDF及SVG。所有241个轮次点均绘制；仅标记符号稀疏显示。字体和排版检查记录于`qa/`。
+
+
+当前正式图片统一保存于[fig7_multi_scenario_ao_convergence](../../图片/fig7_multi_scenario_ao_convergence.png)；源CSV仍在本实验目录。重复图片与冻结输入副本已按SHA-256去重，旧路径由[索引](../deduplication.json)解析。

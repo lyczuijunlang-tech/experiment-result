@@ -1,0 +1,49 @@
+{
+  "checked_utc": "2026-10-30T06:39:01.049453+00:00",
+  "change_scope": "Labels and storage paths only; not a new SUMO experiment",
+  "figures": {
+    "fig8a_five_methods": {
+      "x": "t(s)",
+      "y": "ωCRB",
+      "pdf_text_verified": true,
+      "manual_png_review": "PASS: final curves, labels, legends and all combined panels inspected",
+      "collision_audit": "PASS",
+      "min_font_pt": 7.0
+    },
+    "fig8b_five_methods": {
+      "x": "d(m)",
+      "y": "ωCRB",
+      "pdf_text_verified": true,
+      "manual_png_review": "PASS: final curves, labels, legends and all combined panels inspected",
+      "collision_audit": "PASS",
+      "min_font_pt": 7.0
+    },
+    "fig8c_five_methods": {
+      "x": "v(m/s)",
+      "y": "ωCRB",
+      "pdf_text_verified": true,
+      "manual_png_review": "PASS: final curves, labels, legends and all combined panels inspected",
+      "collision_audit": "PASS",
+      "min_font_pt": 7.0
+    },
+    "fig8_abc_combined": {
+      "x": [
+        "t(s)",
+        "d(m)",
+        "v(m/s)"
+      ],
+      "y": "ωCRB",
+      "pdf_text_verified": true,
+      "manual_png_review": "PASS: final curves, labels, legends and all combined panels inspected",
+      "collision_audit": "PASS",
+      "min_font_pt": 7.0
+    }
+  },
+  "all_original_csv_paths_verified": 116,
+  "all_original_csv_sha256_unchanged": true,
+  "remaining_identical_image_data_layout_groups": 0,
+  "removed_file_or_alias_count": 131,
+  "duplicate_bytes_removed": 25919963,
+  "frozen_input_materialization_checked": true,
+  "all_removed_paths_resolve": true
+}

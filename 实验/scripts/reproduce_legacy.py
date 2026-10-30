@@ -1,5 +1,19 @@
 """PyCharm entry point: immutable legacy SUMO and resource reproduction gates."""
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 import sys, os
 ROOT=Path(__file__).resolve().parents[1]
 if (ROOT/'.deps').exists(): sys.path.insert(0,str(ROOT/'.deps'))
@@ -15,11 +29,11 @@ RESULT=ROOT.parent/'结果'/'legacy_reproduction'
 SUMO=Path(os.environ.get('SUMO_HOME',r'C:\Program Files (x86)\Eclipse\Sumo'))
 
 def read(path):
-    with Path(path).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
+    with resolve_artifact(path).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
 def dump(path,value):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(value,ensure_ascii=False,indent=2,allow_nan=False),encoding='utf-8')
-def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def sha(path):return hashlib.sha256(resolve_artifact(path).read_bytes()).hexdigest()
 def gate0():
     import scipy,matplotlib
     versions={'python':sys.version,'python_executable':sys.executable,'numpy':np.__version__,

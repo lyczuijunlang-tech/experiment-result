@@ -1,12 +1,26 @@
 """Summarize only the newly completed five-policy experiment."""
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 import csv,json,math,shutil
 import numpy as np
 
 ROOT=Path(__file__).resolve().parent
 METHODS=('TTC-AO','RU-AO','DA-AO','TTC-PD','UD')
 def rows(path):
-    with Path(path).open(encoding='utf-8-sig',newline='') as file:return list(csv.DictReader(file))
+    with resolve_artifact(path).open(encoding='utf-8-sig',newline='') as file:return list(csv.DictReader(file))
 def save(name,data):(ROOT/name).write_text(json.dumps(data,ensure_ascii=False,indent=2,allow_nan=False),encoding='utf-8')
 def table(headers,items):
     return '\n'.join(['| '+' | '.join(headers)+' |','| '+' | '.join(['---']*len(headers))+' |',*['| '+' | '.join(str(x) for x in r)+' |' for r in items]])
@@ -58,7 +72,7 @@ def summarize():
     csvsave('pairwise_curve_checks.csv',pairwise)
     # Historical CSV access occurs only after actual SUMO has completed.
     historical=ROOT/'reference_baseline'
-    if not historical.exists():
+    if not resolve_artifact(historical/'cycles.csv').exists():
         previous=ROOT.parent/'fig7_fig8_fig9_rerun/raw_run'
         historical.mkdir()
         for name in ['cycles.csv','traffic.csv','fig8a_time_wcrb.csv']:

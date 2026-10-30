@@ -47,3 +47,6 @@ fig8b_five_methods和fig8c_five_methods分别有PNG/PDF/SVG及51行五方法CSV�
 | --- | --- | --- | --- |
 | fig8b_five_methods | 6.3 | PASS | PASS: actual final PNG inspected; all five raw curves and labels reviewed |
 | fig8c_five_methods | 6.3 | PASS | PASS: actual final PNG inspected; all five raw curves and labels reviewed |
+
+
+当前正式图片统一保存于[fig8b_five_methods](../../图片/fig8b_five_methods.png)、[fig8c_five_methods](../../图片/fig8c_five_methods.png)；源CSV仍在本实验目录。重复图片与冻结输入副本已按SHA-256去重，旧路径由[索引](../deduplication.json)解析。

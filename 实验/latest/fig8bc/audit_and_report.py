@@ -1,5 +1,19 @@
 """Audit all controlled states and policies; report without assuming a ranking."""
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 from dataclasses import asdict
 from datetime import datetime,timezone
 import argparse,csv,hashlib,json,math,sys
@@ -8,7 +22,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parent
 METHODS=['TTC-AO','RU-AO','DA-AO','TTC-PD','UD']
 def rows(name):
-    with (ROOT/name).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
+    with resolve_artifact(ROOT/name).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
 def load(name):return json.loads((ROOT/name).read_text(encoding='utf-8-sig'))
 def save(name,data):(ROOT/name).write_text(json.dumps(data,ensure_ascii=False,indent=2,allow_nan=False),encoding='utf-8')
 def write(name,data):
@@ -117,7 +131,7 @@ def main():
     assert source['summary']['ready']
     qa_summary=[]
     for name in ['fig8b_five_methods','fig8c_five_methods']:
-        font=fonts((ROOT/(name+'.pdf')).read_bytes(),minimum_pt=5);collision=collisions(ROOT/(name+'.pdf'))
+        font=fonts(resolve_artifact(ROOT/(name+'.pdf')).read_bytes(),minimum_pt=5);collision=collisions(resolve_artifact(ROOT/(name+'.pdf')))
         save('qa/'+name+'.fonts.json',font);save('qa/'+name+'.collisions.json',collision)
         assert font['auditable'] and font['below_minimum_count']==0 and collision['verdict']=='PASS'
         qa_summary.append({'figure':name,'minimum_font_pt':font['minimum_found_pt'],'collision':collision['verdict'],

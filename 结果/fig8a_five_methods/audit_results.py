@@ -1,5 +1,19 @@
 """Independent equations-to-CSV, immutable-source and final-PDF audit."""
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 from dataclasses import asdict
 from datetime import datetime,timezone
 import argparse,csv,json,hashlib,math,sys
@@ -9,7 +23,7 @@ ROOT=Path(__file__).resolve().parent
 METHODS=('TTC-AO','RU-AO','DA-AO','TTC-PD','UD')
 def load(name):return json.loads((ROOT/name).read_text(encoding='utf-8-sig'))
 def rows(name):
-    with (ROOT/name).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
+    with resolve_artifact(ROOT/name).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
 def save(name,obj):(ROOT/name).write_text(json.dumps(obj,ensure_ascii=False,indent=2,allow_nan=False),encoding='utf-8')
 
 def main():
@@ -108,8 +122,8 @@ def main():
     qa=ROOT/'qa';qa.mkdir(exist_ok=True)
     findings=validate_source((ROOT/'plot_figure.py').read_text(encoding='utf-8'),'python')
     source={'summary':summarize(findings,False),'findings':[asdict(f) for f in findings]}
-    fonts=font_audit((ROOT/'fig8a_five_methods.pdf').read_bytes(),minimum_pt=5)
-    collision=collision_audit(ROOT/'fig8a_five_methods.pdf')
+    fonts=font_audit(resolve_artifact(ROOT/'fig8a_five_methods.pdf').read_bytes(),minimum_pt=5)
+    collision=collision_audit(resolve_artifact(ROOT/'fig8a_five_methods.pdf'))
     save('qa/source_validation.json',source);save('qa/fonts.json',fonts);save('qa/collisions.json',collision)
     summary={'collision_verdict':collision['verdict'],'minimum_font_pt':fonts['minimum_found_pt'],
         'below_5pt':fonts['below_minimum_count'],'source_ready':source['summary']['ready'],

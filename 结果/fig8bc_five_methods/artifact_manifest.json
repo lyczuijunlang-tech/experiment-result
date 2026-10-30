@@ -1,9 +1,10 @@
 {
-  "note": "Raw numeric CSVs and images are exact source matches; metadata-only path redactions declared in publication_metadata.json",
+  "updated_utc": "2026-10-30T06:40:13.885352+00:00",
+  "note": "Current deduplicated package; source_artifact_manifest.json is historical. Labels/storage only changed; numeric data unchanged.",
   "sha256": {
     "allocation_methods.py": "44676e10260b30886ab1dfb7477486778913ee6cb9651a9de702b0eb3c0eb1d8",
     "ao_trace.csv": "0c3f98b0ff6ba935fceae182f3fc32a247aa595d4f138c4c4cc8103343a6562e",
-    "audit_and_report.py": "814966977406039b52d38e931447ba367d74670d108dda43369ce88ce3b30f8a",
+    "audit_and_report.py": "76b9b2920af6fddccc964299219df3adc31229bbca713fe6606e84c4e80daa37",
     "baseline_point_checks.csv": "3b42ba99274f98d8184944f120e1382672b95c5ed760272b752b73caad3465b7",
     "baseline_snapshot.json": "d47e2d5d55fab0f8bcfe85beaa8e0e1921972c3213facef72b2bc6880efbe561",
     "candidate_evaluations.csv": "ea1df34715a225db41c477753b784a2b4f7e6729bfde231cf5aecf9313d04db3",
@@ -13,21 +14,24 @@
     "controlled_states.csv": "cc80c82b4e4bbc2dd812c71640551a62867e9b72aca5d1bab219fbb548bcb6c3",
     "curve_crossings.csv": "a7e7a2e853b67d445403d178e867cd289530ea0c3fd6686e6326b7e4a72e7561",
     "fig8b_five_methods.csv": "f59ea234f818852b65089074a1b1dde75783fb91966f24a9af59a0e012320f33",
-    "fig8b_five_methods.pdf": "0f833afa63dd42081c2d605d128277d916f0520f0964123c9262756733987ab5",
-    "fig8b_five_methods.png": "95e489c70fd45d0ee80d0e42abf4be7b266641fac0dd43018b6538884b70155d",
-    "fig8b_five_methods.svg": "1e4254a6cc179777ea1848c20a4db78bc51bfb12fc7263ddac2623a59a317f23",
     "fig8c_five_methods.csv": "8559fe5cfeeea579704cbf3bf5a6a5e125f51c21757667fb298b9f40b5751338",
-    "fig8c_five_methods.pdf": "640542520c8d48a05ca2c13554391cc6b4f0db61e11d831df701337d6ddc0f45",
-    "fig8c_five_methods.png": "0dd1946e90f88a14c4a86d7ab386a24c85662881e28eaaab3e1a8f5c3de9fd50",
-    "fig8c_five_methods.svg": "994c2120c498a67acd0c8d4c8293a26d7db4f3c93c17ed2a734ff481f17c9b4d",
     "method_points.csv": "93e0c12c371575b6b22c5238841f16c9675a1db19e0cc7caaee533d6cba799ca",
     "method_statistics.csv": "a36da7af51683a67d435896e99dbb7823610d3abe48d20215f3d4ffa76e1ac03",
     "outer_precision_checks.csv": "a94658ff13c6de114f7df9add04e6642b4a3e6a17d8eb84698a6db430c458263",
-    "plot_sensitivity.py": "5196fa3c174803694144c426d521110532d38cdcacad070223f0f9111e357f7a",
+    "plot_sensitivity.py": "7230772f0c093eb5029ff4e11dd78f99f4803d19ca1249b3a6623bf8bb3c475e",
     "prepare_snapshot.py": "b9c0a435a0327a4b00e9b8778229a085def59172574b5414d6f100d7813d93eb",
     "progress.json": "4983b8e77856595182d9dc889f80ff46830f4a5afae5ac2363c155b71df1a439",
     "publication_metadata.json": "e3fa39fd67fd983354c791d476f3eb77b4267d820ce63eb8e525ebb3485cd197",
-    "README.md": "a77e60143655fd07154816082f925d839261d51627e6cb067389f9abbee793e3",
+    "qa/fig8b_five_methods.collisions.json": "02e4804a8d324f941c22f3eed3eebe9d8c6fdc777d4b20bbb0b5ed52344069da",
+    "qa/fig8b_five_methods.fonts.json": "548cb43a38f2c77a60789c787f7f1655020698bf3afa582c2436363c4c0c2b54",
+    "qa/fig8b_five_methods.layout.json": "9911f650902aa0079fdb919ed33edbfcdcc848e4a3c3631546a66e3d4c28d756",
+    "qa/fig8c_five_methods.collisions.json": "70e7ac16fca5914aae2739989e244c10404660e07bd081010da12c18e7abc00f",
+    "qa/fig8c_five_methods.fonts.json": "548cb43a38f2c77a60789c787f7f1655020698bf3afa582c2436363c4c0c2b54",
+    "qa/fig8c_five_methods.layout.json": "92dc0789461cb08dae3db4fe1db537fc0de43c1f4ac8cd819ed424161618663a",
+    "qa/source_preflight.json": "4ebcb67794683e49a6160086466cc6a209b23fcb44fd48c8f65ecbb47b94c920",
+    "qa/source_validation.json": "9e92a3b335fdbda0e0bdc38e44aa2a1fba1b67b05296cd0d29ba2c0e228acd09",
+    "qa/summary.json": "58f21047dab516e1fd74475932171fa4dbf567bb5f663a725eb9fb7896d18585",
+    "README.md": "91e51143bf8e313f66192d57a134e57d5a138885ce10b7e7513467f45aa9aad6",
     "requirements.txt": "206628563f8a72b97e07f9d672a4f12f21ceff76bb021f60b8c14553164d7f4e",
     "rerun.py": "699bfb1f99cde7fb5a46d7a44e28dca5ee0323bd66d52ebe625908dee7b5fe24",
     "run_config.json": "3e8fd9ef392f18011dd355efd67968196a153544b47052a61e261816dec52b4a",
@@ -35,22 +39,39 @@
     "run_sensitivity.py": "016bc352445f38293683d664517ef9fb866ff5ea0b107268cc9147e7174e4d1d",
     "scientific_audit.json": "73050854522ee34cfa85b30336b7265a39c03ccc12c7f2ebefd3ac21807225e1",
     "source_artifact_manifest.json": "a5e3eea877bf4037b53095784ff779c22a475fd04298e2a1a2a89ab6407f147f",
-    "target_allocations.csv": "b096eaa9952caa076776f08ae704af0650e07722ffb1efde276dfe8359da48ff",
-    "qa/fig8b_five_methods.collisions.json": "02e4804a8d324f941c22f3eed3eebe9d8c6fdc777d4b20bbb0b5ed52344069da",
-    "qa/fig8b_five_methods.fonts.json": "548cb43a38f2c77a60789c787f7f1655020698bf3afa582c2436363c4c0c2b54",
-    "qa/fig8b_five_methods.layout.json": "f9668e02664dbdb91295b5e1f19aef78048a706b6cdaf6a788f4ff17df429934",
-    "qa/fig8c_five_methods.collisions.json": "70e7ac16fca5914aae2739989e244c10404660e07bd081010da12c18e7abc00f",
-    "qa/fig8c_five_methods.fonts.json": "548cb43a38f2c77a60789c787f7f1655020698bf3afa582c2436363c4c0c2b54",
-    "qa/fig8c_five_methods.layout.json": "656b533c92b6a462eeebee05e2bdbc6dbe20f9edb37a182e008ef7126e67f0c7",
-    "qa/source_preflight.json": "4ebcb67794683e49a6160086466cc6a209b23fcb44fd48c8f65ecbb47b94c920",
-    "qa/source_validation.json": "9e92a3b335fdbda0e0bdc38e44aa2a1fba1b67b05296cd0d29ba2c0e228acd09",
-    "qa/summary.json": "58f21047dab516e1fd74475932171fa4dbf567bb5f663a725eb9fb7896d18585",
     "source_snapshot/main.py": "67bf99100866fb21709521aeea3035516ca8cbdb5ce214d72a98de65aa2f8b32",
     "source_snapshot/model.py": "685e0022949dbc8a8b4da28e5a231cc9f3ad7d66e5691b948c7e3e787143ec77",
     "source_snapshot/sumo/p2_fixed.edg.xml": "d9cd86c97e4f8db335cc3b6cb2f350621ac69943a6f1dd7bf8656bf1fa46ebb9",
     "source_snapshot/sumo/p2_fixed.net.xml": "6dbbfa04d6acffd61a2c6df751873fa657e1be805debbb0f8841ceaa7f9cd156",
     "source_snapshot/sumo/p2_fixed.nod.xml": "c2cd6b0612d71a737b642b2f15737acbb94975e752354196e77351f46d5489b1",
     "source_snapshot/sumo/p2_fixed.rou.xml": "00afb2b8bd5ef0eee1bac1d36734ce37ff7376f229153b857a04875bf663360b",
-    "source_snapshot/sumo/p2_fixed.sumocfg": "11cb6befa2715f1f2de7f4b7fbbd88c9f870aee781a1e5f14cfca5e00d792c8e"
+    "source_snapshot/sumo/p2_fixed.sumocfg": "11cb6befa2715f1f2de7f4b7fbbd88c9f870aee781a1e5f14cfca5e00d792c8e",
+    "target_allocations.csv": "b096eaa9952caa076776f08ae704af0650e07722ffb1efde276dfe8359da48ff"
+  },
+  "shared_artifacts": {
+    "fig8b_five_methods.pdf": {
+      "canonical_repo_path": "图片/fig8b_five_methods.pdf",
+      "current_sha256": "94c803af53d2c2aeefadfe827a93781db5ae950a76e9c8e75239ccb32a8ddc7b"
+    },
+    "fig8b_five_methods.png": {
+      "canonical_repo_path": "图片/fig8b_five_methods.png",
+      "current_sha256": "e0f122bef6e9d6050ad486ed45e65db47263ac3476ef7c7b4f652d6d00775b09"
+    },
+    "fig8b_five_methods.svg": {
+      "canonical_repo_path": "图片/fig8b_five_methods.svg",
+      "current_sha256": "c400039bfa531116a0605d0bc477d1c2785e1535f4dabed3e7b3ecfa38e8d7ca"
+    },
+    "fig8c_five_methods.pdf": {
+      "canonical_repo_path": "图片/fig8c_five_methods.pdf",
+      "current_sha256": "3646337e3c798816d2013e67ef69c22f8157eaff90d85a7edb589ea644d60718"
+    },
+    "fig8c_five_methods.png": {
+      "canonical_repo_path": "图片/fig8c_five_methods.png",
+      "current_sha256": "9d80c3bdcf8b5c20e11e3cab8203ba93760becc02d1b4eeb0a12ad8a64de723d"
+    },
+    "fig8c_five_methods.svg": {
+      "canonical_repo_path": "图片/fig8c_five_methods.svg",
+      "current_sha256": "0d9f20631fb5b60709c0c966bcc02a999a21e2ea64708b864c40545e4dad71e7"
+    }
   }
 }

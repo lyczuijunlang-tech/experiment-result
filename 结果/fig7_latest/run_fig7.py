@@ -4,6 +4,20 @@ Python/PyCharm entry point. No SUMO episode is rerun: this is the independent
 Figure 7 experiment on the recorded, actually executed SUMO snapshot.
 """
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 from dataclasses import asdict, fields, replace
 from datetime import datetime, timezone
 import contextlib
@@ -35,7 +49,7 @@ SCENARIOS = [
 ]
 
 def read_csv(path):
-    with Path(path).open(encoding='utf-8-sig', newline='') as file:
+    with resolve_artifact(path).open(encoding='utf-8-sig', newline='') as file:
         return list(csv.DictReader(file))
 
 def write_csv(path, rows):

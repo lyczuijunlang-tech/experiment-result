@@ -1,9 +1,23 @@
 """Build the Chinese experiment report from actual saved gate outputs."""
 from pathlib import Path
+
+# Resolve the single stored copy after repository artifact deduplication.
+import sys
+for _parent in Path(__file__).resolve().parents:
+    if (_parent/'实验/scripts/artifact_paths.py').exists():
+        sys.path.insert(0,str(_parent/'实验/scripts'));break
+try:
+    from artifact_paths import resolve_artifact, figure_output, materialize_directory
+except ModuleNotFoundError:
+    def resolve_artifact(path):return Path(path)
+    def figure_output(bundle,name):return Path(bundle)/name
+    def materialize_directory(source,destination):
+        import shutil
+        shutil.copytree(source,destination,dirs_exist_ok=True)
 import sys,csv,json,hashlib,shutil
 ROOT=Path(__file__).resolve().parents[1]
 def read(path):
-    with Path(path).open(encoding='utf-8-sig') as f:return list(csv.DictReader(f))
+    with resolve_artifact(path).open(encoding='utf-8-sig') as f:return list(csv.DictReader(f))
 def load(path):return json.loads(Path(path).read_text(encoding='utf-8'))
 def mdtable(headers,rows):
     def safe(x):return str(x).replace('|','/').replace('\n',' ')

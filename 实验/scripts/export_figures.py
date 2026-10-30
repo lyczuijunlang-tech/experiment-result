@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from artifact_paths import resolve_artifact
+from deduplicate_artifacts import deduplicate
 
 REPO=Path(__file__).resolve().parents[2]
 RESULT=REPO/'结果';OUT=REPO/'图片'
@@ -14,12 +16,12 @@ MARKERS=['o','s','^','D','v']
 METHODS=['TTC-AO','RU-AO','DA-AO','TTC-PD','UD']
 LABELS=['Proposed TTC-AO','Risk-Unaware AO','Distance-Aware AO','TTC-Proportional','Uniform-Dwell']
 def read(path):
-    with Path(path).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
+    with resolve_artifact(path).open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
 def jsave(path,value):Path(path).write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf-8')
 def write_csv(path,rows):
     with Path(path).open('w',encoding='utf-8-sig',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
-def copy(a,b):Path(b).parent.mkdir(parents=True,exist_ok=True);shutil.copy2(a,b)
+def copy(a,b):Path(b).parent.mkdir(parents=True,exist_ok=True);shutil.copy2(resolve_artifact(a),b)
 def alignment_gate(fig,path):
     helper=Path.home()/'.codex/skills/nature-figure/scripts'
     if helper.exists():
@@ -93,18 +95,16 @@ def main():
                 copy(OUT/(name+'.'+ext),RESULT/(name+'.'+ext));copy(OUT/(name+'.'+ext),traj/(name+'.'+ext))
     sensitivity_rows=[]
     if bc is not None:
-        for source,alias in [('fig8b_five_methods','fig8b_target_distance'),('fig8c_five_methods','fig8c_radial_velocity')]:
+        for source in ['fig8b_five_methods','fig8c_five_methods']:
             sensitivity_rows.append(read(bc/(source+'.csv')))
-            for parent in [OUT,RESULT]:
-                for ext in ['png','pdf','svg','csv']:
-                    copy(bc/(source+'.'+ext),parent/(alias+'.'+ext));copy(bc/(source+'.'+ext),parent/(source+'.'+ext))
-            copy(bc/'qa'/(source+'.layout.json'),qa/(alias+'.layout.json'))
-        for parent in [OUT,RESULT]:copy(bc/'method_points.csv',parent/'fig8bc_five_methods.csv')
-    for name,src,source_name,csv_name in [('fig7_multi_scenario_ao_convergence',seven,'fig7_convergence','fig7_multi_scenario_ao_trace'),
-            ('fig8a_time_wcrb',five,'fig8a_five_methods','fig8a_time_wcrb')]:
+            for ext in ['png','pdf','svg']:
+                src=resolve_artifact(bc/(source+'.'+ext));dst=OUT/(source+'.'+ext)
+                if src.resolve()!=dst.resolve():copy(src,dst)
+    for name,src,source_name in [('fig7_multi_scenario_ao_convergence',seven,'fig7_convergence'),
+            ('fig8a_five_methods',five,'fig8a_five_methods')]:
         for ext in ['png','pdf','svg']:
-            for parent in [OUT,RESULT]:copy(src/(source_name+'.'+ext),parent/(name+'.'+ext))
-        for parent in [OUT,RESULT]:copy(src/(source_name+'.csv'),parent/(csv_name+'.csv'))
+            source=resolve_artifact(src/(source_name+'.'+ext));destination=OUT/(name+'.'+ext)
+            if source.resolve()!=destination.resolve():copy(source,destination)
     # Composite is intentionally wide; independent source exports remain 5:4.
     fig,axes=plt.subplots(1,3,figsize=(18.75,5.6))
     fig.subplots_adjust(left=.055,right=.985,bottom=.16,top=.72,wspace=.27)
@@ -112,17 +112,17 @@ def main():
     for i,(m,label) in enumerate(zip(METHODS,LABELS)):
         axes[0].plot(t,[float(r[m]) for r in wide],color=COLORS[i],linestyle=STYLES[i],linewidth=1.6,
             marker=MARKERS[i],markersize=3,markevery=(i*5,40),markerfacecolor='white',label=label)
-    axis_style(axes[0],'Total TTC-Weighted CRB')
+    axis_style(axes[0],r'$\omega$CRB');axes[0].set_xlabel('t(s)')
     if bc is None:
         draw_targets(axes[1],distance,'distance_m');axis_style(axes[1],'Relative distance (m)')
         draw_targets(axes[2],velocity,'closing_speed_mps');axis_style(axes[2],'Radial closing speed (m/s)')
     else:
-        for ax,rows,xlabel in zip(axes[1:],sensitivity_rows,['Relative distance (m)','Radial closing speed (m/s)']):
+        for ax,rows,xlabel in zip(axes[1:],sensitivity_rows,['d(m)','v(m/s)']):
             x=[float(r['x_value']) for r in rows]
             for i,(m,label) in enumerate(zip(METHODS,LABELS)):
                 ax.plot(x,[float(r[m]) for r in rows],color=COLORS[i],linestyle=STYLES[i],linewidth=1.6,
                     marker=MARKERS[i],markersize=3,markevery=(i,5),markerfacecolor='white',label=label)
-            ax.set(xlim=(x[0],x[-1]),xlabel=xlabel,ylabel='Total TTC-Weighted CRB')
+            ax.set(xlim=(x[0],x[-1]),xlabel=xlabel,ylabel=r'$\omega$CRB')
             ax.grid(color='.88',linewidth=.45);ax.ticklabel_format(axis='y',style='sci',scilimits=(-3,-3),useMathText=True)
     for i,ax in enumerate(axes):
         ax.text(1.,1.035,f'({chr(97+i)})',transform=ax.transAxes,ha='right',va='bottom',fontsize=10)
@@ -133,20 +133,13 @@ def main():
         else:ax.legend(loc='lower center',bbox_to_anchor=(.5,1.19),ncol=4,frameon=False,fontsize=9)
     fig.canvas.draw();alignment_gate(fig,qa/'fig8_abc_combined.alignment.json')
     fig.savefig(OUT/'fig8_abc_combined.png',dpi=600);fig.savefig(OUT/'fig8_abc_combined.pdf');fig.savefig(OUT/'fig8_abc_combined.svg');plt.close(fig)
-    for ext in ['png','pdf','svg']:copy(OUT/('fig8_abc_combined.'+ext),RESULT/('fig8_abc_combined.'+ext))
-    aliases={'fig8a_five_methods':'fig8a_time_wcrb','fig8b_range_sensitivity':'fig8b_target_distance','fig8c_speed_sensitivity':'fig8c_radial_velocity'}
-    for old,new in aliases.items():
-        for parent in [OUT,RESULT]:
-            for ext in ['png','pdf','svg']:copy(parent/(new+'.'+ext),parent/(old+'.'+ext))
-        if (OUT/(new+'.layout.json')).exists():copy(OUT/(new+'.layout.json'),OUT/(old+'.layout.json'))
-    for parent in [OUT,RESULT]:copy(five/'fig8a_five_methods.csv',parent/'fig8a_five_methods.csv')
-    for name in ['fig7_multi_scenario_ao_convergence','fig8a_time_wcrb',*tables]:
-        candidate=qa/(name+'.layout.json')
-        if candidate.exists():copy(candidate,OUT/(name+'.layout.json'))
     (traj/'difference_report.md').write_text('# 当前时域图导出依据\n\n图8(b)(c)和图9直接由当前五方法实际SUMO运行的TTC-AO目标记录和车辆状态导出。距离、径向闭合速度及逐目标wCRB全部使用原始逐周期值，未平滑或插值。\n\n每目标401个时间点，k1至k4编号与五方法资源明细一致。图9四条贡献之和等于TTC-AO系统总wCRB。历史独立重运行轨迹与当前五方法轨迹逐点一致，详见当前实验包baseline_comparison.json及independent_formula_checks.json。\n',encoding='utf-8')
     if bc is not None:
         (traj/'difference_report.md').write_text('# 辅助原始轨迹与图9\n\n本目录距离、速度图保留真实SUMO时域状态作为辅助资料，不再是当前主图8(b)(c)。当前主图b/c为五方法受控距离/闭合速度扫描，详见../fig8bc_five_methods/README.md。图9仍为TTC-AO四目标贡献时域图。所有辅助数据由实际五方法时域实验的同一车辆状态和目标记录导出。\n',encoding='utf-8')
         release['figure8bc_bundle']=bc.relative_to(REPO).as_posix()
+    deduplicate()
+    release['date']='2026-10-30'
+    release['axis_labels']={'fig8a':{'x':'t(s)','y':'ωCRB'},'fig8b':{'x':'d(m)','y':'ωCRB'},'fig8c':{'x':'v(m/s)','y':'ωCRB'}}
     release['figure7_bundle']=seven.relative_to(REPO).as_posix();release['figure8a_bundle']=five.relative_to(REPO).as_posix()
     release['current_exports']={p.relative_to(REPO).as_posix():{'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in OUT.glob('*') if p.suffix in {'.png','.pdf','.svg','.csv'}}
     release['published_figures']=dict(release['current_exports'])

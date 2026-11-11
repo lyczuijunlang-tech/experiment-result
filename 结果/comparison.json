@@ -59,6 +59,43 @@
         "scenario_4": 0,
         "scenario_5": 0
       }
+    },
+    "current_measurement_wCRB": {
+      "mean": {
+        "scenario_1": 0.0006277243092180245,
+        "scenario_2": 0.000790615803094206,
+        "scenario_3": 0.0007248892100130787,
+        "scenario_4": 0.0005771357629171653,
+        "scenario_5": 0.0008795519326888059
+      },
+      "mean_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "end_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "start_to_end_percent": {
+        "scenario_1": -19.03726764618734,
+        "scenario_2": -35.40924291650419,
+        "scenario_3": -28.365145292548455,
+        "scenario_4": -30.76470367027415,
+        "scenario_5": -32.98444830756774
+      },
+      "increases_by_series": {
+        "scenario_1": 0,
+        "scenario_2": 0,
+        "scenario_3": 0,
+        "scenario_4": 0,
+        "scenario_5": 0
+      }
     }
   },
   "fig8a": {
@@ -121,6 +158,43 @@
         "TTC-PD": 127,
         "UD": 0
       }
+    },
+    "current_measurement_wCRB": {
+      "mean": {
+        "TTC-AO": 0.0013789744273974944,
+        "RU-AO": 0.0014891809326306185,
+        "DA-AO": 0.001526912722122582,
+        "TTC-PD": 0.0013519824062793945,
+        "UD": 0.0016637617688779944
+      },
+      "mean_rank_low_to_high": [
+        "TTC-PD",
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "start_to_end_percent": {
+        "TTC-AO": -70.23245089738049,
+        "RU-AO": -69.97752437391027,
+        "DA-AO": -70.79632962723407,
+        "TTC-PD": -69.01618492482413,
+        "UD": -73.55331013239694
+      },
+      "increases_by_series": {
+        "TTC-AO": 0,
+        "RU-AO": 0,
+        "DA-AO": 0,
+        "TTC-PD": 13,
+        "UD": 0
+      }
     }
   },
   "fig8b": {
@@ -176,6 +250,43 @@
         "TTC-PD",
         "UD"
       ],
+      "increases_by_series": {
+        "TTC-AO": 50,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 50,
+        "UD": 50
+      }
+    },
+    "current_measurement_wCRB": {
+      "mean": {
+        "TTC-AO": 0.0007072748186427075,
+        "RU-AO": 0.0007740219435804032,
+        "DA-AO": 0.0007845099461551968,
+        "TTC-PD": 0.0007322413243005041,
+        "UD": 0.0008221084690438152
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-PD",
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "start_to_end_percent": {
+        "TTC-AO": 161.47679241866882,
+        "RU-AO": 164.30891044710313,
+        "DA-AO": 177.6834102409793,
+        "TTC-PD": 107.09794755059798,
+        "UD": 221.26128216905786
+      },
       "increases_by_series": {
         "TTC-AO": 50,
         "RU-AO": 50,
@@ -245,6 +356,43 @@
         "TTC-PD": 50,
         "UD": 50
       }
+    },
+    "current_measurement_wCRB": {
+      "mean": {
+        "TTC-AO": 0.0006834336275328481,
+        "RU-AO": 0.0007492979652703858,
+        "DA-AO": 0.0007556403481132608,
+        "TTC-PD": 0.0006994961899934682,
+        "UD": 0.0007749661280034062
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "start_to_end_percent": {
+        "TTC-AO": -2.1405606263059096,
+        "RU-AO": 10.269247167658847,
+        "DA-AO": 11.315222406345459,
+        "TTC-PD": -2.1467586327739263,
+        "UD": 14.100192395510724
+      },
+      "increases_by_series": {
+        "TTC-AO": 11,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 0,
+        "UD": 50
+      }
     }
   },
   "fig9": {
@@ -299,6 +447,43 @@
         "k3": 125,
         "k4": 48
       }
+    },
+    "current_measurement_wCRB": {
+      "mean": {
+        "k1": 0.00026029857787532193,
+        "k2": 0.0007859684597105782,
+        "k3": 0.0001422136009526954,
+        "k4": 0.00019049378885889888
+      },
+      "mean_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "end_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "start_to_end_percent": {
+        "k1": -67.25682961973041,
+        "k2": -75.5310638274597,
+        "k3": -48.46266540563098,
+        "k4": -61.05211417729494
+      },
+      "increases_by_series": {
+        "k1": 22,
+        "k2": 1,
+        "k3": 125,
+        "k4": 33
+      }
     }
+  },
+  "audit": {
+    "allocation_diagnostics_match_preceding_release": true,
+    "independent_CRB_recalculation_rows": 32080,
+    "figure9_contributions_sum_to_figure8a": true
   }
 }

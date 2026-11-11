@@ -53,5 +53,9 @@
     "结果/process_noise_check.csv",
     "结果/replay_by_seed.csv",
     "结果/fig10a_total_wcrb.csv"
-  ]
+  ],
+  "figure_metrics": {
+    "fig7_to_fig9": "Original single-cycle weighted CRB from the measurement FIM",
+    "fig10a": "Weighted posterior CRB under the separately released feedback ablation"
+  }
 }

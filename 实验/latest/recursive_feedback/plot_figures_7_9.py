@@ -1,4 +1,4 @@
-"""Render Figures 7–9 from the posterior-bound replay."""
+"""Render the original measurement wCRB for the feedback replay."""
 import argparse
 import json
 from pathlib import Path
@@ -33,7 +33,7 @@ def summarize_replay(directory, config):
         assert np.isnan(times[t]) or times[t] == time
         times[t] = time
         contributions = np.array([float(row[k]) for k in TARGETS])
-        totals[s, t, m] = float(row["weighted_pcrb"])
+        totals[s, t, m] = float(row["weighted_wcrb"])
         assert abs(contributions.sum() - totals[s, t, m]) < 1e-12
         if m == 0:
             targets[s, t] = contributions
@@ -87,9 +87,9 @@ def main():
     seven = read_csv(directory / "fig7.csv")
     names = tuple(dict.fromkeys(row["scenario"] for row in seven))
     round_number = np.arange(241)
-    data7 = np.array([[float(row["weighted_pcrb"]) for row in seven if row["scenario"] == name]
+    data7 = np.array([[float(row["weighted_wcrb"]) for row in seven if row["scenario"] == name]
                       for name in names]).T
-    assert data7.shape == (241, 5) and np.all(np.diff(data7, axis=0) <= 1e-13)
+    assert data7.shape == (241, 5)
     fig8 = [(time, five, "t(s)", 40)]
     for name, xlabel in (("fig8b", "d(m)"), ("fig8c", "v(m/s)")):
         rows = read_csv(directory / f"{name}.csv")
@@ -102,12 +102,12 @@ def main():
                          "font.size": 10, "axes.labelsize": 11, "axes.linewidth": .8,
                          "pdf.fonttype": 42, "svg.fonttype": "none",
                          "xtick.direction": "in", "ytick.direction": "in"})
-    ylabel = r"$\omega$PCRB"
+    ylabel = r"$\omega$CRB"
     designs = [("fig7", round_number, data7, tuple(f"Scenario {i}" for i in range(1, 6)),
                 "Alternating-optimization iteration", ylabel, 24)]
     designs.extend((name, x, values, LABELS, axis, ylabel, stride)
                    for name, (x, values, axis, stride) in zip(("fig8a", "fig8b", "fig8c"), fig8))
-    designs.append(("fig9", time, contributions, TARGETS, "t(s)", r"Target $\omega$PCRB", 40))
+    designs.append(("fig9", time, contributions, TARGETS, "t(s)", ylabel, 40))
     for name, x, values, labels, xlabel, y_axis, stride in designs:
         fig, ax = plt.subplots(figsize=(6.25, 5))
         plot_lines(ax, x, values, labels, xlabel, y_axis, stride)

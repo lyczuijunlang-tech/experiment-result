@@ -1,4 +1,4 @@
-"""Recompute Figures 7–9 with history-dependent posterior bounds."""
+"""Replay feedback-based allocation and score it with the original weighted CRB."""
 import argparse
 from concurrent.futures import ProcessPoolExecutor
 import csv
@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 from run_feedback import (
-    ACCEL_PSD, INPUTS, REPO, CurrentState, evaluate_candidate, extract_snapshots, load_traffic,
+    ACCEL_PSD, INPUTS, REPO, CurrentState, evaluate_candidate, extract_snapshots, information, load_traffic,
     model, optimization_weights, original, track, weighted_bound,
 )
 
@@ -29,6 +29,13 @@ def write_csv(path, rows):
         writer.writerows(rows)
 
 
+def instantaneous_contributions(diagonal_information, weights, references):
+    """Original normalized measurement CRB: diag(J_LFM^-1), with no tracking prior."""
+    if not np.isfinite(diagonal_information).all() or np.any(diagonal_information <= 0):
+        raise ValueError("Measurement Fisher information must be finite and positive")
+    return weights * ((1 / diagonal_information) @ references)
+
+
 def replay_seed(seed, replay, initialization, radar, system, references):
     discovery, warmup_count = initialization
     results = []
@@ -42,7 +49,7 @@ def replay_seed(seed, replay, initialization, radar, system, references):
         first = rows[0]
         assert len(rows) == 4 and abs(sum(row["truth_weight"] for row in rows) - 4) < 1e-12
         assert first["optimized_objective"] <= first["initial_objective"] * (1 + 1e-10)
-        contributions = []
+        posterior_contributions = []
         for row in rows:
             key = (method, row["target"])
             if cycle:
@@ -50,13 +57,20 @@ def replay_seed(seed, replay, initialization, radar, system, references):
                 for suffix in ("dd", "dv", "vv"):
                     assert row[f"previous_post_{suffix}"] == previous[key][f"post_{suffix}"]
             previous[key] = row
-            contributions.append(row["truth_weight"] * (row["post_dd"] * references[0] +
-                                                         row["post_vv"] * references[1]))
+            posterior_contributions.append(row["truth_weight"] * (row["post_dd"] * references[0] +
+                                                                   row["post_vv"] * references[1]))
         if first["time_s"] < 0:
             continue
+        measurement_info = np.array([[r["realized_Jdd"], r["realized_Jvv"]] for r in rows])
+        weights = np.array([r["truth_weight"] for r in rows])
+        contributions = instantaneous_contributions(measurement_info, weights, references)
         result = dict(seed=seed, cycle=cycle - warmup_count, time_s=first["time_s"], method=method,
-                      weighted_pcrb=sum(contributions), Ts_s=first["Ts_s"], Ps_w=first["Ps_w"])
+                      weighted_wcrb=float(contributions.sum()), weighted_pcrb=sum(posterior_contributions),
+                      Ts_s=first["Ts_s"], Ps_w=first["Ps_w"])
         result.update({f"k{k}": v for k, v in enumerate(contributions, 1)})
+        for k, (row, (jdd, jvv)) in enumerate(zip(rows, measurement_info), 1):
+            result.update({f"omega_k{k}": row["truth_weight"], f"dwell_k{k}_s": row["dwell_s"],
+                           f"Jdd_k{k}": jdd, f"Jvv_k{k}": jvv})
         results.append(result)
         if cycle == len(replay) - 1 and method == POLICIES[0]:
             frozen = [[[r["prior_dd"], r["prior_dv"]], [r["prior_dv"], r["prior_vv"]]] for r in rows]
@@ -103,7 +117,10 @@ def convergence(targets, radar, system, prior_info, references):
                 assert new["bound"] <= time_update["bound"] * (1 + 1e-10)
                 assert time_update["bound"] <= best["bound"] * (1 + 1e-10)
                 best = new
-            rows.append(dict(scenario=setting["scenario"], iteration=iteration, weighted_pcrb=best["bound"],
+            contributions = instantaneous_contributions(information(best["dwell"], ps, coefficients),
+                                                         weights, references)
+            rows.append(dict(scenario=setting["scenario"], iteration=iteration,
+                             weighted_wcrb=float(contributions.sum()), weighted_pcrb=best["bound"],
                              Ts_s=ts, Ps_w=ps, distance_scale=setting["distance_scale"],
                              closing_speed_scale=setting["closing_speed_scale"],
                              time_relaxation=setting["time_relaxation"],
@@ -130,7 +147,10 @@ def sensitivity(targets, radar, system, prior_info, references, scan, variable):
             direct = method if method in ("TTC-PD", "UD") else None
             best = evaluate_candidate(ts, ps, system, coefficients, prior_info, weights,
                                       references, True, direct=direct)
-            row[method] = weighted_bound(best["post"], physical_weights, references)
+            contributions = instantaneous_contributions(information(best["dwell"], ps, coefficients),
+                                                         physical_weights, references)
+            row[method] = float(contributions.sum())
+            row[f"{method}_wPCRB"] = weighted_bound(best["post"], physical_weights, references)
         rows.append(row)
     return rows
 
@@ -176,6 +196,11 @@ def main():
         "initial_discovery_time_s": warmup[0][0],
         "unplotted_tracking_warmup_updates": len(warmup) - 1,
         "acceleration_psd_m2_s3": ACCEL_PSD,
+        "plotted_metric": "omegaCRB = sum_k omega_k * (1/(Jdd_k*d_ref) + 1/(Jvv_k*v_ref))",
+        "evaluation_weights": "Common physical TTC weights, normalized to sum K",
+        "allocation_metric": "Original recursive posterior CRB, used only in allocation and diagnostics",
+        "time_domain_fim": "Current simulated measurement FIM with actual range and actual gain of the scheduled beams",
+        "controlled_scan_fim": "Measurement FIM at each prescribed target state with matched beams",
     }, indent=2), encoding="utf-8")
     write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
     write_csv(args.output / "fig8b.csv", sensitivity(targets, radar, fixed_system, prior_info,
@@ -193,9 +218,10 @@ def main():
             scan, "closing_speed_scales",
         )
         for method in POLICIES:
+            diagnostic = f"{method}_wPCRB"
             noise_checks.append(dict(final_step_acceleration_psd_m2_s3=density, method=method,
-                                     low_speed_wPCRB=rows[0][method], high_speed_wPCRB=rows[-1][method],
-                                     change_percent=100 * (rows[-1][method] / rows[0][method] - 1)))
+                                     low_speed_wPCRB=rows[0][diagnostic], high_speed_wPCRB=rows[-1][diagnostic],
+                                     change_percent=100 * (rows[-1][diagnostic] / rows[0][diagnostic] - 1)))
     write_csv(args.output / "process_noise_check.csv", noise_checks)
 
 

@@ -752,5 +752,10 @@
   "fixed_communication_snr_linear": 10.801967749739477,
   "initial_discovery_time_s": -2.0,
   "unplotted_tracking_warmup_updates": 19,
-  "acceleration_psd_m2_s3": 0.02
+  "acceleration_psd_m2_s3": 0.02,
+  "plotted_metric": "omegaCRB = sum_k omega_k * (1/(Jdd_k*d_ref) + 1/(Jvv_k*v_ref))",
+  "evaluation_weights": "Common physical TTC weights, normalized to sum K",
+  "allocation_metric": "Original recursive posterior CRB, used only in allocation and diagnostics",
+  "time_domain_fim": "Current simulated measurement FIM with actual range and actual gain of the scheduled beams",
+  "controlled_scan_fim": "Measurement FIM at each prescribed target state with matched beams"
 }

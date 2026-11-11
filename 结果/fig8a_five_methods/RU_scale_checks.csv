@@ -1,6 +1,0 @@
-﻿cycle_index,time_s,max_dwell_difference_s,Ts_difference_s,Ps_difference_w,common_wcrb_difference,ao_round_difference
-0,0.0,0.0,0.0,0.0,0.0,0
-100,10.0,0.0,0.0,0.0,0.0,0
-200,20.0,0.0,0.0,0.0,0.0,0
-300,30.0,0.0,0.0,0.0,0.0,0
-400,40.0,0.0,0.0,0.0,0.0,0

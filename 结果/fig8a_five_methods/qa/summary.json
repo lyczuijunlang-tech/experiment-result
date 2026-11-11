@@ -1,9 +1,0 @@
-{
-  "collision_verdict": "PASS",
-  "minimum_font_pt": 6.3,
-  "below_5pt": 0,
-  "source_ready": true,
-  "visual_review": "PASS: actual final PNG inspected; all five raw curves, axes and external legend reviewed",
-  "warning_review": "PNG/PDF/SVG requested, no TIFF requirement; 158.8mm follows established 5:4 layout.",
-  "panel_alignment": "not applicable: single panel"
-}

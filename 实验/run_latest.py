@@ -1,21 +1,25 @@
-"""Run current experiments into a new directory and update published figures."""
-from pathlib import Path
+"""Reproduce the current Figures 7–9 in a new output directory."""
+import argparse
 from datetime import datetime
-import argparse,shutil,subprocess,sys
-CODE=Path(__file__).resolve().parent
-REPO=CODE.parent
+from pathlib import Path
+import subprocess
+import sys
+
+CODE = Path(__file__).resolve().parent
+SCRIPTS = CODE / "latest/recursive_feedback"
+
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--sumo-home',type=Path,default=Path(r'C:\Program Files (x86)\Eclipse\Sumo'))
-    args=parser.parse_args()
-    dest=REPO/'结果/latest_runs'/datetime.now().strftime('%Y%m%d_%H%M%S');dest.mkdir(parents=True)
-    for name in ['fig7','fig8a','fig8bc']:shutil.copytree(CODE/'latest'/name,dest/name,ignore=shutil.ignore_patterns('__pycache__'))
-    subprocess.run([sys.executable,'-X','utf8',str(dest/'fig7/run_fig7.py')],check=True)
-    subprocess.run([sys.executable,'-X','utf8',str(dest/'fig8a/run_five_methods.py'),'--sumo-home',str(args.sumo_home.resolve())],check=True)
-    subprocess.run([sys.executable,'-X','utf8',str(dest/'fig8bc/prepare_snapshot.py'),'--fig8a-dir',str(dest/'fig8a')],check=True)
-    subprocess.run([sys.executable,'-X','utf8',str(dest/'fig8bc/run_sensitivity.py')],check=True)
-    subprocess.run([sys.executable,'-X','utf8',str(CODE/'scripts/export_figures.py'),'--fig7-dir',str(dest/'fig7'),'--fig8-dir',str(dest/'fig8a'),'--fig8bc-dir',str(dest/'fig8bc')],check=True)
-    print('New actual run:',dest)
+    parser = argparse.ArgumentParser(description=__doc__)
+    default = CODE.parent / "结果" / datetime.now().strftime("feedback_%Y%m%d_%H%M%S")
+    parser.add_argument("--output", type=Path, default=default)
+    parser.add_argument("--workers", type=int, default=4)
+    args = parser.parse_args()
+    subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "run_figures_7_9.py"),
+                    "--output", str(args.output), "--workers", str(args.workers)], check=True)
+    subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "plot_figures_7_9.py"),
+                    str(args.output)], check=True)
 
-if __name__=='__main__':main()
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,0 @@
-Start: 2026-10-29T10:48:20.004670+00:00 ; independent five-scenario AO, original solver and EFIM
-Scenario 1 Distance -2.5%; slower AO relaxation 0.08/0.06 final wCRB= 0.0006038390499715023 relative change= 0.0 P1 calls= 2066 sustained stability round= 76
-Scenario 2 Distance +2.5%; slower AO relaxation 0.05/0.03 final wCRB= 0.0007418886408392688 relative change= 1.0125980777545188e-10 P1 calls= 2164 sustained stability round= 128
-Scenario 3 Original mild perturbation final wCRB= 0.0006904946336089106 relative change= 5.8096730125616655e-15 P1 calls= 2132 sustained stability round= 88
-Scenario 4 Distance -5%; closing speed unchanged final wCRB= 0.0005452895424778227 relative change= 8.981175745310058e-12 P1 calls= 2164 sustained stability round= 115
-Scenario 5 Distance +5%; closing speed unchanged final wCRB= 0.0008146315823415628 relative change= 1.0820407581200204e-08 P1 calls= 2164 sustained stability round= 166

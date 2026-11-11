@@ -1,151 +1,51 @@
 {
-  "date": "2026-10-30",
-  "timezone": "Asia/Shanghai",
-  "figure7": "Five scenarios, 240 actual AO rounds; blue/orange relaxed as latest request",
-  "figure8a": "Five independent P2/P1 strategies, common physical TTC-weighted evaluation, one original nominal SUMO episode",
-  "figure8b": "Five-method total TTC-weighted CRB versus controlled selected-target distance",
-  "figure8c": "Five-method total TTC-weighted CRB versus controlled selected-target radial closing speed",
-  "figure9": "k1-k4 TTC-aware target wCRB versus time",
-  "figure7_bundle": "结果/fig7_latest",
-  "figure8a_bundle": "结果/fig8a_five_methods",
-  "nominal_plot_bundle": "结果/trajectory_figures",
-  "published_figures": {
-    "图片/fig7_multi_scenario_ao_convergence.pdf": {
-      "sha256": "3ec918bad24e0a1d3095513cb00a1752d910349656110a9792f295296ebf5c84"
-    },
-    "图片/fig7_multi_scenario_ao_convergence.png": {
-      "sha256": "69bdeda8297a605d225a8171147429be7c1f1effee830b63c573ad213f822da3"
-    },
-    "图片/fig7_multi_scenario_ao_convergence.svg": {
-      "sha256": "e90a357e809ab1ff887776ddc208d2b924d3f40007e4d0f2ee5d9881ad1524a1"
-    },
-    "图片/fig8_abc_combined.pdf": {
-      "sha256": "90137a1283f4fd7b5ae98db95147ff2481a68cfaf44d552049d1f42fadfeb7b8"
-    },
-    "图片/fig8_abc_combined.png": {
-      "sha256": "027698f2d98aed5447de4a2324e933eb42b4bb39889d39ba0c89658f459d5785"
-    },
-    "图片/fig8_abc_combined.svg": {
-      "sha256": "7a970ff1d57467a2144052473a053349cd98952319c5c27127b8cd981e9a154d"
-    },
-    "图片/fig8a_five_methods.pdf": {
-      "sha256": "5230102698466f4ad8a341790dbb3446d930da7782324018a8d9043350bb44f8"
-    },
-    "图片/fig8a_five_methods.png": {
-      "sha256": "07dfa11df9bbdc04b90b710610840f3fd35c5dc08a0b80e4a43dcfebadc69b7c"
-    },
-    "图片/fig8a_five_methods.svg": {
-      "sha256": "b5bccd858c3a67a94c83e4ece5eda8053951007b63e93276dd99212f9ba7f837"
-    },
-    "图片/fig8b_five_methods.pdf": {
-      "sha256": "94c803af53d2c2aeefadfe827a93781db5ae950a76e9c8e75239ccb32a8ddc7b"
-    },
-    "图片/fig8b_five_methods.png": {
-      "sha256": "e0f122bef6e9d6050ad486ed45e65db47263ac3476ef7c7b4f652d6d00775b09"
-    },
-    "图片/fig8b_five_methods.svg": {
-      "sha256": "c400039bfa531116a0605d0bc477d1c2785e1535f4dabed3e7b3ecfa38e8d7ca"
-    },
-    "图片/fig8c_five_methods.pdf": {
-      "sha256": "3646337e3c798816d2013e67ef69c22f8157eaff90d85a7edb589ea644d60718"
-    },
-    "图片/fig8c_five_methods.png": {
-      "sha256": "9d80c3bdcf8b5c20e11e3cab8203ba93760becc02d1b4eeb0a12ad8a64de723d"
-    },
-    "图片/fig8c_five_methods.svg": {
-      "sha256": "0d9f20631fb5b60709c0c966bcc02a999a21e2ea64708b864c40545e4dad71e7"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.pdf": {
-      "sha256": "33910080c1b28cfde7176675ea99c3dd163e165a2863e46bac8fdffaeb92fc90"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.png": {
-      "sha256": "919c77f0cca9f4a795b9ef1b0a7cd4747ccdf982d39bf7cccbfc46177f2f601d"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.svg": {
-      "sha256": "2e372fcf4f305262ea6a68b3fe5dc6c4d52b59cc8c1282b0c5d1cca3933eb455"
-    }
+  "date": "2026-11-11",
+  "method": "Recursive posterior CRB with feedback",
+  "source": "Recorded SUMO episode, 2 s initialization and tracking warm-up, 16 measurement noise seeds",
+  "experiment": "实验/latest/recursive_feedback",
+  "previous_release": "28829d1ce9e8d673878710a8e2733cbb98150cc2",
+  "figure_files": {
+    "fig7": [
+      "图片/fig7_multi_scenario_ao_convergence.png",
+      "图片/fig7_multi_scenario_ao_convergence.pdf",
+      "图片/fig7_multi_scenario_ao_convergence.svg"
+    ],
+    "fig8a": [
+      "图片/fig8a_five_methods.png",
+      "图片/fig8a_five_methods.pdf",
+      "图片/fig8a_five_methods.svg"
+    ],
+    "fig8b": [
+      "图片/fig8b_five_methods.png",
+      "图片/fig8b_five_methods.pdf",
+      "图片/fig8b_five_methods.svg"
+    ],
+    "fig8c": [
+      "图片/fig8c_five_methods.png",
+      "图片/fig8c_five_methods.pdf",
+      "图片/fig8c_five_methods.svg"
+    ],
+    "fig8_combined": [
+      "图片/fig8_abc_combined.png",
+      "图片/fig8_abc_combined.pdf",
+      "图片/fig8_abc_combined.svg"
+    ],
+    "fig9": [
+      "图片/fig9_ttc_aware_target_wcrb.png",
+      "图片/fig9_ttc_aware_target_wcrb.pdf",
+      "图片/fig9_ttc_aware_target_wcrb.svg"
+    ]
   },
-  "original_fim_and_crb_unchanged": true,
-  "ML_and_DNN_modules": "historical independent studies retained, not connected to the new resource allocation comparison",
-  "current_exports": {
-    "图片/fig7_multi_scenario_ao_convergence.pdf": {
-      "sha256": "3ec918bad24e0a1d3095513cb00a1752d910349656110a9792f295296ebf5c84"
-    },
-    "图片/fig7_multi_scenario_ao_convergence.png": {
-      "sha256": "69bdeda8297a605d225a8171147429be7c1f1effee830b63c573ad213f822da3"
-    },
-    "图片/fig7_multi_scenario_ao_convergence.svg": {
-      "sha256": "e90a357e809ab1ff887776ddc208d2b924d3f40007e4d0f2ee5d9881ad1524a1"
-    },
-    "图片/fig8_abc_combined.pdf": {
-      "sha256": "90137a1283f4fd7b5ae98db95147ff2481a68cfaf44d552049d1f42fadfeb7b8"
-    },
-    "图片/fig8_abc_combined.png": {
-      "sha256": "027698f2d98aed5447de4a2324e933eb42b4bb39889d39ba0c89658f459d5785"
-    },
-    "图片/fig8_abc_combined.svg": {
-      "sha256": "7a970ff1d57467a2144052473a053349cd98952319c5c27127b8cd981e9a154d"
-    },
-    "图片/fig8a_five_methods.pdf": {
-      "sha256": "5230102698466f4ad8a341790dbb3446d930da7782324018a8d9043350bb44f8"
-    },
-    "图片/fig8a_five_methods.png": {
-      "sha256": "07dfa11df9bbdc04b90b710610840f3fd35c5dc08a0b80e4a43dcfebadc69b7c"
-    },
-    "图片/fig8a_five_methods.svg": {
-      "sha256": "b5bccd858c3a67a94c83e4ece5eda8053951007b63e93276dd99212f9ba7f837"
-    },
-    "图片/fig8b_five_methods.pdf": {
-      "sha256": "94c803af53d2c2aeefadfe827a93781db5ae950a76e9c8e75239ccb32a8ddc7b"
-    },
-    "图片/fig8b_five_methods.png": {
-      "sha256": "e0f122bef6e9d6050ad486ed45e65db47263ac3476ef7c7b4f652d6d00775b09"
-    },
-    "图片/fig8b_five_methods.svg": {
-      "sha256": "c400039bfa531116a0605d0bc477d1c2785e1535f4dabed3e7b3ecfa38e8d7ca"
-    },
-    "图片/fig8c_five_methods.pdf": {
-      "sha256": "3646337e3c798816d2013e67ef69c22f8157eaff90d85a7edb589ea644d60718"
-    },
-    "图片/fig8c_five_methods.png": {
-      "sha256": "9d80c3bdcf8b5c20e11e3cab8203ba93760becc02d1b4eeb0a12ad8a64de723d"
-    },
-    "图片/fig8c_five_methods.svg": {
-      "sha256": "0d9f20631fb5b60709c0c966bcc02a999a21e2ea64708b864c40545e4dad71e7"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.pdf": {
-      "sha256": "33910080c1b28cfde7176675ea99c3dd163e165a2863e46bac8fdffaeb92fc90"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.png": {
-      "sha256": "919c77f0cca9f4a795b9ef1b0a7cd4747ccdf982d39bf7cccbfc46177f2f601d"
-    },
-    "图片/fig9_ttc_aware_target_wcrb.svg": {
-      "sha256": "2e372fcf4f305262ea6a68b3fe5dc6c4d52b59cc8c1282b0c5d1cca3933eb455"
-    }
-  },
-  "current_export_source": "结果/fig8a_five_methods",
-  "figure8bc_bundle": "结果/fig8bc_five_methods",
-  "figure8bc_scope": "Two 51-point controlled static-state sweeps at actual SUMO reference t=40s; five independent cold-start P2 solves per point, not additional SUMO trajectories",
-  "axis_labels": {
-    "fig8a": {
-      "x": "t(s)",
-      "y": "ωCRB"
-    },
-    "fig8b": {
-      "x": "d(m)",
-      "y": "ωCRB"
-    },
-    "fig8c": {
-      "x": "v(m/s)",
-      "y": "ωCRB"
-    }
-  },
-  "deduplication_index": "结果/deduplication.json",
-  "figure_source_data": {
-    "figure7": "结果/fig7_latest/fig7_convergence.csv",
-    "figure8a": "结果/fig8a_five_methods/fig8a_five_methods.csv",
-    "figure8b": "结果/fig8bc_five_methods/fig8b_five_methods.csv",
-    "figure8c": "结果/fig8bc_five_methods/fig8c_five_methods.csv",
-    "figure9": "结果/trajectory_figures/fig9_ttc_aware_target_wcrb.csv"
-  }
+  "data_files": [
+    "结果/comparison.json",
+    "结果/design.json",
+    "结果/fig7.csv",
+    "结果/fig8_combined.alignment.json",
+    "结果/fig8a.csv",
+    "结果/fig8b.csv",
+    "结果/fig8c.csv",
+    "结果/fig9.csv",
+    "结果/process_noise_check.csv",
+    "结果/replay_by_seed.csv"
+  ]
 }

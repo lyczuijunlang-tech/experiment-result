@@ -1,0 +1,304 @@
+{
+  "fig7": {
+    "original": {
+      "start_to_end_percent": {
+        "scenario_1": -19.03285564506327,
+        "scenario_2": -35.29696009419011,
+        "scenario_3": -28.442277188973886,
+        "scenario_4": -30.76117044954838,
+        "scenario_5": -33.08044306946625
+      },
+      "mean_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "end_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "increases_by_series": {
+        "scenario_1": 0,
+        "scenario_2": 0,
+        "scenario_3": 0,
+        "scenario_4": 0,
+        "scenario_5": 0
+      }
+    },
+    "posterior_feedback": {
+      "start_to_end_percent": {
+        "scenario_1": -14.469732186317186,
+        "scenario_2": -38.451321464204746,
+        "scenario_3": -27.64955608716112,
+        "scenario_4": -28.48105221694748,
+        "scenario_5": -36.1008429342041
+      },
+      "mean_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "end_rank_low_to_high": [
+        "scenario_4",
+        "scenario_1",
+        "scenario_3",
+        "scenario_2",
+        "scenario_5"
+      ],
+      "increases_by_series": {
+        "scenario_1": 0,
+        "scenario_2": 0,
+        "scenario_3": 0,
+        "scenario_4": 0,
+        "scenario_5": 0
+      }
+    }
+  },
+  "fig8a": {
+    "original": {
+      "start_to_end_percent": {
+        "TTC-AO": -69.35057149665013,
+        "RU-AO": -68.14517005103473,
+        "DA-AO": -69.08012053677062,
+        "TTC-PD": -69.11351487503003,
+        "UD": -73.55618377594422
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 0,
+        "RU-AO": 0,
+        "DA-AO": 0,
+        "TTC-PD": 0,
+        "UD": 0
+      }
+    },
+    "posterior_feedback": {
+      "start_to_end_percent": {
+        "TTC-AO": -61.18268599759957,
+        "RU-AO": -61.006805209315075,
+        "DA-AO": -62.33727467047887,
+        "TTC-PD": -53.678155453548605,
+        "UD": -67.79476694552409
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "TTC-PD",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD",
+        "TTC-PD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 0,
+        "RU-AO": 0,
+        "DA-AO": 0,
+        "TTC-PD": 127,
+        "UD": 0
+      }
+    }
+  },
+  "fig8b": {
+    "original": {
+      "start_to_end_percent": {
+        "TTC-AO": 146.88423585865155,
+        "RU-AO": 132.10128363381278,
+        "DA-AO": 148.29163464835307,
+        "TTC-PD": 107.09794755059927,
+        "UD": 221.26128216905903
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 50,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 50,
+        "UD": 50
+      }
+    },
+    "posterior_feedback": {
+      "start_to_end_percent": {
+        "TTC-AO": 39.90726145743331,
+        "RU-AO": 36.272486818723195,
+        "DA-AO": 42.527148550957165,
+        "TTC-PD": 8.250256014051761,
+        "UD": 68.80240382263302
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD",
+        "TTC-PD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "TTC-PD",
+        "UD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 50,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 50,
+        "UD": 50
+      }
+    }
+  },
+  "fig8c": {
+    "original": {
+      "start_to_end_percent": {
+        "TTC-AO": -5.213748049706046,
+        "RU-AO": 7.158773709342303,
+        "DA-AO": 8.879282849694036,
+        "TTC-PD": -2.1467586327740484,
+        "UD": 14.100192395510703
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "TTC-PD",
+        "RU-AO",
+        "DA-AO",
+        "UD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 4,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 0,
+        "UD": 50
+      }
+    },
+    "posterior_feedback": {
+      "start_to_end_percent": {
+        "TTC-AO": -4.48632111197198,
+        "RU-AO": 2.638877452906052,
+        "DA-AO": 3.7252707161537613,
+        "TTC-PD": 17.35824423904888,
+        "UD": 6.71806928778953
+      },
+      "mean_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD",
+        "TTC-PD"
+      ],
+      "end_rank_low_to_high": [
+        "TTC-AO",
+        "RU-AO",
+        "DA-AO",
+        "UD",
+        "TTC-PD"
+      ],
+      "increases_by_series": {
+        "TTC-AO": 0,
+        "RU-AO": 50,
+        "DA-AO": 50,
+        "TTC-PD": 50,
+        "UD": 50
+      }
+    }
+  },
+  "fig9": {
+    "original": {
+      "start_to_end_percent": {
+        "k1": -68.4971063640569,
+        "k2": -74.17234080299045,
+        "k3": -56.24971065910751,
+        "k4": -64.25660175344292
+      },
+      "mean_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "end_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "increases_by_series": {
+        "k1": 0,
+        "k2": 0,
+        "k3": 83,
+        "k4": 0
+      }
+    },
+    "posterior_feedback": {
+      "start_to_end_percent": {
+        "k1": -60.40724434514213,
+        "k2": -64.92858698199136,
+        "k3": -52.88061116749272,
+        "k4": -57.145237497746315
+      },
+      "mean_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "end_rank_low_to_high": [
+        "k3",
+        "k4",
+        "k1",
+        "k2"
+      ],
+      "increases_by_series": {
+        "k1": 49,
+        "k2": 3,
+        "k3": 125,
+        "k4": 48
+      }
+    }
+  }
+}

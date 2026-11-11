@@ -1,9 +1,0 @@
-{
-  "main.py": true,
-  "model.py": true,
-  "sumo\\p2_fixed.edg.xml": true,
-  "sumo\\p2_fixed.net.xml": true,
-  "sumo\\p2_fixed.nod.xml": true,
-  "sumo\\p2_fixed.rou.xml": true,
-  "sumo\\p2_fixed.sumocfg": true
-}

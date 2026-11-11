@@ -34,6 +34,11 @@
       "图片/fig9_ttc_aware_target_wcrb.png",
       "图片/fig9_ttc_aware_target_wcrb.pdf",
       "图片/fig9_ttc_aware_target_wcrb.svg"
+    ],
+    "fig10a": [
+      "图片/fig10a_total_wcrb.png",
+      "图片/fig10a_total_wcrb.pdf",
+      "图片/fig10a_total_wcrb.svg"
     ]
   },
   "data_files": [
@@ -46,6 +51,7 @@
     "结果/fig8c.csv",
     "结果/fig9.csv",
     "结果/process_noise_check.csv",
-    "结果/replay_by_seed.csv"
+    "结果/replay_by_seed.csv",
+    "结果/fig10a_total_wcrb.csv"
   ]
 }

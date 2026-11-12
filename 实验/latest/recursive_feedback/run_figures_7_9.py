@@ -37,13 +37,13 @@ def instantaneous_contributions(diagonal_information, weights, references):
     return weights * ((1 / diagonal_information) @ references)
 
 
-def replay_seed(seed, replay, initialization, radar, system, references, policies=POLICIES):
+def replay_seed(seed, replay, initialization, radar, system, references, policies=POLICIES, radar_overrides=None):
     discovery, warmup_count = initialization
     results = []
     frozen = None
     previous = {}
     for (cycle, method), group in groupby(
-        track(replay, discovery, radar, system, seed, references, policies),
+        track(replay, discovery, radar, system, seed, references, policies, radar_overrides=radar_overrides),
         key=lambda row: (row["cycle"], row["method"]),
     ):
         rows = list(group)
@@ -163,6 +163,7 @@ def main():
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--figure8-minmax", action="store_true")
     parser.add_argument("--min-dwell-ms", type=float, help="Common minimum dwell in Fig. 8 Min-Max comparisons")
+    parser.add_argument("--fig8a-k3-rcs-m2", type=float, help="Run only Fig. 8(a) with this k3 radar cross section")
     args = parser.parse_args()
     if min(args.seeds, args.workers) < 1:
         parser.error("--seeds and --workers must be positive")
@@ -170,6 +171,13 @@ def main():
     warmup = list(extract_snapshots(load_traffic(INPUTS / "warmup_traffic.csv")))
     radar, system = model.RadarConfig(), model.SystemConfig()
     policies = FIG8_POLICIES if args.figure8_minmax else POLICIES
+    fig8a_only = args.fig8a_k3_rcs_m2 is not None
+    radar_overrides = {}
+    if fig8a_only:
+        if not args.figure8_minmax or not np.isfinite(args.fig8a_k3_rcs_m2) or args.fig8a_k3_rcs_m2 <= 0:
+            parser.error("--fig8a-k3-rcs-m2 requires --figure8-minmax and a finite positive RCS")
+        k3 = original.FIXED_IDS["adjacent_front"]
+        radar_overrides[k3] = replace(radar, rcs_m2=args.fig8a_k3_rcs_m2)
     if args.figure8_minmax:
         dwell_ms = 8.0 if args.min_dwell_ms is None else args.min_dwell_ms
         if not np.isfinite(dwell_ms) or dwell_ms <= 0:
@@ -181,7 +189,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=False)
     seeds = range(17001, 17001 + args.seeds)
     inputs = (seeds, repeat(warmup[1:] + replay), repeat((warmup[0], len(warmup) - 1)),
-              repeat(radar), repeat(system), repeat(references), repeat(policies))
+              repeat(radar), repeat(system), repeat(references), repeat(policies), repeat(radar_overrides))
     records, frozen = [], []
     with ProcessPoolExecutor(max_workers=args.workers) as pool:
         for seed, (batch, prior) in zip(seeds, pool.map(replay_seed, *inputs)):
@@ -200,6 +208,8 @@ def main():
     (args.output / "design.json").write_text(json.dumps({
         "seeds": list(seeds), "cycles": len(replay), "methods": policies,
         "figure8_only": args.figure8_minmax,
+        "figure8a_only": fig8a_only,
+        "rcs_m2_by_target": {t.vehicle_id: radar_overrides.get(t.vehicle_id, radar).rcs_m2 for t in targets},
         "minimum_dwell_s": system.min_dwell_s,
         "minmax_objective": "minimize the largest unweighted normalized posterior CRB" if args.figure8_minmax else None,
         "frozen_time_s": time, "frozen_prior_covariances_by_seed": frozen,
@@ -216,6 +226,8 @@ def main():
         "time_domain_fim": "Current simulated measurement FIM with actual range and actual gain of the scheduled beams",
         "controlled_scan_fim": "Measurement FIM at each prescribed target state with matched beams",
     }, indent=2), encoding="utf-8")
+    if fig8a_only:
+        return
     write_csv(args.output / "fig8b.csv", sensitivity(targets, radar, fixed_system, prior_info,
                                                    references, scan, "range_scales", policies))
     velocity = sensitivity(targets, radar, fixed_system, prior_info, references, scan, "closing_speed_scales", policies)

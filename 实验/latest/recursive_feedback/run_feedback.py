@@ -202,7 +202,8 @@ def allocate(system, coefficients, prior_info, weights, references, recursive, p
     return steps
 
 
-def track(replay, warmup, radar, system, seed, references, methods=METHODS):
+def track(replay, warmup, radar, system, seed, references, methods=METHODS, *, radar_overrides=None):
+    radar_overrides = radar_overrides or {}
     rng = np.random.default_rng(seed)
     warm_time, _, warm_targets = warmup
     discovery = np.array([(target.distance_m, target.closing_speed_mps) for target in warm_targets])
@@ -238,7 +239,7 @@ def track(replay, warmup, radar, system, seed, references, methods=METHODS):
             state = CurrentState(predicted_targets, beams, radar, tuple(weights))
             allocation_weights = optimization_weights(method, state)
             coefficients = np.array([
-                model.information_coefficients_per_watt(target, beam, radar)[:2]
+                model.information_coefficients_per_watt(target, beam, radar_overrides.get(target.vehicle_id, radar))[:2]
                 for target, beam in zip(predicted_targets, beams)
             ])
             direct = method if method in ("TTC-PD", "UD") else None
@@ -255,7 +256,8 @@ def track(replay, warmup, radar, system, seed, references, methods=METHODS):
                     tx_gain_linear=abs(np.vdot(actual.tx_steering, beam.tx_beam))**2,
                     rx_gain_linear=abs(np.vdot(beam.rx_beam, actual.rx_steering))**2,
                 )
-                actual_coefficients.append(model.information_coefficients_per_watt(target, pointed, radar)[:2])
+                target_radar = radar_overrides.get(target.vehicle_id, radar)
+                actual_coefficients.append(model.information_coefficients_per_watt(target, pointed, target_radar)[:2])
             realized_info = information(dwell, power, np.array(actual_coefficients))
             measurement = truth + noise / np.sqrt(realized_info)
             gain = post * assumed_info[:, None, :]

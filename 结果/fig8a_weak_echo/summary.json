@@ -1,0 +1,24 @@
+{
+  "mean_wCRB": {
+    "TTC-AO": 0.0017621843641719727,
+    "RU-AO": 0.0018662997742436736,
+    "MinMax-AO": 0.0018632296904821206,
+    "TTC-PD": 0.0018672962027669563,
+    "UD": 0.0019828881477346903
+  },
+  "mean_gain_vs_MinMax_percent": 5.423127745672717,
+  "pointwise_gain_vs_MinMax_percent": [
+    3.327523289509615,
+    10.773195882615848
+  ],
+  "strictly_below_MinMax_points": 401,
+  "strictly_lowest_of_five_points": 401,
+  "points": 401,
+  "mean_k3_dwell_ms": {
+    "TTC-AO": 10.881978223828536,
+    "RU-AO": 13.161466917946592,
+    "MinMax-AO": 15.032279991536754,
+    "TTC-PD": 9.198849622642742,
+    "UD": 10.7523627096147
+  }
+}

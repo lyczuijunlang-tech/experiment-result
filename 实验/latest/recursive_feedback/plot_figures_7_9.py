@@ -93,8 +93,9 @@ def main():
     labels_by_method[MINIMAX] = "Min-Max AO"
     labels8 = tuple(labels_by_method[method] for method in policies)
     fig8 = [(time, five, "t(s)", 40)]
+    sweep_directory = REPO / "结果" if config.get("figure8a_only") else directory
     for name, xlabel in (("fig8b", "d(m)"), ("fig8c", "v(m/s)")):
-        rows = read_csv(directory / f"{name}.csv")
+        rows = read_csv(sweep_directory / f"{name}.csv")
         x = matrix(rows, ("x_value",)).ravel()
         assert len(x) == 51 and np.all(np.diff(x) > 0)
         values = matrix(rows, policies)
@@ -107,6 +108,8 @@ def main():
     ylabel = r"$\omega$CRB"
     designs = [(name, x, values, labels8, axis, ylabel, stride)
                for name, (x, values, axis, stride) in zip(("fig8a", "fig8b", "fig8c"), fig8)]
+    if config.get("figure8a_only"):
+        designs = designs[:1]
     if not config.get("figure8_only"):
         seven = read_csv(directory / "fig7.csv")
         names = tuple(dict.fromkeys(row["scenario"] for row in seven))

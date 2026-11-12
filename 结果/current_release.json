@@ -55,7 +55,10 @@
     "结果/fig10a_total_wcrb.csv",
     "结果/fig8_minmax/design.json",
     "结果/fig8_minmax/replay_by_seed.csv",
-    "结果/fig8_minmax/summary.json"
+    "结果/fig8_minmax/summary.json",
+    "结果/fig8a_weak_echo/design.json",
+    "结果/fig8a_weak_echo/replay_by_seed.csv",
+    "结果/fig8a_weak_echo/summary.json"
   ],
   "figure_metrics": {
     "fig7_to_fig9": "Original single-cycle weighted CRB from the measurement FIM",
@@ -76,6 +79,21 @@
       "结果/fig8_minmax/design.json",
       "结果/fig8_minmax/replay_by_seed.csv",
       "结果/fig8_minmax/summary.json"
+    ]
+  },
+  "fig8a_configuration": {
+    "rcs_m2_by_target": {
+      "target1_front_same": 10.0,
+      "target2_rear_same": 10.0,
+      "target3_front_adj": 2.5,
+      "target4_rear_adj": 10.0
+    },
+    "minimum_dwell_s": 0.008,
+    "sweep_panels": "Fig. 8(b) and (c) use the equal-RCS configuration",
+    "data_files": [
+      "结果/fig8a_weak_echo/design.json",
+      "结果/fig8a_weak_echo/replay_by_seed.csv",
+      "结果/fig8a_weak_echo/summary.json"
     ]
   }
 }

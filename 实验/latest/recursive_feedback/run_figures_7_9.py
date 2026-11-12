@@ -14,8 +14,8 @@ from run_feedback import (
     model, optimization_weights, original, track, weighted_bound,
 )
 
-POLICIES = ("TTC-AO", "RU-AO", "DA-AO", "TTC-PD", "UD")
-FIG8_POLICIES = (*POLICIES[:2], MINIMAX, *POLICIES[3:])
+POLICIES = ("TTC-AO",)
+FIG8_POLICIES = ("TTC-AO", "RU-AO", MINIMAX, "TTC-PD", "UD")
 
 
 def read_csv(path):
@@ -195,7 +195,7 @@ def main():
         for seed, (batch, prior) in zip(seeds, pool.map(replay_seed, *inputs)):
             records.extend(batch)
             frozen.append(prior)
-            print(f"Completed five-policy SUMO replay for seed {seed}", flush=True)
+            print(f"Completed SUMO replay for seed {seed}", flush=True)
     write_csv(args.output / "replay_by_seed.csv", records)
     covariance = np.asarray(frozen).mean(axis=0)
     prior_info = np.linalg.inv(covariance)
@@ -228,29 +228,13 @@ def main():
     }, indent=2), encoding="utf-8")
     if fig8a_only:
         return
+    if not args.figure8_minmax:
+        write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
+        return
     write_csv(args.output / "fig8b.csv", sensitivity(targets, radar, fixed_system, prior_info,
                                                    references, scan, "range_scales", policies))
     velocity = sensitivity(targets, radar, fixed_system, prior_info, references, scan, "closing_speed_scales", policies)
     write_csv(args.output / "fig8c.csv", velocity)
-    if args.figure8_minmax:
-        return
-    write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
-    dt = replay[-1][0] - replay[-2][0]
-    unit_process_cov = np.array([[dt**3 / 3, -dt**2 / 2], [-dt**2 / 2, dt]])
-    noise_checks = []
-    for density in (ACCEL_PSD, 0.10, 0.20):
-        # Stress only the final prediction step while fixing the preceding history.
-        covariance_stressed = covariance + (density - ACCEL_PSD) * unit_process_cov
-        rows = velocity if density == ACCEL_PSD else sensitivity(
-            targets, radar, fixed_system, np.linalg.inv(covariance_stressed), references,
-            scan, "closing_speed_scales",
-        )
-        for method in POLICIES:
-            diagnostic = f"{method}_wPCRB"
-            noise_checks.append(dict(final_step_acceleration_psd_m2_s3=density, method=method,
-                                     low_speed_wPCRB=rows[0][diagnostic], high_speed_wPCRB=rows[-1][diagnostic],
-                                     change_percent=100 * (rows[-1][diagnostic] / rows[0][diagnostic] - 1)))
-    write_csv(args.output / "process_noise_check.csv", noise_checks)
 
 
 if __name__ == "__main__":

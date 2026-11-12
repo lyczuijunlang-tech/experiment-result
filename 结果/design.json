@@ -19,11 +19,7 @@
   ],
   "cycles": 401,
   "methods": [
-    "TTC-AO",
-    "RU-AO",
-    "DA-AO",
-    "TTC-PD",
-    "UD"
+    "TTC-AO"
   ],
   "frozen_time_s": 40.0,
   "frozen_prior_covariances_by_seed": [

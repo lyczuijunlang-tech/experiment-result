@@ -3,7 +3,7 @@
   "method": "Recursive posterior CRB with feedback",
   "source": "Recorded SUMO episode, 2 s initialization and tracking warm-up, 16 measurement noise seeds",
   "experiment": "实验/latest/recursive_feedback",
-  "previous_release": "28829d1ce9e8d673878710a8e2733cbb98150cc2",
+  "previous_release": "69c84593170716b83c60cc0ccbc2f89e3a84c39b",
   "figure_files": {
     "fig7": [
       "图片/fig7_multi_scenario_ao_convergence.png",
@@ -42,7 +42,6 @@
     ]
   },
   "data_files": [
-    "结果/comparison.json",
     "结果/design.json",
     "结果/fig7.csv",
     "结果/fig8_combined.alignment.json",
@@ -50,7 +49,6 @@
     "结果/fig8b.csv",
     "结果/fig8c.csv",
     "结果/fig9.csv",
-    "结果/process_noise_check.csv",
     "结果/replay_by_seed.csv",
     "结果/fig10a_total_wcrb.csv",
     "结果/fig8_minmax/design.json",
@@ -94,6 +92,13 @@
       "结果/fig8a_weak_echo/design.json",
       "结果/fig8a_weak_echo/replay_by_seed.csv",
       "结果/fig8a_weak_echo/summary.json"
+    ]
+  },
+  "fig7_fig9_configuration": {
+    "policy": "TTC-AO",
+    "data_files": [
+      "结果/design.json",
+      "结果/replay_by_seed.csv"
     ]
   }
 }

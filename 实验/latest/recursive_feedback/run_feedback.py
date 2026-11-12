@@ -1,11 +1,7 @@
 """Replay the recorded SUMO route with causal radar tracking and allocation."""
-import argparse
 import csv
-from dataclasses import fields, replace
-import hashlib
-import json
+from dataclasses import dataclass, fields, replace
 from pathlib import Path
-import sys
 
 import numpy as np
 from scipy.optimize import brentq, minimize
@@ -13,18 +9,39 @@ from scipy.optimize import brentq, minimize
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
 INPUTS = HERE / "inputs"
-SOURCE = REPO / "实验/latest/fig8a/source_snapshot"
-sys.path.insert(0, str(SOURCE))
-sys.path.insert(0, str(SOURCE.parent))
-import main as original
 import model
-from allocation_methods import CurrentState, direct_dwell, optimization_weights
+import replay_scene as original
 
-METHODS = ("Posterior allocation", "Single-frame allocation")
 MINIMAX = "MinMax-AO"
 INIT_COV = np.diag([0.2**2, 0.1**2])
 ANGLE_NOISE = np.deg2rad(0.2)
 ACCEL_PSD = 0.02  # m²/s³, continuous white relative acceleration
+
+
+@dataclass(frozen=True)
+class CurrentState:
+    targets: tuple
+    beams: tuple
+    radar: model.RadarConfig
+    physical_ttc_weights: tuple
+
+
+def optimization_weights(method, state):
+    if method == "RU-AO":
+        return np.ones(len(state.targets))
+    return np.asarray(state.physical_ttc_weights, dtype=float)
+
+
+def direct_dwell(method, weights, total_s, minimum_s):
+    k = len(weights)
+    assert total_s >= k * minimum_s - 1e-12
+    if method == "UD":
+        return np.full(k, total_s / k)
+    assert method == "TTC-PD"
+    shares = weights / weights.sum() if weights.sum() > 0 else np.full(k, 1 / k)
+    dwell = minimum_s + (total_s - k * minimum_s) * shares
+    dwell[int(np.argmax(dwell))] += total_s - float(dwell.sum())
+    return dwell
 
 
 def load_traffic(path):
@@ -202,7 +219,7 @@ def allocate(system, coefficients, prior_info, weights, references, recursive, p
     return steps
 
 
-def track(replay, warmup, radar, system, seed, references, methods=METHODS, *, radar_overrides=None):
+def track(replay, warmup, radar, system, seed, references, methods, *, radar_overrides=None):
     radar_overrides = radar_overrides or {}
     rng = np.random.default_rng(seed)
     warm_time, _, warm_targets = warmup
@@ -244,7 +261,7 @@ def track(replay, warmup, radar, system, seed, references, methods=METHODS, *, r
             ])
             direct = method if method in ("TTC-PD", "UD") else None
             steps = allocate(cycle_system, coefficients, np.linalg.inv(prior), allocation_weights, references,
-                             method != METHODS[1], previous, direct, minimax=method == MINIMAX)
+                             True, previous, direct, minimax=method == MINIMAX)
             best = steps[-1]
             dwell, ts, power, post = best["dwell"], best["time"], best["power"], best["post"]
             assumed_info = information(dwell, power, coefficients)
@@ -298,44 +315,3 @@ def extract_snapshots(rows):
             raise RuntimeError(f"Incomplete snapshot at {time} s: {missing}")
         yield time, ego, targets
 
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--seeds", type=int, default=16)
-    args = parser.parse_args()
-    if args.seeds < 1:
-        parser.error("--seeds must be positive")
-    traffic = INPUTS / "traffic.csv"
-    warmup_file = INPUTS / "warmup_traffic.csv"
-    replay = list(extract_snapshots(load_traffic(traffic)))
-    warmup = next(extract_snapshots(load_traffic(warmup_file)[-1:]))
-    radar, system = model.RadarConfig(), model.SystemConfig()
-    references = 1 / np.array([radar.crb_d_reference_m2, radar.crb_v_reference_m2ps2])
-    args.output.mkdir(parents=True, exist_ok=False)
-    with (args.output / "tracking.csv").open("w", newline="", encoding="utf-8") as stream:
-        writer = None
-        for seed in range(17001, 17001 + args.seeds):
-            for row in track(replay, warmup, radar, system, seed, references):
-                if writer is None:
-                    writer = csv.DictWriter(stream, fieldnames=row.keys())
-                    writer.writeheader()
-                writer.writerow(row)
-            print(f"Finished seed {seed}", flush=True)
-    manifest = {
-        "replicates": args.seeds,
-        "cycles_per_replicate": len(replay),
-        "first_seed": 17001,
-        "warmup_time_s": warmup[0],
-        "acceleration_psd_m2_s3": ACCEL_PSD,
-        "discovery_covariance": INIT_COV.tolist(),
-        "angle_noise_std_degrees": float(np.rad2deg(ANGLE_NOISE)),
-        "references_inverse": references.tolist(),
-        "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                         for p in (traffic, warmup_file, SOURCE / "model.py", SOURCE / "main.py")},
-    }
-    (args.output / "run_config.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-
-
-if __name__ == "__main__":
-    main()

@@ -3,4 +3,3 @@ __pycache__/
 .deps/
 .idea/
 .venv/
-结果/full_ml/episode/full_ml_likelihood_maps.npz

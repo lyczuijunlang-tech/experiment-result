@@ -1,4 +1,4 @@
-"""Reproduce the current Figures 7–9 in a new output directory."""
+"""Reproduce the reference Figures 7–9 or the updated Fig. 8 Min-Max comparison."""
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -14,9 +14,14 @@ def main():
     default = CODE.parent / "结果" / datetime.now().strftime("feedback_%Y%m%d_%H%M%S")
     parser.add_argument("--output", type=Path, default=default)
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--figure8-minmax", action="store_true")
+    parser.add_argument("--min-dwell-ms", type=float)
     args = parser.parse_args()
+    comparison = ["--figure8-minmax"] if args.figure8_minmax else []
+    if args.min_dwell_ms is not None:
+        comparison.extend(["--min-dwell-ms", str(args.min_dwell_ms)])
     subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "run_figures_7_9.py"),
-                    "--output", str(args.output), "--workers", str(args.workers)], check=True)
+                    "--output", str(args.output), "--workers", str(args.workers), *comparison], check=True)
     subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "plot_figures_7_9.py"),
                     str(args.output)], check=True)
 

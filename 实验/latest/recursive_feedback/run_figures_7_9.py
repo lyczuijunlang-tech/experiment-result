@@ -10,11 +10,12 @@ from pathlib import Path
 import numpy as np
 
 from run_feedback import (
-    ACCEL_PSD, INPUTS, REPO, CurrentState, evaluate_candidate, extract_snapshots, information, load_traffic,
+    ACCEL_PSD, INPUTS, MINIMAX, REPO, CurrentState, evaluate_candidate, extract_snapshots, information, load_traffic,
     model, optimization_weights, original, track, weighted_bound,
 )
 
 POLICIES = ("TTC-AO", "RU-AO", "DA-AO", "TTC-PD", "UD")
+FIG8_POLICIES = (*POLICIES[:2], MINIMAX, *POLICIES[3:])
 
 
 def read_csv(path):
@@ -36,13 +37,13 @@ def instantaneous_contributions(diagonal_information, weights, references):
     return weights * ((1 / diagonal_information) @ references)
 
 
-def replay_seed(seed, replay, initialization, radar, system, references):
+def replay_seed(seed, replay, initialization, radar, system, references, policies=POLICIES):
     discovery, warmup_count = initialization
     results = []
     frozen = None
     previous = {}
     for (cycle, method), group in groupby(
-        track(replay, discovery, radar, system, seed, references, POLICIES),
+        track(replay, discovery, radar, system, seed, references, policies),
         key=lambda row: (row["cycle"], row["method"]),
     ):
         rows = list(group)
@@ -74,7 +75,7 @@ def replay_seed(seed, replay, initialization, radar, system, references):
         results.append(result)
         if cycle == len(replay) - 1 and method == POLICIES[0]:
             frozen = [[[r["prior_dd"], r["prior_dv"]], [r["prior_dv"], r["prior_vv"]]] for r in rows]
-    if frozen is None or len(results) != (len(replay) - warmup_count) * len(POLICIES):
+    if frozen is None or len(results) != (len(replay) - warmup_count) * len(policies):
         raise RuntimeError(f"Incomplete run for seed {seed}")
     return results, frozen
 
@@ -128,7 +129,7 @@ def convergence(targets, radar, system, prior_info, references):
     return rows
 
 
-def sensitivity(targets, radar, system, prior_info, references, scan, variable):
+def sensitivity(targets, radar, system, prior_info, references, scan, variable, policies=POLICIES):
     rows = []
     ts = system.sensing_time_qos_max_s - 1e-12
     ps = min(system.sensing_power_max_w, system.sensing_energy_max_j / ts)
@@ -142,11 +143,11 @@ def sensitivity(targets, radar, system, prior_info, references, scan, variable):
         state, coefficients = scene(perturbed, radar)
         physical_weights = np.array(state.physical_ttc_weights)
         row = dict(point_index=point, scale=scale, x_value=x)
-        for method in POLICIES:
+        for method in policies:
             weights = optimization_weights(method, state)
             direct = method if method in ("TTC-PD", "UD") else None
             best = evaluate_candidate(ts, ps, system, coefficients, prior_info, weights,
-                                      references, True, direct=direct)
+                                      references, True, direct=direct, minimax=method == MINIMAX)
             contributions = instantaneous_contributions(information(best["dwell"], ps, coefficients),
                                                          physical_weights, references)
             row[method] = float(contributions.sum())
@@ -160,17 +161,27 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seeds", type=int, default=16)
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--figure8-minmax", action="store_true")
+    parser.add_argument("--min-dwell-ms", type=float, help="Common minimum dwell in Fig. 8 Min-Max comparisons")
     args = parser.parse_args()
     if min(args.seeds, args.workers) < 1:
         parser.error("--seeds and --workers must be positive")
     replay = list(extract_snapshots(load_traffic(INPUTS / "traffic.csv")))
     warmup = list(extract_snapshots(load_traffic(INPUTS / "warmup_traffic.csv")))
     radar, system = model.RadarConfig(), model.SystemConfig()
+    policies = FIG8_POLICIES if args.figure8_minmax else POLICIES
+    if args.figure8_minmax:
+        dwell_ms = 8.0 if args.min_dwell_ms is None else args.min_dwell_ms
+        if not np.isfinite(dwell_ms) or dwell_ms <= 0:
+            parser.error("--min-dwell-ms must be finite and positive")
+        system = replace(system, min_dwell_s=dwell_ms / 1000)
+    elif args.min_dwell_ms is not None:
+        parser.error("Fig. 8 parameter overrides require --figure8-minmax")
     references = 1 / np.array([radar.crb_d_reference_m2, radar.crb_v_reference_m2ps2])
     args.output.mkdir(parents=True, exist_ok=False)
     seeds = range(17001, 17001 + args.seeds)
     inputs = (seeds, repeat(warmup[1:] + replay), repeat((warmup[0], len(warmup) - 1)),
-              repeat(radar), repeat(system), repeat(references))
+              repeat(radar), repeat(system), repeat(references), repeat(policies))
     records, frozen = [], []
     with ProcessPoolExecutor(max_workers=args.workers) as pool:
         for seed, (batch, prior) in zip(seeds, pool.map(replay_seed, *inputs)):
@@ -187,7 +198,10 @@ def main():
     assert time == scan["baseline_time_s"]
     assert [t.vehicle_id for t in targets][1] == scan["selected_vehicle_id"]
     (args.output / "design.json").write_text(json.dumps({
-        "seeds": list(seeds), "cycles": len(replay), "methods": POLICIES,
+        "seeds": list(seeds), "cycles": len(replay), "methods": policies,
+        "figure8_only": args.figure8_minmax,
+        "minimum_dwell_s": system.min_dwell_s,
+        "minmax_objective": "minimize the largest unweighted normalized posterior CRB" if args.figure8_minmax else None,
         "frozen_time_s": time, "frozen_prior_covariances_by_seed": frozen,
         "shared_prior_covariance": covariance.tolist(),
         "target_order": [t.vehicle_id for t in targets],
@@ -202,11 +216,13 @@ def main():
         "time_domain_fim": "Current simulated measurement FIM with actual range and actual gain of the scheduled beams",
         "controlled_scan_fim": "Measurement FIM at each prescribed target state with matched beams",
     }, indent=2), encoding="utf-8")
-    write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
     write_csv(args.output / "fig8b.csv", sensitivity(targets, radar, fixed_system, prior_info,
-                                                   references, scan, "range_scales"))
-    velocity = sensitivity(targets, radar, fixed_system, prior_info, references, scan, "closing_speed_scales")
+                                                   references, scan, "range_scales", policies))
+    velocity = sensitivity(targets, radar, fixed_system, prior_info, references, scan, "closing_speed_scales", policies)
     write_csv(args.output / "fig8c.csv", velocity)
+    if args.figure8_minmax:
+        return
+    write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
     dt = replay[-1][0] - replay[-2][0]
     unit_process_cov = np.array([[dt**3 / 3, -dt**2 / 2], [-dt**2 / 2, dt]])
     noise_checks = []

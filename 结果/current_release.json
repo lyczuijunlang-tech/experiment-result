@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "method": "Recursive posterior CRB with feedback",
   "source": "Recorded SUMO episode, 2 s initialization and tracking warm-up, 16 measurement noise seeds",
   "experiment": "实验/latest/recursive_feedback",
@@ -52,10 +52,30 @@
     "结果/fig9.csv",
     "结果/process_noise_check.csv",
     "结果/replay_by_seed.csv",
-    "结果/fig10a_total_wcrb.csv"
+    "结果/fig10a_total_wcrb.csv",
+    "结果/fig8_minmax/design.json",
+    "结果/fig8_minmax/replay_by_seed.csv",
+    "结果/fig8_minmax/summary.json"
   ],
   "figure_metrics": {
     "fig7_to_fig9": "Original single-cycle weighted CRB from the measurement FIM",
     "fig10a": "Weighted posterior CRB under the separately released feedback ablation"
+  },
+  "fig8_configuration": {
+    "policies": [
+      "TTC-AO",
+      "RU-AO",
+      "MinMax-AO",
+      "TTC-PD",
+      "UD"
+    ],
+    "minimum_dwell_s": 0.008,
+    "acceleration_psd_m2_s3": 0.02,
+    "provenance": "Figure 8 replays all five policies with their continuing tracking histories",
+    "data_files": [
+      "结果/fig8_minmax/design.json",
+      "结果/fig8_minmax/replay_by_seed.csv",
+      "结果/fig8_minmax/summary.json"
+    ]
   }
 }

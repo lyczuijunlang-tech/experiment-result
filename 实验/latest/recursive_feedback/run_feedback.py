@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 
 import numpy as np
-from scipy.optimize import minimize
+from scipy.optimize import brentq, minimize
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
@@ -21,6 +21,7 @@ import model
 from allocation_methods import CurrentState, direct_dwell, optimization_weights
 
 METHODS = ("Posterior allocation", "Single-frame allocation")
+MINIMAX = "MinMax-AO"
 INIT_COV = np.diag([0.2**2, 0.1**2])
 ANGLE_NOISE = np.deg2rad(0.2)
 ACCEL_PSD = 0.02  # m²/s³, continuous white relative acceleration
@@ -103,9 +104,56 @@ def allocate_dwell(total, power, minimum, coefficients, prior_info, weights, ref
     return dwell
 
 
+def minimax_dwell(total, power, minimum, coefficients, prior_info, references):
+    """Minimize the largest normalized posterior CRB under the dwell budget."""
+    count = len(coefficients)
+    floor = minimum / total
+    if 1 - count * floor <= 1e-12:
+        return np.full(count, total / count)
+
+    alpha = prior_info[:, 0, 0]
+    beta = prior_info[:, 1, 1]
+    cross_sq = prior_info[:, 0, 1] ** 2
+    range_scale = power * coefficients[:, 0] * total
+    velocity_scale = power * coefficients[:, 1] * total**3
+    ref_d, ref_v = references
+    max_share = 1 - (count - 1) * floor
+
+    def bound(k, share):
+        dd = alpha[k] + range_scale[k] * share
+        vv = beta[k] + velocity_scale[k] * share**3
+        return (ref_d * vv + ref_v * dd) / (dd * vv - cross_sq[k])
+
+    floor_bounds = [bound(k, floor) for k in range(count)]
+    cap_bounds = [bound(k, max_share) for k in range(count)]
+
+    def required_shares(threshold):
+        shares = np.empty(count)
+        for k in range(count):
+            if threshold >= floor_bounds[k]:
+                shares[k] = floor
+            elif threshold <= cap_bounds[k]:
+                shares[k] = max_share
+            else:
+                shares[k] = brentq(lambda x: bound(k, x) - threshold, floor, max_share, xtol=1e-14)
+        return shares
+
+    lower, upper = max(cap_bounds), max(floor_bounds)
+    if required_shares(lower).sum() <= 1 + 1e-13:
+        threshold = lower
+    else:
+        threshold = upper * brentq(lambda level: required_shares(upper * level).sum() - 1,
+                                   lower / upper, 1.0, xtol=1e-13)
+    shares = required_shares(threshold)
+    shares[np.argmax(shares)] += 1 - shares.sum()
+    return shares * total
+
+
 def evaluate_candidate(ts, ps, system, coefficients, prior_info, weights, references,
-                       recursive, carry=None, direct=None):
-    if direct is None:
+                       recursive, carry=None, direct=None, *, minimax=False):
+    if minimax:
+        dwell = minimax_dwell(ts, ps, system.min_dwell_s, coefficients, prior_info, references)
+    elif direct is None:
         dwell = allocate_dwell(ts, ps, system.min_dwell_s, coefficients, prior_info,
                                weights, references, recursive)
     else:
@@ -115,9 +163,12 @@ def evaluate_candidate(ts, ps, system, coefficients, prior_info, weights, refere
     for candidate in candidates:
         measurement = information(candidate, ps, coefficients)
         post = posterior(prior_info, measurement)
-        single_frame = weights @ (np.reciprocal(measurement) @ references)
+        target_bounds = np.reciprocal(measurement) @ references
         bound = weighted_bound(post, weights, references)
-        objective = bound if recursive else single_frame
+        if minimax:
+            objective = float(np.max(np.diagonal(post, axis1=-2, axis2=-1) @ references))
+        else:
+            objective = bound if recursive else weights @ target_bounds
         if best is None or objective < best["objective"]:
             best = dict(time=ts, power=ps, dwell=candidate, post=post,
                         bound=bound, objective=objective)
@@ -127,7 +178,8 @@ def evaluate_candidate(ts, ps, system, coefficients, prior_info, weights, refere
     return best
 
 
-def allocate(system, coefficients, prior_info, weights, references, recursive, previous, direct=None):
+def allocate(system, coefficients, prior_info, weights, references, recursive, previous, direct=None,
+             *, minimax=False):
     # Each coordinate is monotone in information. Scaling all dwell times
     # upward while holding total energy preserves Jdd and increases Jvv.
     maximum_time = system.sensing_time_qos_max_s - 1e-12
@@ -143,7 +195,7 @@ def allocate(system, coefficients, prior_info, weights, references, recursive, p
             continue
         carry = steps[-1]["dwell"] if steps else None
         best = evaluate_candidate(ts, ps, system, coefficients, prior_info, weights,
-                                  references, recursive, carry, direct)
+                                  references, recursive, carry, direct, minimax=minimax)
         if steps and best["objective"] > steps[-1]["objective"] * (1 + 1e-10):
             raise RuntimeError("Block update increased its objective")
         steps.append(dict(best, stage=stage))
@@ -191,7 +243,7 @@ def track(replay, warmup, radar, system, seed, references, methods=METHODS):
             ])
             direct = method if method in ("TTC-PD", "UD") else None
             steps = allocate(cycle_system, coefficients, np.linalg.inv(prior), allocation_weights, references,
-                             method != METHODS[1], previous, direct)
+                             method != METHODS[1], previous, direct, minimax=method == MINIMAX)
             best = steps[-1]
             dwell, ts, power, post = best["dwell"], best["time"], best["power"], best["post"]
             assumed_info = information(dwell, power, coefficients)

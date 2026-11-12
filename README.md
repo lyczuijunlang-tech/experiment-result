@@ -1,11 +1,11 @@
 # 车载 ISAC 递推资源分配与后验 TTC-CRB 约束
 
-车载雷达利用上一周期的后验协方差预测目标状态，P1 在风险加权后验 CRB 目标下分配各目标驻留时间，P2 更新系统感知时间和功率。本版实验在 P1 中对每个预测为闭合的目标施加相对后验 TTC-CRB 上限。
+本研究用上一周期的后验状态和协方差预测当前目标状态。P1 在风险加权后验 CRB 目标下分配驻留时间，P2 更新系统感知时间和功率。原图7–10(a)在每个正式周期和指定扫描点重跑，加入针对预测闭合目标的相对后验 TTC-CRB 门限。
 
-实验使用 16 组配对噪声种子，每组 401 个正式周期。预设 5% 主门限下，6,416 个正式周期全部可行，平均风险加权测量 CRB 相对同周期基准增加 0.0666%。2% 严门限下有 879 个周期不可行，10% 宽门限下全部可行。这里的百分比门限是相对 TTC 标准差下界尺度。
+主图采用 6.4%（图7、图9）、11%（图8五方法）和 12%（图10(a)开关组）的相对标准差下界门限。各图沿用原文件名、评价口径及坐标设置。图7–9采用单周期测量 CRB，图10(a)采用加权跟踪后验下界。
 
-- [完整实验报告、公式和复现步骤](TTC-CRB_constraint_ablation/README.md)
-- [五张结果图，含 PNG、PDF、SVG](TTC-CRB_constraint_ablation/figures/)
-- [门限敏感性汇总](TTC-CRB_constraint_ablation/threshold_summary.csv) · [逐目标对比](TTC-CRB_constraint_ablation/paired_target_comparison.csv) · [不可行周期](TTC-CRB_constraint_ablation/infeasible_cycles.csv)
-- [逐周期原始数据](TTC-CRB_constraint_ablation/cycles.csv) · [逐目标原始数据](TTC-CRB_constraint_ablation/targets.csv) · [运行配置](TTC-CRB_constraint_ablation/config.json)
-- [复现源码与 SUMO 输入](TTC-CRB_constraint_ablation/实验/)
+- [原命名的结果图片，含图8三联图](图片/)
+- [逐项曲线变化](结果/threshold_curve_comparison.csv) · [门限及资源约束核查](结果/threshold_feasibility.json)
+- [重跑报告与参数选取依据](实验报告.md) · [运行与绘图源码](实验/README.md)
+- [逐周期、逐扫描点数据和配置](结果/) · [各图与数据入口](结果/current_release.json)
+- [独立的 2%、5%、10% 门限敏感性实验](TTC-CRB_constraint_ablation/README.md)

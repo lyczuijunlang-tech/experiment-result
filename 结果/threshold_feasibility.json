@@ -1,0 +1,121 @@
+{
+  "fig7": {
+    "feasible_rows": 1205,
+    "checked_candidate_sets": 2,
+    "limit": 0.004096,
+    "max_gamma": 0.002344844268062858,
+    "active_target_checks": 9640,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.024,
+      "time_upper_margin_s": 9.107686826936856e-12,
+      "power_lower_margin_w": 0.021,
+      "power_upper_margin_w": 0.026733047088269415,
+      "qos_rate_margin_bps": 0.012972826138138771,
+      "energy_margin_j": 3.481349843820203e-11
+    }
+  },
+  "fig8a": {
+    "feasible_rows": 32080,
+    "checked_candidate_sets": 1,
+    "limit": 0.0121,
+    "max_gamma": 0.010631495746805572,
+    "active_target_checks": 128320,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.010936462049041626,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023207031399837586,
+      "power_upper_margin_w": 0.02670977178189928,
+      "qos_rate_margin_bps": 0.0014157164841890335,
+      "energy_margin_j": 0.0
+    }
+  },
+  "fig8b": {
+    "feasible_rows": 51,
+    "checked_candidate_sets": 5,
+    "limit": 0.0121,
+    "max_gamma": 0.0009469725474666761,
+    "active_target_checks": 1020,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.01097941243827287,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023266953717345537,
+      "power_upper_margin_w": 0.026733046282654466,
+      "qos_rate_margin_bps": 0.0014243777841329575,
+      "energy_margin_j": 0.0
+    }
+  },
+  "fig8c": {
+    "feasible_rows": 51,
+    "checked_candidate_sets": 5,
+    "limit": 0.0121,
+    "max_gamma": 0.000904719120029082,
+    "active_target_checks": 1020,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.01097941243827287,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023266953717345537,
+      "power_upper_margin_w": 0.026733046282654466,
+      "qos_rate_margin_bps": 0.0014243777841329575,
+      "energy_margin_j": 0.0
+    }
+  },
+  "fig9": {
+    "feasible_rows": 6416,
+    "checked_candidate_sets": 1,
+    "limit": 0.004096,
+    "max_gamma": 0.004095999999996673,
+    "active_target_checks": 25664,
+    "binding_target_checks": 1,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.034936462049041626,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023207031399837586,
+      "power_upper_margin_w": 0.02670977178189928,
+      "qos_rate_margin_bps": 0.0014157164841890335,
+      "energy_margin_j": 0.0
+    }
+  },
+  "fig10a_on": {
+    "feasible_rows": 6416,
+    "checked_candidate_sets": 1,
+    "limit": 0.0144,
+    "max_gamma": 0.004213139256214606,
+    "active_target_checks": 25664,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.034936462049041626,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023207031399837586,
+      "power_upper_margin_w": 0.02670977178189928,
+      "qos_rate_margin_bps": 0.0014157164841890335,
+      "energy_margin_j": 0.0
+    }
+  },
+  "fig10a_off": {
+    "feasible_rows": 6416,
+    "checked_candidate_sets": 1,
+    "limit": 0.0144,
+    "max_gamma": 0.01361161798622717,
+    "active_target_checks": 25664,
+    "binding_target_checks": 0,
+    "rejected_p2_intermediate_candidates": 0,
+    "minimum_resource_margins": {
+      "time_lower_margin_s": 0.034936462049041626,
+      "time_upper_margin_s": 9.999986949615902e-13,
+      "power_lower_margin_w": 0.023207031399837586,
+      "power_upper_margin_w": 0.02670977178189928,
+      "qos_rate_margin_bps": 0.0014157164841890335,
+      "energy_margin_j": 0.0
+    }
+  }
+}

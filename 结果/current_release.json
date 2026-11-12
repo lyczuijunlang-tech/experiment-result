@@ -1,0 +1,65 @@
+{
+  "comparison_baseline": "c1089ffe1c649a306b4aedadaf77232ce818f983",
+  "experiment": "实验/latest/recursive_feedback/run_threshold_figures.py",
+  "figure_files": {
+    "fig7": [
+      "图片/fig7_multi_scenario_ao_convergence.png",
+      "图片/fig7_multi_scenario_ao_convergence.pdf",
+      "图片/fig7_multi_scenario_ao_convergence.svg"
+    ],
+    "fig8a": [
+      "图片/fig8a_five_methods.png",
+      "图片/fig8a_five_methods.pdf",
+      "图片/fig8a_five_methods.svg"
+    ],
+    "fig8b": [
+      "图片/fig8b_five_methods.png",
+      "图片/fig8b_five_methods.pdf",
+      "图片/fig8b_five_methods.svg"
+    ],
+    "fig8c": [
+      "图片/fig8c_five_methods.png",
+      "图片/fig8c_five_methods.pdf",
+      "图片/fig8c_five_methods.svg"
+    ],
+    "fig8_combined": [
+      "图片/fig8_abc_combined.png",
+      "图片/fig8_abc_combined.pdf",
+      "图片/fig8_abc_combined.svg"
+    ],
+    "fig9": [
+      "图片/fig9_ttc_aware_target_wcrb.png",
+      "图片/fig9_ttc_aware_target_wcrb.pdf",
+      "图片/fig9_ttc_aware_target_wcrb.svg"
+    ],
+    "fig10a": [
+      "图片/fig10a_total_wcrb.png",
+      "图片/fig10a_total_wcrb.pdf",
+      "图片/fig10a_total_wcrb.svg"
+    ]
+  },
+  "posterior_ttc_gamma_limit": {
+    "fig7": 0.004096,
+    "fig8a": 0.0121,
+    "fig8b": 0.0121,
+    "fig8c": 0.0121,
+    "fig9": 0.004096,
+    "fig10a": 0.0144
+  },
+  "formal_constraint_start_s": 0.0,
+  "figure_metrics": {
+    "fig7_to_fig9": "Original single-cycle weighted CRB from the measurement FIM",
+    "fig10a": "Weighted posterior CRB under the separately released feedback ablation"
+  },
+  "figure_configs": {
+    "fig7_and_fig9": "结果/design.json",
+    "fig8a": "结果/fig8a_weak_echo/design.json",
+    "fig8b_and_fig8c": "结果/fig8_minmax/design.json",
+    "fig10a_on": "结果/feedback_on/design.json",
+    "fig10a_off": "结果/feedback_off/design.json"
+  },
+  "comparison_csv": "结果/threshold_curve_comparison.csv",
+  "feasibility_report": "结果/threshold_feasibility.json",
+  "design_notes": "实验报告.md",
+  "independent_sensitivity_ablation": "TTC-CRB_constraint_ablation/README.md"
+}

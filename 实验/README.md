@@ -17,3 +17,9 @@
     python 实验/run_latest.py
 
 各入口均读取[已记录的 SUMO 轨迹及扫描参数](latest/recursive_feedback/inputs/)。可用 `--output` 指定新的输出目录，用 `--workers` 设置进程数。算法和参数说明见[反馈实验说明](latest/recursive_feedback/README.md)。
+
+仅重新绘制当前发布的全部图片（读取 `结果/` 下的原始汇总 CSV，不重新执行实验）：
+
+    python 实验/latest/recursive_feedback/plot_figures_7_9.py --published
+
+此命令覆盖 `图片/` 下的 PNG、PDF、SVG，统一显示 $\omega\mathrm{CRB}=\sum_k\omega_k\mathrm{CRB}_k$。图9保留逐目标贡献的纵轴含义，并在上方列出总量公式。图10(a)仍使用其独立消融实验的后验下界；显示符号调整不改变评价指标。

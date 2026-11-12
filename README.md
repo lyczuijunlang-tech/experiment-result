@@ -1,32 +1,11 @@
-# 车载 ISAC：基于历史记忆的风险感知资源分配
+# 车载 ISAC 递推资源分配与后验 TTC-CRB 约束
 
-本研究关注连续行驶中的车载通感一体化系统。自车需要同时满足通信速率要求，并为四个目标车辆分配雷达观测时间和发射功率。研究问题是：**把上一周期的目标状态和后验不确定性用于本周期调度，能否降低碰撞风险加权的感知误差下界？**
+车载雷达利用上一周期的后验协方差预测目标状态，P1 在风险加权后验 CRB 目标下分配各目标驻留时间，P2 更新系统感知时间和功率。本版实验在 P1 中对每个预测为闭合的目标施加相对后验 TTC-CRB 上限。
 
-## 记忆方案怎么工作
+实验使用 16 组配对噪声种子，每组 401 个正式周期。预设 5% 主门限下，6,416 个正式周期全部可行，平均风险加权测量 CRB 相对同周期基准增加 0.0666%。2% 严门限下有 879 个周期不可行，10% 宽门限下全部可行。这里的百分比门限是相对 TTC 标准差下界尺度。
 
-1. 每个目标的跟踪状态包含距离和径向闭合速度。把上一周期的后验估计与协方差递推到当前周期。协方差的递推为 \(P_{k,t}^- = F_t P_{k,t-1}^+F_t^\top+Q_t\)。
-2. 根据当前预测的距离和闭合速度求 TTC 与风险权重。正在接近的目标用 \(\mathrm{TTC}_k=d_k/v_{k,\mathrm{close}}\)。风险权重由 \(1/(\mathrm{TTC}_k+0.1)\) 归一化。用同一 LFM 雷达模型计算给定驻留时间和发射功率的测量 Fisher 信息 \(J_{k,t}\)。
-3. **TTC-AO** 用 \(P_{k,t}^+=[(P_{k,t}^-)^{-1}+J_{k,t}]^{-1}\) 计算预测后验下界，优化 TTC 风险加权的后验 CRB。目标级求解分配各目标驻留时间，系统级更新总感知时间与功率。约束包括最低驻留时间、能量、功率和通信 QoS。
-4. 执行观测并更新状态与协方差，供下一周期继续使用。**历史记忆通过后验协方差进入调度，标量 \(\omega\mathrm{CRB}\) 用于记录和展示。**
-
-图7–9统一用原单周期 **\(\omega\mathrm{CRB}=\sum_k\omega_k\mathrm{CRB}_k\)** 评分，其中 \(\mathrm{CRB}_k\) 来自当前测量 \(J_k^{-1}\) 的距离、速度归一化分量。历史先验用于调度目标。图10(a)是独立的历史反馈消融，使用加权**后验**下界，解读时应区分这两个口径。
-
-## 怎么读实验图
-
-| 图 | 实验问题与设置 | 从这里读 |
-| --- | --- | --- |
-| 图7 | 固定 40 s 快照并构造五组场景，查看 TTC-AO 的 240 轮资源更新。 | [收敛图](图片/fig7_multi_scenario_ao_convergence.pdf) · [迭代数据](结果/fig7.csv) |
-| 图8(a) | 回放 0–40 s 的 SUMO 轨迹，比较五种调度方法。弱回波工况中，低风险目标 \(k_3\) 的 RCS 为 2.5 m²，其余为 10 m²。 | [时间图](图片/fig8a_five_methods.pdf) · [时间序列](结果/fig8a.csv) · [逐种子数据和参数](结果/fig8a_weak_echo/) |
-| 图8(b)(c) | 在 40 s 快照上分别扫描 \(k_2\) 的相对距离和径向闭合速度，各 51 点。此处各目标 RCS 均为 10 m²。 | [图8三联图](图片/fig8_abc_combined.pdf) · [距离数据](结果/fig8b.csv) · [速度数据](结果/fig8c.csv) · [扫描配置](结果/fig8_minmax/) |
-| 图9 | 在 2 ms 最低驻留时间的参考配置下，展示四个目标各自的 \(\omega_k\mathrm{CRB}_k\)。图8使用 8 ms 配置。 | [逐目标图](图片/fig9_ttc_aware_target_wcrb.pdf) · [逐目标数据](结果/fig9.csv) |
-| 图10(a) | 只切换调度器是否使用历史后验协方差，两组都继续跟踪并优化资源。 | [消融图](图片/fig10a_total_wcrb.pdf) · [逐周期数据](结果/fig10a_total_wcrb.csv) |
-
-图8的五种方法为 **TTC-AO**（TTC 加权后验 CRB 优化）、**RU-AO**（等权后验 CRB 优化）、**Min–Max AO**（最小化最差目标的归一化后验 CRB）、**TTC-PD**（最低驻留时间之外按 TTC 权重分配）和 **UD**（均分驻留时间）。五种方法在同一子图采用共同约束和同一评分公式。
-
-图8(a)在同一 SUMO 轨迹上使用 16 组配对测量噪声，每个时间点先跨种子平均。TTC-AO 在全部 401 个时间点均为五种方法中最低，相对 Min–Max 的全程平均降幅为 **5.42%**。图8(b)(c)中，TTC-AO 相对各自最强基线的扫描均值分别低 **4.33%** 和 **2.03%**。图10(a)中，启用调度历史反馈后的平均加权后验下界低 **6.61%**。这些数字对应各图所列的仿真工况。
-
-## 复现和代码入口
-
-- 从 [实验说明](实验/README.md) 运行图7–9，回放使用[仓库内的 SUMO 轨迹和参数](实验/latest/recursive_feedback/inputs/)。
-- 历史递推与资源优化位于 [run_feedback.py](实验/latest/recursive_feedback/run_feedback.py)，实验回放与评价位于 [run_figures_7_9.py](实验/latest/recursive_feedback/run_figures_7_9.py)。
-- [实验报告](实验报告.md)记录参数调整、评价公式与数值结果。[发布索引](结果/current_release.json)列出图件和数据文件。图10(a)附发布图和源数据。
+- [完整实验报告、公式和复现步骤](TTC-CRB_constraint_ablation/README.md)
+- [五张结果图，含 PNG、PDF、SVG](TTC-CRB_constraint_ablation/figures/)
+- [门限敏感性汇总](TTC-CRB_constraint_ablation/threshold_summary.csv) · [逐目标对比](TTC-CRB_constraint_ablation/paired_target_comparison.csv) · [不可行周期](TTC-CRB_constraint_ablation/infeasible_cycles.csv)
+- [逐周期原始数据](TTC-CRB_constraint_ablation/cycles.csv) · [逐目标原始数据](TTC-CRB_constraint_ablation/targets.csv) · [运行配置](TTC-CRB_constraint_ablation/config.json)
+- [复现源码与 SUMO 输入](TTC-CRB_constraint_ablation/实验/)

@@ -1,0 +1,101 @@
+{
+  "experiment": "TTC-CRB constraint ablation",
+  "arms_relative_std_scale": {
+    "unconstrained": null,
+    "ttc_2pct": 0.02,
+    "ttc_5pct": 0.05,
+    "ttc_10pct": 0.1
+  },
+  "arms_gamma_limit": {
+    "unconstrained": null,
+    "ttc_2pct": 0.0004,
+    "ttc_5pct": 0.0025000000000000005,
+    "ttc_10pct": 0.010000000000000002
+  },
+  "primary_arm": "ttc_5pct",
+  "threshold_basis": "Preset 5% relative standard deviation bound scale, with 2% tight and 10% loose sensitivity.",
+  "seeds": [
+    17001,
+    17002,
+    17003,
+    17004,
+    17005,
+    17006,
+    17007,
+    17008,
+    17009,
+    17010,
+    17011,
+    17012,
+    17013,
+    17014,
+    17015,
+    17016
+  ],
+  "formal_cycles": 401,
+  "warmup_updates": 19,
+  "radar": {
+    "carrier_hz": 77000000000.0,
+    "bandwidth_hz": 200000000.0,
+    "tx_elements": 4,
+    "rx_elements": 4,
+    "rcs_m2": 10.0,
+    "system_loss_linear": 2.0,
+    "noise_temperature_k": 290.0,
+    "noise_figure_linear": 3.9810717055349722,
+    "crb_d_reference_m2": 1.0,
+    "crb_v_reference_m2ps2": 1.0,
+    "lfm_pulse_duration_s": 5e-06
+  },
+  "system": {
+    "frame_s": 0.05,
+    "min_dwell_s": 0.002,
+    "communication_bandwidth_hz": 20000000.0,
+    "communication_snr_linear": 10.0,
+    "minimum_rate_bps": 10000000.0,
+    "sensing_energy_max_j": 0.001,
+    "sensing_power_max_w": 0.05,
+    "initial_sensing_time_s": 0.025,
+    "initial_sensing_power_w": 0.0223872113856834,
+    "p2_objective": "pure_crb",
+    "ao_time_relaxation": 0.35,
+    "ao_power_relaxation": 0.03,
+    "ao_power_relaxation_near_time_bound": 0.15,
+    "ao_warm_start_power_backoff": 0.995,
+    "ao_eta": 1e-06,
+    "ao_max_rounds": 100,
+    "scalar_max_iterations": 24,
+    "time_search_tolerance_s": 1e-07,
+    "power_search_tolerance_w": 1e-08,
+    "feasibility_tolerance": 1e-10,
+    "infeasible_penalty": 1e+80
+  },
+  "acceleration_psd": 0.02,
+  "angle_noise_rad": 0.003490658503988659,
+  "initial_covariance": [
+    [
+      0.04000000000000001,
+      0.0
+    ],
+    [
+      0.0,
+      0.010000000000000002
+    ]
+  ],
+  "near_zero_flag_mps": 0.05,
+  "infeasible_policy": "Prediction only; no sensing allocation or current measurement.",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "sha256": {
+    "warmup_traffic.csv": "734afaa7de11fccd0558103e4723b7266bb8d1e0cf7c8d8f37aa4fdb464fec53",
+    "traffic.csv": "b643f0329f6d92ac0ef95468b5840f962d6f5b1d8065a0e32890eb8f3d1f7a1c",
+    "run_feedback.py": "0eaadf8be4768cd2c84d1d6028ee2414bd166e8025603d3aa2f251fb4dd61846",
+    "ttc_precision.py": "4e80331f3a730eff0fccdb821a5c5333351048f75a4adb3b92cec282b4984330",
+    "run_ttc_ablation.py": "012d235a1d68b0c76627d5533bbb5055aafca06605f8f3a55e8aefff067c65a3",
+    "model.py": "685e0022949dbc8a8b4da28e5a231cc9f3ad7d66e5691b948c7e3e787143ec77",
+    "replay_scene.py": "252c21975bcb7a8a2331cc4bb48e024353c57a358b265337e349b26784b15f11"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "pdf": "figures/ttc_constraint_target_gamma.pdf",
+  "auditable": true,
+  "minimum_required_pt": 5.0,
+  "minimum_found_pt": 7.7,
+  "text_run_count": 96,
+  "below_minimum_count": 0,
+  "below_minimum": [],
+  "warnings": []
+}

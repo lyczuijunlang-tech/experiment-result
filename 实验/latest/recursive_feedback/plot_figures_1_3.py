@@ -119,7 +119,7 @@ def plot_posterior_feedback(directory, images, name):
                                             COLORS[:2], STYLES[:2]):
         ax.plot(x, matrix(rows, (column,)).ravel(), color=color, linestyle=style, linewidth=1.4,
                 label=f"{prefix} historical covariance feedback")
-    ax.set(xlim=(x[0], x[-1]), xlabel="$t$", ylabel=POSTERIOR_LABEL)
+    ax.set(xlim=(x[0], x[-1]), xlabel="t(s)", ylabel=POSTERIOR_LABEL)
     ax.grid(alpha=.2)
     ax.legend(loc="lower center", bbox_to_anchor=(.5, 1.07), frameon=False, fontsize=8.5)
     fig.tight_layout()

@@ -113,13 +113,13 @@ def configure_style():
 def plot_posterior_feedback(directory, images, name):
     """Render the released posterior scores without recomputing them."""
     rows = read_csv(directory / "fig4_total_wpcrb.csv")
-    x = matrix(rows, ("cycle_id",)).ravel()
+    x = matrix(rows, ("simulation_time",)).ravel()
     fig, ax = plt.subplots(figsize=(6.25, 5))
     for column, prefix, color, style in zip(("wPCRB_ON", "wPCRB_OFF"), ("With", "Without"),
                                             COLORS[:2], STYLES[:2]):
         ax.plot(x, matrix(rows, (column,)).ravel(), color=color, linestyle=style, linewidth=1.4,
                 label=f"{prefix} historical covariance feedback")
-    ax.set(xlim=(x[0], x[-1]), xlabel="Decision cycle $t$", ylabel=POSTERIOR_LABEL)
+    ax.set(xlim=(x[0], x[-1]), xlabel="$t$", ylabel=POSTERIOR_LABEL)
     ax.grid(alpha=.2)
     ax.legend(loc="lower center", bbox_to_anchor=(.5, 1.07), frameon=False, fontsize=8.5)
     fig.tight_layout()

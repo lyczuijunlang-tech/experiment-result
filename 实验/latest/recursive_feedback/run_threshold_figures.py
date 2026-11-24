@@ -10,8 +10,8 @@ from pathlib import Path
 import numpy as np
 
 from run_feedback import INPUTS, extract_snapshots, load_traffic, model, original
-from run_figures_7_9 import FIG8_POLICIES, POLICIES, convergence, read_csv, replay_seed, sensitivity, write_csv
-from plot_figures_7_9 import summarize_replay
+from run_figures_1_3 import FIG2_POLICIES, POLICIES, convergence, read_csv, replay_seed, sensitivity, write_csv
+from plot_figures_1_3 import summarize_replay
 
 
 def run_seed(seed, replay, initialization, radar, references, configurations):
@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--reference-std", type=float, default=.064)
     parser.add_argument("--comparison-std", type=float, default=.11)
     parser.add_argument("--feedback-std", type=float, default=.12)
-    parser.add_argument("--only-reference", action="store_true", help="Recompute just Fig. 7 and Fig. 9")
+    parser.add_argument("--only-reference", action="store_true", help="Recompute just Fig. 1 and Fig. 3")
     args = parser.parse_args()
     levels = (args.reference_std, args.comparison_std, args.feedback_std)
     if args.workers < 1 or not all(np.isfinite(x) and x > 0 for x in levels):
@@ -49,8 +49,8 @@ def main():
     references = 1 / np.array([radar.crb_d_reference_m2, radar.crb_v_reference_m2ps2])
     configs = (
         ("reference", system, POLICIES, {}, args.reference_std**2, True),
-        ("fig8_minmax", system8, FIG8_POLICIES, {}, args.comparison_std**2, True),
-        ("fig8a_weak_echo", system8, FIG8_POLICIES, overrides, args.comparison_std**2, True),
+        ("fig2_minmax", system8, FIG2_POLICIES, {}, args.comparison_std**2, True),
+        ("fig2a_weak_echo", system8, FIG2_POLICIES, overrides, args.comparison_std**2, True),
         ("feedback_on", system, POLICIES, {}, args.feedback_std**2, True),
         ("feedback_off", system, POLICIES, {}, args.feedback_std**2, False),
     )
@@ -80,7 +80,7 @@ def main():
                       relative_ttc_std_bound=float(np.sqrt(limit)), system=asdict(conf_system),
                       ttc_constraint_applied_from_time_s=0.0, warmup_cycles=len(warm)-1,
                       radar=asdict(radar), scheduler_feedback=feedback,
-                      figure8_only=name.startswith("fig8"), figure8a_only=name=="fig8a_weak_echo",
+                      figure2_only=name.startswith("fig2"), figure2a_only=name=="fig2a_weak_echo",
                       rcs_m2_by_target={t.vehicle_id: radar_overrides.get(t.vehicle_id, radar).rcs_m2 for t in targets},
                       shared_prior_covariance=np.mean(priors[name], axis=0).tolist(),
                       frozen_prior_covariances_by_seed=priors[name],
@@ -91,25 +91,25 @@ def main():
                                      INPUTS / "scenario_settings.csv", INPUTS / "scan_settings.json")})
         (directory / "design.json").write_text(json.dumps(design, indent=2), encoding="utf-8")
         write_csv(directory / "replay_by_seed.csv", batches[name])
-        if name in ("reference", "fig8a_weak_echo"):
+        if name in ("reference", "fig2a_weak_echo"):
             summarize_replay(directory, design)
         prior_info = np.linalg.inv(np.asarray(design["shared_prior_covariance"]))
         fixed_system = replace(conf_system, communication_snr_linear=snr)
         if name == "reference":
-            write_csv(out / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references, limit))
-        if name == "fig8_minmax":
-            for panel, variable in (("fig8b", "range_scales"), ("fig8c", "closing_speed_scales")):
+            write_csv(out / "fig1.csv", convergence(targets, radar, fixed_system, prior_info, references, limit))
+        if name == "fig2_minmax":
+            for panel, variable in (("fig2b", "range_scales"), ("fig2c", "closing_speed_scales")):
                 write_csv(out / f"{panel}.csv", sensitivity(targets, radar, fixed_system, prior_info,
                                                            references, scan, variable, policies, limit))
 
     if args.only_reference:
         return
-    write_csv(out / "fig8a.csv", read_csv(out / "fig8a_weak_echo" / "fig8a.csv"))
+    write_csv(out / "fig2a.csv", read_csv(out / "fig2a_weak_echo" / "fig2a.csv"))
     feedback_scores = {name: np.array([r["weighted_pcrb"] for r in batches[name]]).reshape(len(seeds), len(replay))
                        for name in ("feedback_on", "feedback_off")}
-    write_csv(out / "fig10a_total_wcrb.csv", [
-        dict(cycle_id=i, simulation_time=row[0], wCRB_ON=feedback_scores["feedback_on"][:, i].mean(),
-             wCRB_OFF=feedback_scores["feedback_off"][:, i].mean()) for i, row in enumerate(replay)
+    write_csv(out / "fig4_total_wpcrb.csv", [
+        dict(cycle_id=i, simulation_time=row[0], wPCRB_ON=feedback_scores["feedback_on"][:, i].mean(),
+             wPCRB_OFF=feedback_scores["feedback_off"][:, i].mean()) for i, row in enumerate(replay)
     ])
 
 

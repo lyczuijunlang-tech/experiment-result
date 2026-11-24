@@ -5,27 +5,42 @@ from pathlib import Path
 
 import numpy as np
 
-from run_figures_7_9 import FIG8_POLICIES, read_csv, write_csv
+from run_figures_1_3 import FIG2_POLICIES, read_csv, write_csv
+
+
+def read_archive(directory, figure):
+    """Accept either current names or the immutable pre-renumbering release."""
+    path = directory / f"{figure}.csv"
+    if path.is_file():
+        return read_csv(path)
+    legacy = {"fig1": "fig7", "fig2a": "fig8a", "fig2b": "fig8b",
+              "fig2c": "fig8c", "fig3": "fig9", "fig4_total_wpcrb": "fig10a_total_wcrb"}
+    rows = read_csv(directory / f"{legacy[figure]}.csv")
+    if figure == "fig4_total_wpcrb":
+        for row in rows:
+            row["wPCRB_ON"] = row.pop("wCRB_ON")
+            row["wPCRB_OFF"] = row.pop("wCRB_OFF")
+    return rows
 
 
 def compare(before, after):
     specs = [
-        ("fig7", ("scenario", "iteration"), ("weighted_wcrb",)),
-        ("fig8a", ("time_s",), FIG8_POLICIES),
-        ("fig8b", ("x_value",), FIG8_POLICIES),
-        ("fig8c", ("x_value",), FIG8_POLICIES),
-        ("fig9", ("time_s",), ("k1", "k2", "k3", "k4")),
-        ("fig10a_total_wcrb", ("cycle_id", "simulation_time"), ("wCRB_ON", "wCRB_OFF")),
+        ("fig1", ("scenario", "iteration"), ("weighted_wcrb",)),
+        ("fig2a", ("time_s",), FIG2_POLICIES),
+        ("fig2b", ("x_value",), FIG2_POLICIES),
+        ("fig2c", ("x_value",), FIG2_POLICIES),
+        ("fig3", ("time_s",), ("k1", "k2", "k3", "k4")),
+        ("fig4_total_wpcrb", ("cycle_id", "simulation_time"), ("wPCRB_ON", "wPCRB_OFF")),
     ]
     changes = []
     for figure, coordinates, series in specs:
-        archive = read_csv(before / f"{figure}.csv")
+        archive = read_archive(before, figure)
         constrained = read_csv(after / f"{figure}.csv")
         assert len(archive) == len(constrained)
         for old, new in zip(archive, constrained):
             for x in coordinates:
                 assert old[x] == new[x] if x == "scenario" else abs(float(old[x])-float(new[x])) < 1e-12
-        groups = (tuple(dict.fromkeys(row["scenario"] for row in archive)) if figure == "fig7" else (None,))
+        groups = (tuple(dict.fromkeys(row["scenario"] for row in archive)) if figure == "fig1" else (None,))
         for group in groups:
             for key in series:
                 old = np.array([float(r[key]) for r in archive if r.get("scenario") == group])
@@ -44,13 +59,13 @@ def compare(before, after):
 
 def audit(data):
     specs = [
-        ("fig7", "fig7.csv", ("", "time_candidate_"), 5*241),
-        ("fig8a", "fig8a_weak_echo/replay_by_seed.csv", ("",), 16*401*5),
-        ("fig8b", "fig8b.csv", tuple(f"{m}_" for m in FIG8_POLICIES), 51),
-        ("fig8c", "fig8c.csv", tuple(f"{m}_" for m in FIG8_POLICIES), 51),
-        ("fig9", "replay_by_seed.csv", ("",), 16*401),
-        ("fig10a_on", "feedback_on/replay_by_seed.csv", ("",), 16*401),
-        ("fig10a_off", "feedback_off/replay_by_seed.csv", ("",), 16*401),
+        ("fig1", "fig1.csv", ("", "time_candidate_"), 5*241),
+        ("fig2a", "fig2a_weak_echo/replay_by_seed.csv", ("",), 16*401*5),
+        ("fig2b", "fig2b.csv", tuple(f"{m}_" for m in FIG2_POLICIES), 51),
+        ("fig2c", "fig2c.csv", tuple(f"{m}_" for m in FIG2_POLICIES), 51),
+        ("fig3", "replay_by_seed.csv", ("",), 16*401),
+        ("fig4_on", "feedback_on/replay_by_seed.csv", ("",), 16*401),
+        ("fig4_off", "feedback_off/replay_by_seed.csv", ("",), 16*401),
     ]
     reports = {}
     for name, source, prefixes, expected in specs:
@@ -62,7 +77,7 @@ def audit(data):
         for row in rows:
             if "Ts_s" in row and "predicted_closing_k1_mps" in row:
                 dwell = np.array([float(row[f"dwell_k{k}_s"]) for k in range(1, 5)])
-                minimum = .008 if name == "fig8a" else .002
+                minimum = .008 if name == "fig2a" else .002
                 total = float(row["Ts_s"])
                 assert abs(dwell.sum()-total) <= 1e-10 and min(dwell) >= minimum-1e-10
                 if row["method"] == "UD":

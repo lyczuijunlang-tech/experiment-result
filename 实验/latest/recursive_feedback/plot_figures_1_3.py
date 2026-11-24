@@ -1,4 +1,4 @@
-"""Render the original measurement wCRB for the feedback replay."""
+"""Render measurement omegaCRB (Figs. 1–3) and posterior omegaPCRB (Fig. 4)."""
 import argparse
 import json
 from pathlib import Path
@@ -9,7 +9,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from run_figures_7_9 import FIG8_POLICIES, REPO, read_csv, write_csv
+from run_figures_1_3 import FIG2_POLICIES, REPO, read_csv, write_csv
 
 TARGETS = ("k1", "k2", "k3", "k4")
 COLORS = ("#0072B2", "#D55E00", "#009E73", "#CC79A7", "#5B5B5B")
@@ -18,6 +18,7 @@ MARKERS = ("o", "s", "^", "D", "v")
 LABELS = ("Proposed TTC-AO", "Risk-Unaware AO", "Min-Max AO", "TTC-Proportional", "Uniform-Dwell")
 TOTAL_LABEL = r"$\omega\mathrm{CRB}=\sum_k\omega_k\mathrm{CRB}_k$"
 TARGET_LABEL = r"Target contribution $\omega_k\mathrm{CRB}_k$"
+POSTERIOR_LABEL = r"$\omega\mathrm{PCRB}=\sum_k\omega_k\mathrm{PCRB}_k$"
 
 
 def summarize_replay(directory, config):
@@ -46,7 +47,7 @@ def summarize_replay(directory, config):
     means = totals.mean(axis=0)
     target_means = targets.mean(axis=0)
     np.testing.assert_allclose(target_means.sum(axis=-1), means[:, 0], rtol=1e-12)
-    name, keys, values = ("fig8a", policies, means) if config.get("figure8_only") else ("fig9", TARGETS, target_means)
+    name, keys, values = ("fig2a", policies, means) if config.get("figure2_only") else ("fig3", TARGETS, target_means)
     write_csv(directory / f"{name}.csv", [
         {"time_s": t, **dict(zip(keys, row))} for t, row in zip(times, values)
     ])
@@ -109,6 +110,22 @@ def configure_style():
                          "ytick.major.size": 4.0, "xtick.minor.size": 2.2, "ytick.minor.size": 2.2})
 
 
+def plot_posterior_feedback(directory, images, name):
+    """Render the released posterior scores without recomputing them."""
+    rows = read_csv(directory / "fig4_total_wpcrb.csv")
+    x = matrix(rows, ("cycle_id",)).ravel()
+    fig, ax = plt.subplots(figsize=(6.25, 5))
+    for column, prefix, color, style in zip(("wPCRB_ON", "wPCRB_OFF"), ("With", "Without"),
+                                            COLORS[:2], STYLES[:2]):
+        ax.plot(x, matrix(rows, (column,)).ravel(), color=color, linestyle=style, linewidth=1.4,
+                label=f"{prefix} historical covariance feedback")
+    ax.set(xlim=(x[0], x[-1]), xlabel="Decision cycle $t$", ylabel=POSTERIOR_LABEL)
+    ax.grid(alpha=.2)
+    ax.legend(loc="lower center", bbox_to_anchor=(.5, 1.07), frameon=False, fontsize=8.5)
+    fig.tight_layout()
+    save(fig, images, name)
+
+
 def redraw_published(directory=None, images=None):
     """Render experimental CSVs with the published figure filenames."""
     directory = directory if directory is not None else REPO / "结果"
@@ -116,29 +133,29 @@ def redraw_published(directory=None, images=None):
     images.mkdir(parents=True, exist_ok=True)
     release = json.loads((REPO / "结果/current_release.json").read_text(encoding="utf-8"))
     names = {key: Path(paths[0]).stem for key, paths in release["figure_files"].items()}
-    seven = read_csv(directory / "fig7.csv")
+    seven = read_csv(directory / "fig1.csv")
     scenarios = tuple(dict.fromkeys(row["scenario"] for row in seven))
     iterations = matrix([row for row in seven if row["scenario"] == scenarios[0]], ("iteration",)).ravel()
     values7 = np.column_stack([matrix([row for row in seven if row["scenario"] == scenario],
                                      ("weighted_wcrb",)).ravel() for scenario in scenarios])
-    designs = [("fig7", iterations, values7, tuple(f"Scenario {i}" for i in range(1, 6)),
+    designs = [("fig1", iterations, values7, tuple(f"Scenario {i}" for i in range(1, 6)),
                 "Alternating-optimization iteration", TOTAL_LABEL, 24)]
-    fig8 = []
-    for name, column, xlabel, stride in (("fig8a", "time_s", "t(s)", 40),
-                                         ("fig8b", "x_value", "d(m)", 5),
-                                         ("fig8c", "x_value", "v(m/s)", 5)):
+    fig2 = []
+    for name, column, xlabel, stride in (("fig2a", "time_s", "t(s)", 40),
+                                         ("fig2b", "x_value", "d(m)", 5),
+                                         ("fig2c", "x_value", "v(m/s)", 5)):
         rows = read_csv(directory / f"{name}.csv")
-        x, values = matrix(rows, (column,)).ravel(), matrix(rows, FIG8_POLICIES)
-        fig8.append((x, values, xlabel, stride))
+        x, values = matrix(rows, (column,)).ravel(), matrix(rows, FIG2_POLICIES)
+        fig2.append((x, values, xlabel, stride))
         designs.append((name, x, values, LABELS, xlabel, TOTAL_LABEL, stride))
-    nine = read_csv(directory / "fig9.csv")
-    designs.append(("fig9", matrix(nine, ("time_s",)).ravel(), matrix(nine, TARGETS),
+    nine = read_csv(directory / "fig3.csv")
+    designs.append(("fig3", matrix(nine, ("time_s",)).ravel(), matrix(nine, TARGETS),
                     TARGETS, "t(s)", TARGET_LABEL, 40))
     for name, x, values, labels, xlabel, ylabel, stride in designs:
         assert np.all(np.diff(x) > 0) and np.isfinite(values).all()
         fig, ax = plt.subplots(figsize=(6.25, 5))
         plot_lines(ax, x, values, labels, xlabel, ylabel, stride)
-        if name == "fig9":
+        if name == "fig3":
             # The definition is a sum; each existing curve remains one summand.
             ax.set_title(TOTAL_LABEL, fontsize=11, pad=16)
         legend(ax, len(labels))
@@ -146,26 +163,14 @@ def redraw_published(directory=None, images=None):
         save(fig, images, names[name])
     fig, axes = plt.subplots(1, 3, figsize=(18.75, 5.6))
     fig.subplots_adjust(left=.062, right=.985, bottom=.16, top=.72, wspace=.30)
-    for idx, (ax, (x, values, xlabel, stride)) in enumerate(zip(axes, fig8)):
+    for idx, (ax, (x, values, xlabel, stride)) in enumerate(zip(axes, fig2)):
         plot_lines(ax, x, values, LABELS, xlabel, TOTAL_LABEL, stride)
         ax.text(1, 1.035, f"({chr(97 + idx)})", transform=ax.transAxes, ha="right", va="bottom")
         legend(ax, len(LABELS))
     fig.canvas.draw()
-    check_panel_alignment(fig, directory / "fig8_combined.alignment.json")
-    save(fig, images, names["fig8_combined"])
-    # Fig. 10(a) retains the separately documented posterior-bound evaluator.
-    rows = read_csv(directory / "fig10a_total_wcrb.csv")
-    x = matrix(rows, ("cycle_id",)).ravel()
-    fig, ax = plt.subplots(figsize=(6.25, 5))
-    for column, prefix, color, style in zip(("wCRB_ON", "wCRB_OFF"), ("With", "Without"),
-                                            COLORS[:2], STYLES[:2]):
-        ax.plot(x, matrix(rows, (column,)).ravel(), color=color, linestyle=style, linewidth=1.4,
-                label=f"{prefix} historical {TOTAL_LABEL} feedback")
-    ax.set(xlim=(x[0], x[-1]), xlabel="Decision cycle $t$", ylabel=TOTAL_LABEL)
-    ax.grid(alpha=.2)
-    ax.legend(loc="lower center", bbox_to_anchor=(.5, 1.07), frameon=False, fontsize=8.5)
-    fig.tight_layout()
-    save(fig, images, names["fig10a"])
+    check_panel_alignment(fig, directory / "fig2_combined.alignment.json")
+    save(fig, images, names["fig2_combined"])
+    plot_posterior_feedback(directory, images, names["fig4"])
 
 
 def main():
@@ -184,52 +189,52 @@ def main():
     config = json.loads((directory / "design.json").read_text(encoding="utf-8"))
     time, five, contributions = summarize_replay(directory, config)
     ylabel = TOTAL_LABEL
-    if config.get("figure8_only"):
+    if config.get("figure2_only"):
         policies = config["methods"]
-        labels_by_method = dict(zip(FIG8_POLICIES, LABELS))
+        labels_by_method = dict(zip(FIG2_POLICIES, LABELS))
         labels8 = tuple(labels_by_method[method] for method in policies)
-        fig8 = [(time, five, "t(s)", 40)]
-        sweep_directory = REPO / "结果" if config.get("figure8a_only") else directory
-        for name, xlabel in (("fig8b", "d(m)"), ("fig8c", "v(m/s)")):
+        fig2 = [(time, five, "t(s)", 40)]
+        sweep_directory = REPO / "结果" if config.get("figure2a_only") else directory
+        for name, xlabel in (("fig2b", "d(m)"), ("fig2c", "v(m/s)")):
             rows = read_csv(sweep_directory / f"{name}.csv")
             x = matrix(rows, ("x_value",)).ravel()
             assert len(x) == 51 and np.all(np.diff(x) > 0)
-            fig8.append((x, matrix(rows, policies), xlabel, 5))
+            fig2.append((x, matrix(rows, policies), xlabel, 5))
         designs = [(name, x, values, labels8, axis, ylabel, stride)
-                   for name, (x, values, axis, stride) in zip(("fig8a", "fig8b", "fig8c"), fig8)]
-        if config.get("figure8a_only"):
+                   for name, (x, values, axis, stride) in zip(("fig2a", "fig2b", "fig2c"), fig2)]
+        if config.get("figure2a_only"):
             designs = designs[:1]
     else:
-        seven = read_csv(directory / "fig7.csv")
+        seven = read_csv(directory / "fig1.csv")
         names = tuple(dict.fromkeys(row["scenario"] for row in seven))
         round_number = np.arange(241)
         data7 = np.array([[float(row["weighted_wcrb"]) for row in seven if row["scenario"] == name]
                           for name in names]).T
         assert data7.shape == (241, 5)
         designs = [
-            ("fig7", round_number, data7, tuple(f"Scenario {i}" for i in range(1, 6)),
+            ("fig1", round_number, data7, tuple(f"Scenario {i}" for i in range(1, 6)),
              "Alternating-optimization iteration", ylabel, 24),
-            ("fig9", time, contributions, TARGETS, "t(s)", TARGET_LABEL, 40),
+            ("fig3", time, contributions, TARGETS, "t(s)", TARGET_LABEL, 40),
         ]
     for name, x, values, labels, xlabel, y_axis, stride in designs:
         fig, ax = plt.subplots(figsize=(6.25, 5))
         plot_lines(ax, x, values, labels, xlabel, y_axis, stride)
-        if name == "fig9":
+        if name == "fig3":
             ax.set_title(TOTAL_LABEL, fontsize=11, pad=16)
         legend(ax, len(labels))
         fig.tight_layout()
         save(fig, directory, name)
-    if not config.get("figure8_only"):
+    if not config.get("figure2_only"):
         return
     fig, axes = plt.subplots(1, 3, figsize=(18.75, 5.6))
     fig.subplots_adjust(left=.062, right=.985, bottom=.16, top=.72, wspace=.30)
-    for idx, (ax, (x, values, xlabel, stride)) in enumerate(zip(axes, fig8)):
+    for idx, (ax, (x, values, xlabel, stride)) in enumerate(zip(axes, fig2)):
         plot_lines(ax, x, values, labels8, xlabel, ylabel, stride)
         ax.text(1, 1.035, f"({chr(97 + idx)})", transform=ax.transAxes, ha="right", va="bottom")
         legend(ax, len(labels8))
     fig.canvas.draw()
-    check_panel_alignment(fig, directory / "fig8_combined.alignment.json")
-    save(fig, directory, "fig8_combined")
+    check_panel_alignment(fig, directory / "fig2_combined.alignment.json")
+    save(fig, directory, "fig2_combined")
 
 
 if __name__ == "__main__":

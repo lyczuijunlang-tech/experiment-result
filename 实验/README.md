@@ -1,4 +1,4 @@
-# 复现图7–10(a)
+# 复现图1–4
 
 在仓库根目录安装依赖并运行。代码回放已记录的 SUMO 轨迹，图像随运行输出到指定目录的图片子目录。
 
@@ -11,6 +11,6 @@
 
 使用仓库已经发布的 CSV 重新导出图片。
 
-    python 实验/latest/recursive_feedback/plot_figures_7_9.py --published
+    python 实验/latest/recursive_feedback/plot_figures_1_3.py --published
 
 [正式门限、评价口径与新旧对比](../实验报告.md) · [原始回放输入](latest/recursive_feedback/inputs/)

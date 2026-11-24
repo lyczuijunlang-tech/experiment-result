@@ -1,4 +1,4 @@
-"""Reproduce the constrained Fig. 7–10(a) release."""
+"""Reproduce the constrained Fig. 1–4 release."""
 import argparse
 from datetime import datetime
 from pathlib import Path
@@ -17,7 +17,7 @@ def main():
     args = parser.parse_args()
     subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "run_threshold_figures.py"),
                     "--output", str(args.output), "--workers", str(args.workers)], check=True)
-    subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "plot_figures_7_9.py"),
+    subprocess.run([sys.executable, "-X", "utf8", str(SCRIPTS / "plot_figures_1_3.py"),
                     "--published", str(args.output), "--images", str(args.output / "图片")], check=True)
 
 

@@ -66,8 +66,8 @@
     "lfm_pulse_duration_s": 5e-06
   },
   "scheduler_feedback": true,
-  "figure8_only": true,
-  "figure8a_only": false,
+  "figure2_only": true,
+  "figure2a_only": false,
   "rcs_m2_by_target": {
     "target1_front_same": 10.0,
     "target2_rear_same": 10.0,

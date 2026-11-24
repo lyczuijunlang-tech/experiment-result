@@ -16,7 +16,7 @@ from run_feedback import (
 from ttc_precision import TTCPrecision
 
 POLICIES = ("TTC-AO",)
-FIG8_POLICIES = ("TTC-AO", "RU-AO", MINIMAX, "TTC-PD", "UD")
+FIG2_POLICIES = ("TTC-AO", "RU-AO", MINIMAX, "TTC-PD", "UD")
 
 
 def read_csv(path):
@@ -207,30 +207,30 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seeds", type=int, default=16)
     parser.add_argument("--workers", type=int, default=4)
-    parser.add_argument("--figure8-minmax", action="store_true")
-    parser.add_argument("--min-dwell-ms", type=float, help="Common minimum dwell in Fig. 8 Min-Max comparisons")
-    parser.add_argument("--fig8a-k3-rcs-m2", type=float, help="Run only Fig. 8(a) with this k3 radar cross section")
+    parser.add_argument("--figure2-minmax", action="store_true")
+    parser.add_argument("--min-dwell-ms", type=float, help="Common minimum dwell in Fig. 2 Min-Max comparisons")
+    parser.add_argument("--fig2a-k3-rcs-m2", type=float, help="Run only Fig. 2(a) with this k3 radar cross section")
     args = parser.parse_args()
     if min(args.seeds, args.workers) < 1:
         parser.error("--seeds and --workers must be positive")
     replay = list(extract_snapshots(load_traffic(INPUTS / "traffic.csv")))
     warmup = list(extract_snapshots(load_traffic(INPUTS / "warmup_traffic.csv")))
     radar, system = model.RadarConfig(), model.SystemConfig()
-    policies = FIG8_POLICIES if args.figure8_minmax else POLICIES
-    fig8a_only = args.fig8a_k3_rcs_m2 is not None
+    policies = FIG2_POLICIES if args.figure2_minmax else POLICIES
+    fig2a_only = args.fig2a_k3_rcs_m2 is not None
     radar_overrides = {}
-    if fig8a_only:
-        if not args.figure8_minmax or not np.isfinite(args.fig8a_k3_rcs_m2) or args.fig8a_k3_rcs_m2 <= 0:
-            parser.error("--fig8a-k3-rcs-m2 requires --figure8-minmax and a finite positive RCS")
+    if fig2a_only:
+        if not args.figure2_minmax or not np.isfinite(args.fig2a_k3_rcs_m2) or args.fig2a_k3_rcs_m2 <= 0:
+            parser.error("--fig2a-k3-rcs-m2 requires --figure2-minmax and a finite positive RCS")
         k3 = original.FIXED_IDS["adjacent_front"]
-        radar_overrides[k3] = replace(radar, rcs_m2=args.fig8a_k3_rcs_m2)
-    if args.figure8_minmax:
+        radar_overrides[k3] = replace(radar, rcs_m2=args.fig2a_k3_rcs_m2)
+    if args.figure2_minmax:
         dwell_ms = 8.0 if args.min_dwell_ms is None else args.min_dwell_ms
         if not np.isfinite(dwell_ms) or dwell_ms <= 0:
             parser.error("--min-dwell-ms must be finite and positive")
         system = replace(system, min_dwell_s=dwell_ms / 1000)
     elif args.min_dwell_ms is not None:
-        parser.error("Fig. 8 parameter overrides require --figure8-minmax")
+        parser.error("Fig. 2 parameter overrides require --figure2-minmax")
     references = 1 / np.array([radar.crb_d_reference_m2, radar.crb_v_reference_m2ps2])
     args.output.mkdir(parents=True, exist_ok=False)
     seeds = range(17001, 17001 + args.seeds)
@@ -253,11 +253,11 @@ def main():
     assert [t.vehicle_id for t in targets][1] == scan["selected_vehicle_id"]
     (args.output / "design.json").write_text(json.dumps({
         "seeds": list(seeds), "cycles": len(replay), "methods": policies,
-        "figure8_only": args.figure8_minmax,
-        "figure8a_only": fig8a_only,
+        "figure2_only": args.figure2_minmax,
+        "figure2a_only": fig2a_only,
         "rcs_m2_by_target": {t.vehicle_id: radar_overrides.get(t.vehicle_id, radar).rcs_m2 for t in targets},
         "minimum_dwell_s": system.min_dwell_s,
-        "minmax_objective": "minimize the largest unweighted normalized posterior CRB" if args.figure8_minmax else None,
+        "minmax_objective": "minimize the largest unweighted normalized posterior CRB" if args.figure2_minmax else None,
         "frozen_time_s": time, "frozen_prior_covariances_by_seed": frozen,
         "shared_prior_covariance": covariance.tolist(),
         "target_order": [t.vehicle_id for t in targets],
@@ -272,15 +272,15 @@ def main():
         "time_domain_fim": "Current simulated measurement FIM with actual range and actual gain of the scheduled beams",
         "controlled_scan_fim": "Measurement FIM at each prescribed target state with matched beams",
     }, indent=2), encoding="utf-8")
-    if fig8a_only:
+    if fig2a_only:
         return
-    if not args.figure8_minmax:
-        write_csv(args.output / "fig7.csv", convergence(targets, radar, fixed_system, prior_info, references))
+    if not args.figure2_minmax:
+        write_csv(args.output / "fig1.csv", convergence(targets, radar, fixed_system, prior_info, references))
         return
-    write_csv(args.output / "fig8b.csv", sensitivity(targets, radar, fixed_system, prior_info,
+    write_csv(args.output / "fig2b.csv", sensitivity(targets, radar, fixed_system, prior_info,
                                                    references, scan, "range_scales", policies))
     velocity = sensitivity(targets, radar, fixed_system, prior_info, references, scan, "closing_speed_scales", policies)
-    write_csv(args.output / "fig8c.csv", velocity)
+    write_csv(args.output / "fig2c.csv", velocity)
 
 
 if __name__ == "__main__":
